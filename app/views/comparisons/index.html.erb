@@ -1,0 +1,27 @@
+<h1>Listing comparisons</h1>
+
+<table>
+  <tr>
+    <th>Chosen location</th>
+    <th>Rejected location</th>
+    <th>Remote ip</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @comparisons.each do |comparison| %>
+  <tr>
+    <td><%= comparison.chosen_location_id %></td>
+    <td><%= comparison.rejected_location_id %></td>
+    <td><%= comparison.remote_ip %></td>
+    <td><%= link_to 'Show', comparison %></td>
+    <td><%= link_to 'Edit', edit_comparison_path(comparison) %></td>
+    <td><%= link_to 'Destroy', comparison, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Comparison', new_comparison_path %>

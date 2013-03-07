@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Chosen location:</b>
+  <%= @comparison.chosen_location_id %>
+</p>
+
+<p>
+  <b>Rejected location:</b>
+  <%= @comparison.rejected_location_id %>
+</p>
+
+<p>
+  <b>Remote ip:</b>
+  <%= @comparison.remote_ip %>
+</p>
+
+
+<%= link_to 'Edit', edit_comparison_path(@comparison) %> |
+<%= link_to 'Back', comparisons_path %>

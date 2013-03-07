@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  chosen_location_id: 1
+  rejected_location_id: 1
+  remote_ip: MyString
+
+two:
+  chosen_location_id: 1
+  rejected_location_id: 1
+  remote_ip: MyString

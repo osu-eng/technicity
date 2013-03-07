@@ -1,0 +1,29 @@
+<%= form_for(@comparison) do |f| %>
+  <% if @comparison.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comparison.errors.count, "error") %> prohibited this comparison from being saved:</h2>
+
+      <ul>
+      <% @comparison.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :chosen_location_id %><br />
+    <%= f.number_field :chosen_location_id %>
+  </div>
+  <div class="field">
+    <%= f.label :rejected_location_id %><br />
+    <%= f.number_field :rejected_location_id %>
+  </div>
+  <div class="field">
+    <%= f.label :remote_ip %><br />
+    <%= f.text_field :remote_ip %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

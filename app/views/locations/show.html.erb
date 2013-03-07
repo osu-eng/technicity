@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Region:</b>
+  <%= @location.region_id %>
+</p>
+
+<p>
+  <b>Lattitude:</b>
+  <%= @location.lattitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @location.longitude %>
+</p>
+
+<p>
+  <b>Heading:</b>
+  <%= @location.heading %>
+</p>
+
+<p>
+  <b>Pitch:</b>
+  <%= @location.pitch %>
+</p>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

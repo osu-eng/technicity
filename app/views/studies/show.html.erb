@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @study.user_id %>
+</p>
+
+<p>
+  <b>Integer:</b>
+  <%= @study.integer %>
+</p>
+
+<p>
+  <b>Slug:</b>
+  <%= @study.slug %>
+</p>
+
+<p>
+  <b>Question:</b>
+  <%= @study.question %>
+</p>
+
+<p>
+  <b>Public:</b>
+  <%= @study.public %>
+</p>
+
+
+<%= link_to 'Edit', edit_study_path(@study) %> |
+<%= link_to 'Back', studies_path %>

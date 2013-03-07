@@ -1,4 +1,19 @@
 Technicity::Application.routes.draw do
+  resources :comparisons
+
+
+  resources :locations
+
+
+  resources :regions
+
+
+  resources :studies
+
+
+  resources :users
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
