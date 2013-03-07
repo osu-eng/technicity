@@ -11,7 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307163623) do
+ActiveRecord::Schema.define(:version => 20130307165120) do
+
+  create_table "comparisons", :force => true do |t|
+    t.integer  "chosen_location_id"
+    t.integer  "rejected_location_id"
+    t.string   "remote_ip"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.integer  "region_id"
+    t.float    "lattitude"
+    t.float    "longitude"
+    t.integer  "heading"
+    t.integer  "pitch"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "regions", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "slug"
+    t.string   "name"
+    t.boolean  "public"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "studies", :force => true do |t|
+    t.string   "user_id"
+    t.string   "integer"
+    t.string   "slug"
+    t.string   "question"
+    t.boolean  "public"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
