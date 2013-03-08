@@ -10,6 +10,10 @@ group :development do
   gem 'rspec-rails'
 end
 
+group :test do
+  gem 'capybara'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -22,6 +26,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
+
 
 gem 'jquery-rails'
 gem 'simple_form'
