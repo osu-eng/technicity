@@ -7,6 +7,7 @@ gem 'rails', '3.2.12'
 
 group :development do
   gem 'sqlite3'
+  gem 'rspec-rails'
 end
 
 # Gems used only for assets and not required
@@ -24,6 +25,10 @@ end
 
 gem 'jquery-rails'
 gem 'simple_form'
+
+# Alternate server for development
+# See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
+gem 'thin'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

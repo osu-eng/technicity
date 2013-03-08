@@ -1,3 +1,12 @@
+References
+Bootstrap tutorial: http://railsapps.github.com/twitter-bootstrap-rails.html
+
+Gems
+
+OmniAuth
+SimpleForm vs Formtastic (bootstrap guy recommends SimpleForm)
+
+
 Schema
 
 If we make some of this reuseable, how to manage updates?
