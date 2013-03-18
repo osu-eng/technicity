@@ -34,6 +34,11 @@ RegionSet
 -name
 -public (T/F)
 
+rails generate scaffold RegionSetMembership region_set_id:integer region_id:integer
+RegionSetMembership
+-region_set_id
+-region_id
+
 rails generate scaffold Region user_id:integer slug:string name:string public:boolean
 Region
 -id

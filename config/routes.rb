@@ -1,4 +1,10 @@
 Technicity::Application.routes.draw do
+  resources :region_set_memberships
+
+
+  resources :region_sets
+
+
   get "static_pages/home"
 
   get "static_pages/help"

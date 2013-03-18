@@ -1,0 +1,25 @@
+<h1>Listing region_set_memberships</h1>
+
+<table>
+  <tr>
+    <th>Region set</th>
+    <th>Region</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @region_set_memberships.each do |region_set_membership| %>
+  <tr>
+    <td><%= region_set_membership.region_set_id %></td>
+    <td><%= region_set_membership.region_id %></td>
+    <td><%= link_to 'Show', region_set_membership %></td>
+    <td><%= link_to 'Edit', edit_region_set_membership_path(region_set_membership) %></td>
+    <td><%= link_to 'Destroy', region_set_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Region set membership', new_region_set_membership_path %>
