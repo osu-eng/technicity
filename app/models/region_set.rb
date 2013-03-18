@@ -1,5 +1,6 @@
 class RegionSet < ActiveRecord::Base
   attr_accessible :name, :public, :slug, :user_id
 
-  belongs_to :study
+  has_many :regions, :through => :region_set_memberships
+  belongs_to :user
 end

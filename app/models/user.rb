@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
 
   has_many :studies
   has_many :region_sets
-  has_many :region_sets
+  has_many :regions
 
 end
