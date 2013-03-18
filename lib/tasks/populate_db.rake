@@ -1,11 +1,148 @@
 namespace :db do
   namespace :development do
 
-    desc "Populate Development Database with Fake Data"
-    task :populate_fake_data => :environment do
-      [Comparison, Location, Region, Study, User].each(&:delete_all)
+    desc "Populate sample data"
+    task :populate => [
+      'populate_users', 'populate_regions', 'populate_region_sets',
+      'populate_region_set_memberships']
 
-      puts "Creating Users"
+    desc "Populate sample region sets"
+    task :populate_region_set_memberships => :environment do
+      [RegionSetMembership].each(&:delete_all);
+
+      # Add columbus to ohio
+      r = RegionSetMembership.new()
+      r.region_set_id = 1
+      r.region_id = 43210
+      r.save()
+
+      # Add dayton to ohio
+      r = RegionSetMembership.new()
+      r.region_set_id = 1
+      r.region_id = 45419
+      r.save()
+
+      # Add cleveland to ohio
+      r = RegionSetMembership.new()
+      r.region_set_id = 1
+      r.region_id = 44130
+      r.save()
+
+      # Add toledo to ohio
+      r = RegionSetMembership.new()
+      r.region_set_id = 1
+      r.region_id = 43613
+      r.save()
+
+      # Add nyc to us
+      r = RegionSetMembership.new()
+      r.region_set_id = 2
+      r.region_id = 10453
+      r.save()
+
+      # Add houston to us
+      r = RegionSetMembership.new()
+      r.region_set_id = 2
+      r.region_id = 77006
+      r.save()
+
+      # Add san francisco to us
+      r = RegionSetMembership.new()
+      r.region_set_id = 2
+      r.region_id = 94101
+      r.save()
+
+
+    end
+
+
+    desc "Populate sample region sets"
+    task :populate_region_sets => :environment do
+      [RegionSet].each(&:delete_all);
+
+      r = RegionSet.new()
+      r.id = 1
+      r.slug = 'oh-cities'
+      r.name = 'Ohio Cities'
+      r.public = TRUE
+      r.user_id = 505
+      r.save()
+
+      r = RegionSet.new()
+      r.id = 2
+      r.slug = 'us-major-cities'
+      r.name = 'US Major Cities'
+      r.public = TRUE
+      r.user_id = 501
+      r.save()
+
+    end
+
+    desc "Populate sample regions"
+    task :populate_regions => :environment do
+      [Region].each(&:delete_all);
+
+      r = Region.new()
+      r.id = 43210
+      r.slug = 'oh-columbus'
+      r.name = 'Columbus'
+      r.public = TRUE
+      r.user_id = 505
+      r.save()
+
+      r = Region.new()
+      r.id = 45419
+      r.slug = 'oh-dayton'
+      r.name = 'Columbus'
+      r.public = TRUE
+      r.user_id = 505
+      r.save()
+
+      r = Region.new()
+      r.id = 44130
+      r.slug = 'oh-cleveland'
+      r.name = 'Cleveland'
+      r.public = TRUE
+      r.user_id = 505
+      r.save()
+
+      r = Region.new()
+      r.id = 43613
+      r.slug = 'oh-toledo'
+      r.name = 'Toledo'
+      r.public = TRUE
+      r.user_id = 505
+      r.save()
+
+      r = Region.new()
+      r.id = 10453
+      r.slug = 'ny-newyork'
+      r.name = 'New York City'
+      r.public = TRUE
+      r.user_id = 501
+      r.save()
+
+      r = Region.new()
+      r.id = 94101
+      r.slug = 'ca-sanfrancisco'
+      r.name = 'San Francisco'
+      r.public = TRUE
+      r.user_id = 501
+      r.save()
+
+      r = Region.new()
+      r.id = 77006
+      r.slug = 'tx-houston'
+      r.name = 'Houston'
+      r.public = TRUE
+      r.user_id = 501
+      r.save()
+    end
+
+    desc "Populate sample users"
+    task :populate_users => :environment do
+
+      [User].each(&:delete_all)
 
       u = User.new()
       u.id = 500
