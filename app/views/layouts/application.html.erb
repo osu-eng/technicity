@@ -33,5 +33,6 @@
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
     <%= yield :scripts %>
+    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize' %>
   </body>
 </html>

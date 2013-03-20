@@ -31,7 +31,9 @@ gem 'omniauth'
 gem 'cancan'
 gem 'jquery-rails'
 gem 'simple_form'
-gem 'gmaps4rails'
+
+# This doesn't seem to do what we need
+# gem 'gmaps4rails'
 
 # Alternate server for development
 # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
