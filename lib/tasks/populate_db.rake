@@ -4,7 +4,7 @@ namespace :db do
     desc "Populate sample data"
     task :populate => [
       'populate_users', 'populate_regions', 'populate_region_sets',
-      'populate_region_set_memberships']
+      'populate_region_set_memberships', 'populate_locations']
 
     desc "Populate sample region sets"
     task :populate_region_set_memberships => :environment do
@@ -137,6 +137,49 @@ namespace :db do
       r.public = TRUE
       r.user_id = 501
       r.save()
+    end
+
+
+    desc "Populate sample locations"
+    task :populate_locations => :environment do
+      [Region].each(&:delete_all);
+
+      l = Location.new()
+      l.id = 1
+      l.region_id = 43210
+      l.latitude = 39.9816886411623
+      l.longitude = -83.0172621627688
+      l.heading = 90
+      l.pitch = 90
+      l.save()
+
+      l = Location.new()
+      l.id = 2
+      l.region_id = 43210
+      l.latitude = 39.9816886411623
+      l.longitude = -83.0182621627688
+      l.heading = 90
+      l.pitch = 90
+      l.save()
+
+      l = Location.new()
+      l.id = 3
+      l.region_id = 43210
+      l.latitude = 39.9816886411623
+      l.longitude = -83.0192621627688
+      l.heading = 90
+      l.pitch = 90
+      l.save()
+
+      l = Location.new()
+      l.id = 4
+      l.region_id = 43210
+      l.latitude = 39.9816886411623
+      l.longitude = -83.0212621627688
+      l.heading = 90
+      l.pitch = 90
+      l.save()
+
     end
 
     desc "Populate sample users"

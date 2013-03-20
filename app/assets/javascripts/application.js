@@ -15,8 +15,3 @@
 //= require_tree .
 //= require bootstrap
 //
-$(function() {
-  appInit();
-  $('body').ajaxComplete(appInit);
-});
-

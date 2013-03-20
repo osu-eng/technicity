@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318184157) do
+ActiveRecord::Schema.define(:version => 20130320182705) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20130318184157) do
 
   create_table "locations", :force => true do |t|
     t.integer  "region_id"
-    t.float    "lattitude"
+    t.float    "latitude"
     t.float    "longitude"
     t.integer  "heading"
     t.integer  "pitch"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20130318184157) do
     t.boolean  "public"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.text     "polygon"
   end
 
   create_table "studies", :force => true do |t|
