@@ -31,6 +31,7 @@ gem 'omniauth'
 gem 'cancan'
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'friendly_id'
 
 # This doesn't seem to do what we need
 # gem 'gmaps4rails'
