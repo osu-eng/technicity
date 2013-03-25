@@ -1,0 +1,31 @@
+<h1>Listing studies</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Name</th>
+    <th>Slug</th>
+    <th>Question</th>
+    <th>Public</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @studies.each do |study| %>
+  <tr>
+    <td><%= study.user_id %></td>
+    <td><%= study.name %></td>
+    <td><%= study.slug %></td>
+    <td><%= study.question %></td>
+    <td><%= study.public %></td>
+    <td><%= link_to 'Show', study %></td>
+    <td><%= link_to 'Edit', edit_study_path(study) %></td>
+    <td><%= link_to 'Destroy', study, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Study', new_study_path %>
