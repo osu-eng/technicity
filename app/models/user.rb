@@ -5,4 +5,10 @@ class User < ActiveRecord::Base
   has_many :region_sets
   has_many :regions
 
+  # This should return the uid of the current user.
+  # After we get authentication in, this should be changed.
+  def current_uid
+    505
+  end
+
 end

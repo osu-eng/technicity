@@ -15,6 +15,7 @@ namespace :db do
       s.id = 1
       s.region_set_id = 1
       s.user_id = 505
+      s.name = 'Ohio Cities Pretty'
       s.slug = 'oh-metro-pretty'
       s.public = TRUE
       s.question = "prettier"
@@ -25,6 +26,7 @@ namespace :db do
       s.id = 2
       s.region_set_id = 1
       s.user_id = 505
+      s.name = 'Ohio Cities Scary'
       s.slug = 'oh-metro-scary'
       s.public = TRUE
       s.question = "terrifying"
