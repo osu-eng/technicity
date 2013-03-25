@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   # This should return the uid of the current user.
   # After we get authentication in, this should be changed.
-  def current_uid
+  def self.current_id
     505
   end
 
