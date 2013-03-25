@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320182705) do
+ActiveRecord::Schema.define(:version => 20130325184418) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(:version => 20130320182705) do
 
   create_table "studies", :force => true do |t|
     t.string   "user_id"
-    t.string   "integer"
     t.string   "slug"
     t.string   "question"
     t.boolean  "public"
