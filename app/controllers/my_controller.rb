@@ -1,8 +1,9 @@
-class MyController < ActionController::Base
+class MyController < ApplicationController
 
   def index
     @studies = Study.all
     @regions = Region.all
+    @region_sets = RegionSet.all
 
     respond_to do |format|
       format.html # index.html.erb
