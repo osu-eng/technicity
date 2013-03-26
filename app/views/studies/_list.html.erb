@@ -6,8 +6,6 @@
     <th>Question</th>
     <th>Public</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @studies.each do |study| %>
@@ -16,9 +14,13 @@
     <td><%= study.slug %></td>
     <td><%= study.question %></td>
     <td><%= study.public %></td>
-    <td><%= link_to 'Show', study %></td>
-    <td><%= link_to 'Edit', edit_study_path(study) %></td>
-    <td><%= link_to 'Destroy', study, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= link_to 'Show', study %>
+      <% if study.editable? %>
+      | <%= link_to 'Edit', edit_study_path(study) %>
+      | <%= link_to 'Destroy', study, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

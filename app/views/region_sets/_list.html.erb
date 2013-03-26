@@ -6,8 +6,6 @@
     <th>Name</th>
     <th>Public</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @region_sets.each do |region_set| %>
@@ -16,9 +14,13 @@
     <td><%= region_set.slug %></td>
     <td><%= region_set.name %></td>
     <td><%= region_set.public %></td>
-    <td><%= link_to 'Show', region_set %></td>
-    <td><%= link_to 'Edit', edit_region_set_path(region_set) %></td>
-    <td><%= link_to 'Destroy', region_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= link_to 'Show', region_set %>
+      <% if region_set.editable? %>
+      | <%= link_to 'Edit', edit_region_set_path(region_set) %>
+      | <%= link_to 'Destroy', region_set, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
