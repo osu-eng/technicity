@@ -44,7 +44,7 @@ class RegionSetsController < ApplicationController
 
     respond_to do |format|
       if @region_set.save
-        format.html { redirect_to @region_set, notice: 'Region set was successfully created.' }
+        format.html { redirect_to @region_set, notice: 'Image Set set was successfully created.' }
         format.json { render json: @region_set, status: :created, location: @region_set }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class RegionSetsController < ApplicationController
 
     respond_to do |format|
       if @region_set.update_attributes(params[:region_set])
-        format.html { redirect_to @region_set, notice: 'Region set was successfully updated.' }
+        format.html { redirect_to @region_set, notice: 'Image Set set was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

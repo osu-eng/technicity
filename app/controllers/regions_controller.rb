@@ -45,7 +45,7 @@ class RegionsController < ApplicationController
 
     respond_to do |format|
       if @region.save
-        format.html { redirect_to @region, notice: 'Region was successfully created.' }
+        format.html { redirect_to @region, notice: 'Area was successfully created.' }
         format.json { render json: @region, status: :created, location: @region }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class RegionsController < ApplicationController
 
     respond_to do |format|
       if @region.update_attributes(params[:region])
-        format.html { redirect_to @region, notice: 'Region was successfully updated.' }
+        format.html { redirect_to @region, notice: 'Area was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

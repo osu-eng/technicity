@@ -44,7 +44,7 @@ class RegionSetMembershipsController < ApplicationController
 
     respond_to do |format|
       if @region_set_membership.save
-        format.html { redirect_to @region_set_membership, notice: 'Region set membership was successfully created.' }
+        format.html { redirect_to @region_set_membership, notice: 'Image Set membership was successfully created.' }
         format.json { render json: @region_set_membership, status: :created, location: @region_set_membership }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class RegionSetMembershipsController < ApplicationController
 
     respond_to do |format|
       if @region_set_membership.update_attributes(params[:region_set_membership])
-        format.html { redirect_to @region_set_membership, notice: 'Region set membership was successfully updated.' }
+        format.html { redirect_to @region_set_membership, notice: 'Image Set set membership was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
