@@ -8,6 +8,8 @@ Technicity::Application.routes.draw do
   get "static_pages/home"
 
   get "static_pages/help"
+  
+  get "static_pages/about"
 
   resources :comparisons
 
@@ -30,6 +32,12 @@ Technicity::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
+  match '/home' => 'static_pages#home'
+  match '/about' => 'static_pages#about'
+  match '/help' => 'static_pages#help'
+  
+  match '/studies' => 'studies#show'
+  match '/studies/:userid' => 'studies#show'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
@@ -73,7 +81,7 @@ Technicity::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+   root :to => 'static_pages#home'
 
   # See how all your routes lay out with "rake routes"
 
