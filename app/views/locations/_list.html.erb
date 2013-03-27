@@ -1,0 +1,25 @@
+<table class="table table-striped table-hover">
+  <tr>
+    <th>Picture</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Heading</th>
+    <th>Pitch</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @locations.each do |location| %>
+  <tr>
+    <td width="150"><a href="/locations/<%= location.id %>"><img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" /></a></td>
+    <td><%= location.latitude.round(4) %></td>
+    <td><%= location.longitude.round(5) %></td>
+    <td><%= location.heading %></td>
+    <td><%= location.pitch %></td>
+    <td><%= link_to 'Show', location %></td>
+    <td><%= link_to 'Edit', edit_location_path(location) %></td>
+    <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

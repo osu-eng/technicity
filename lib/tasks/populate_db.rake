@@ -4,7 +4,35 @@ namespace :db do
     desc "Populate sample data"
     task :populate => [
       'populate_users', 'populate_regions', 'populate_region_sets',
-      'populate_region_set_memberships', 'populate_locations']
+      'populate_region_set_memberships', 'populate_locations', 'populate_studies']
+
+    desc "Populate sample region sets"
+    task :populate_studies => :environment do
+      [Study].each(&:delete_all);
+
+      # Add columbus to ohio
+      s = Study.new()
+      s.id = 1
+      s.region_set_id = 1
+      s.user_id = 505
+      s.name = 'Ohio Cities Pretty'
+      s.slug = 'oh-metro-pretty'
+      s.public = TRUE
+      s.question = "prettier"
+      s.save()
+
+      # Add columbus to ohio
+      s = Study.new()
+      s.id = 2
+      s.region_set_id = 1
+      s.user_id = 505
+      s.name = 'Ohio Cities Scary'
+      s.slug = 'oh-metro-scary'
+      s.public = TRUE
+      s.question = "terrifying"
+      s.save()
+
+    end
 
     desc "Populate sample region sets"
     task :populate_region_set_memberships => :environment do
@@ -142,7 +170,7 @@ namespace :db do
 
     desc "Populate sample locations"
     task :populate_locations => :environment do
-      [Region].each(&:delete_all);
+      [Location].each(&:delete_all);
 
       l = Location.new()
       l.id = 1

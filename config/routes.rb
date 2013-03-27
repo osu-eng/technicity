@@ -1,4 +1,11 @@
 Technicity::Application.routes.draw do
+
+
+  get 'my/dashboard'
+  get 'my/studies'
+  get 'my/collections'
+  get 'my/regions'
+
   resources :region_set_memberships
 
 
@@ -35,9 +42,13 @@ Technicity::Application.routes.draw do
   match '/home' => 'static_pages#home'
   match '/about' => 'static_pages#about'
   match '/help' => 'static_pages#help'
+<<<<<<< HEAD
   
   match '/studies' => 'studies#show'
   match '/studies/:userid' => 'studies#show'
+=======
+
+>>>>>>> mf-dev
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

@@ -1,0 +1,10 @@
+<h1>My Stuff</h1>
+
+<h2>Studies</h2>
+<%= render 'studies/list', :studies => @studies, :show_user => false %>
+
+<h2>Region Groups</h2>
+<%= render 'region_sets/list', :region_sets => @region_set, :show_user => false %>
+
+<h2>Regions</h2>
+<%= render 'regions/list', :studies => @studies, :show_user => false %>
