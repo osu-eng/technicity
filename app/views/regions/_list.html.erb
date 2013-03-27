@@ -1,6 +1,8 @@
 <table>
   <tr>
-    <th>User</th>
+    <% if show_user  %>
+      <th>User</th>
+    <% end %>
     <th>Slug</th>
     <th>Name</th>
     <th>Public</th>
@@ -9,7 +11,9 @@
 
 <% @regions.each do |region| %>
   <tr>
-    <td><%= region.user_id %></td>
+    <% if show_user  %>
+      <td><%= region.user_id %></td>
+    <% end %>
     <td><%= region.slug %></td>
     <td><%= region.name %></td>
     <td><%= region.public %></td>

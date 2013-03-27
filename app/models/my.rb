@@ -1,7 +1,7 @@
 class My
 
   def studies
-    Study.all
+    Study.includes(:comparisons, :region_sets => [:regions]).where(:user_id => User::current_id)
   end
 
   def regions

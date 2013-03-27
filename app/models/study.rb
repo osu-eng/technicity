@@ -7,6 +7,7 @@ class Study < ActiveRecord::Base
 
   belongs_to :region_set
   belongs_to :user
+  has_many :comparisons
 
 
   # Returns true if this is editable by the current user

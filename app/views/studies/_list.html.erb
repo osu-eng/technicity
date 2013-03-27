@@ -1,26 +1,26 @@
 
-<table>
+<table class="table table-striped table-hover">
   <tr>
-    <th>User</th>
-    <th>Slug</th>
-    <th>Question</th>
+    <% if show_user  %>
+      <th>User</th>
+    <% end %>
+    <th>Name</th>
+    <th>Which is... ?</th>
     <th>Public</th>
-    <th></th>
+    <th>Region Collection</th>
+    <th>Comparisons</th>
   </tr>
 
 <% @studies.each do |study| %>
   <tr>
-    <td><%= study.user_id %></td>
-    <td><%= study.slug %></td>
-    <td><%= study.question %></td>
+    <% if show_user  %>
+      <td><%= study.user_id %></td>
+    <% end %>
+    <td><%= link_to study.name, study %></td>
+    <td><%= link_to study.question, study %></td>
     <td><%= study.public %></td>
-    <td>
-      <%= link_to 'Show', study %>
-      <% if study.editable? %>
-      | <%= link_to 'Edit', edit_study_path(study) %>
-      | <%= link_to 'Destroy', study, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-    </td>
+    <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
+    <td><%= study.comparisons.count %></td>
   </tr>
 <% end %>
 </table>
