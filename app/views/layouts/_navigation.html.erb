@@ -1,43 +1,9 @@
 <%# #link_to "Home", root_path, :class => 'brand' %>
 <ul class="nav">
-<<<<<<< HEAD
-  <!-- MF - Static Pages -->
-  <li>
-    <a href="/static_pages/home">Home</a>
-  </li>
-  <li>
-   <a href="/static_pages/about">About</a>
-  </li>
-  <li>
-    <a href="/static_pages/help">Help</a>
-  </li>
-  <li>
-    <!-- MF - will need to update once course is live -->
-    <a href="https://www.coursera.org/course/techcity">Course Page</a>
-  </li>
-    
-  <%# if user_signed_in? %>
-        
-    <%# link_to('Logout', destroy_user_session_path, :method=>'delete') %>
-    
-  <%# else %>
-    
-    <%# link_to('Login', new_user_session_path)  %>
 
-  <%# end %>
-  <%# if user_signed_in? %>
-
-    <%# link_to('Edit account', edit_user_registration_path) %>
-
-  <%# else %>
-
-    <%#= link_to('Sign up', new_user_registration_path)  %>
-
-  <%# end %>
-=======
   <li class="active"><a href="#">Home</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href="#contact">Contact</a></li>
+  <li><a href="/about">About</a></li>
+  <!-- <li><a href="contact">Contact</a></li> -->
   <li class="dropdown">
     <a href="/dashboard" class="dropdown-toggle" data-toggle="dropdown">Research <b class="caret"></b></a>
     <ul class="dropdown-menu">
@@ -47,6 +13,7 @@
       <li><a href="/regions">Regions</a></li>
     </ul>
   </li>
+  <!-- MF will need an "if logged in" here -->
   <li class="dropdown">
     <a href="/my/dashboard" class="dropdown-toggle" data-toggle="dropdown">My Research <b class="caret"></b></a>
     <ul class="dropdown-menu">
@@ -56,5 +23,6 @@
       <li><a href="/my/regions">Regions</a></li>
     </ul>
   </li>
->>>>>>> origin/create-study
+  <li><a href="/help">Help</a></li>
+  <li><a href="https://www.coursera.org/course/techcity">Course Page</a></li>
 </ul>
