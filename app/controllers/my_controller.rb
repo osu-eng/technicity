@@ -1,6 +1,6 @@
 class MyController < ApplicationController
 
-  def research
+  def dashboard
     @studies = My::studies
     @regions = Region.all
     @region_sets = RegionSet.all

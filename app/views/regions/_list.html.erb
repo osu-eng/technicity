@@ -1,29 +1,21 @@
-<table>
+<table class="table table-striped table-hover">
   <tr>
+    <th>Name</th>
     <% if show_user  %>
       <th>User</th>
     <% end %>
-    <th>Slug</th>
-    <th>Name</th>
+    <th># Locations</th>
     <th>Public</th>
-    <th></th>
   </tr>
 
 <% @regions.each do |region| %>
   <tr>
+    <td><%= link_to region.name, region %></td>
     <% if show_user  %>
       <td><%= region.user_id %></td>
     <% end %>
-    <td><%= region.slug %></td>
-    <td><%= region.name %></td>
+    <td><%= region.locations.count %></td>
     <td><%= region.public %></td>
-    <td>
-      <%= link_to 'Show', region %>
-      <% if region.editable? %>
-      | <%= link_to 'Edit', edit_region_path(region) %>
-      | <%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-    </td>
   </tr>
 <% end %>
 </table>

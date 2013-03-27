@@ -1,23 +1,23 @@
 
 <table class="table table-striped table-hover">
   <tr>
+    <th>Name</th>
+    <th>Which is... ?</th>
     <% if show_user  %>
       <th>User</th>
     <% end %>
-    <th>Name</th>
-    <th>Which is... ?</th>
     <th>Public</th>
     <th>Region Collection</th>
-    <th>Comparisons</th>
+    <th>Votes</th>
   </tr>
 
 <% @studies.each do |study| %>
   <tr>
+    <td><%= link_to study.name, study %></td>
+    <td><%= link_to study.question, study %></td>
     <% if show_user  %>
       <td><%= study.user_id %></td>
     <% end %>
-    <td><%= link_to study.name, study %></td>
-    <td><%= link_to study.question, study %></td>
     <td><%= study.public %></td>
     <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
     <td><%= study.comparisons.count %></td>
