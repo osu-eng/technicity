@@ -1,4 +1,11 @@
 Technicity::Application.routes.draw do
+
+
+  get 'my/dashboard'
+  get 'my/studies'
+  get 'my/collections'
+  get 'my/regions'
+
   resources :region_set_memberships
 
 
