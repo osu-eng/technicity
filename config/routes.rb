@@ -1,7 +1,7 @@
 Technicity::Application.routes.draw do
 
 
-  get 'my/index'
+  get 'my/research'
   get 'my/studies'
 
   resources :region_set_memberships

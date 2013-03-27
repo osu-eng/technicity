@@ -1,14 +1,14 @@
 class My
 
-  def studies
-    Study.includes(:comparisons, :region_sets => [:regions]).where(:user_id => User::current_id)
+  def self.studies
+    Study.includes(:comparisons, :region_set => [:regions]).where(:user_id => User::current_id)
   end
 
-  def regions
+  def self.regions
     Region.all
   end
 
-  def region_sets
+  def self.region_sets
     RegionSets.all
   end
 

@@ -1,7 +1,7 @@
 class MyController < ApplicationController
 
-  def index
-    @studies = Study.all
+  def research
+    @studies = My::studies
     @regions = Region.all
     @region_sets = RegionSet.all
 
