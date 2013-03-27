@@ -6,9 +6,9 @@
     <% if show_user  %>
       <th>User</th>
     <% end %>
-    <th>Public</th>
     <th>Region Collection</th>
     <th>Votes</th>
+    <th>Public</th>
   </tr>
 
 <% @studies.each do |study| %>
@@ -18,9 +18,9 @@
     <% if show_user  %>
       <td><%= study.user_id %></td>
     <% end %>
-    <td><%= study.public %></td>
     <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
     <td><%= study.comparisons.count %></td>
+    <td><%= study.public %></td>
   </tr>
 <% end %>
 </table>

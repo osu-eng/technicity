@@ -5,7 +5,7 @@ class Region < ActiveRecord::Base
   attr_accessible :name, :public, :slug, :user_id
 
   has_many :locations
-
+  has_many :region_set_memberships
   has_many :region_sets, :through => :region_set_memberships
   belongs_to :user
 
@@ -14,4 +14,7 @@ class Region < ActiveRecord::Base
     User::current_id == self.user_id
   end
 
+  def show
+    @locations = self.locations
+  end
 end

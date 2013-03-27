@@ -1,25 +1,18 @@
+<h1>Region: <%= @region.name %></h1>
+<small>
+  Slug: <%= @region.slug %><br />
+  User: <%= @region.user.name %>
+</small>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>User:</b>
-  <%= @region.user_id %>
-</p>
-
-<p>
-  <b>Slug:</b>
-  <%= @region.slug %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @region.name %>
-</p>
 
 <p>
   <b>Public:</b>
   <%= @region.public %>
 </p>
 
+<% @locations = @region.locations %>
+<%= render 'locations/list', :locations => @region.locations  %>
 
 <%= link_to 'Edit', edit_region_path(@region) %> |
 <%= link_to 'Back', regions_path %>

@@ -4,10 +4,10 @@
     <% if show_user  %>
       <th>User</th>
     <% end %>
-    <th># Locations</th>
+    <th># Locations Included</th>
+    <th># Collections Using</th>
     <th>Public</th>
   </tr>
-
 <% @regions.each do |region| %>
   <tr>
     <td><%= link_to region.name, region %></td>
@@ -15,6 +15,7 @@
       <td><%= region.user_id %></td>
     <% end %>
     <td><%= region.locations.count %></td>
+    <td><%= region.region_sets.count %></td>
     <td><%= region.public %></td>
   </tr>
 <% end %>
