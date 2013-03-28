@@ -34,4 +34,7 @@ Technicity::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # 2013-03-28 MF for devise
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

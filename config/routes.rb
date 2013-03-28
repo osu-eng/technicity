@@ -1,6 +1,8 @@
 Technicity::Application.routes.draw do
 
 
+  devise_for :users
+
   get 'my/dashboard'
   get 'my/studies'
   get 'my/collections'
