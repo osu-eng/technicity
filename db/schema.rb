@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401165441) do
+ActiveRecord::Schema.define(:version => 20130401183139) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
