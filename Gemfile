@@ -28,7 +28,7 @@ group :assets do
 end
 
 gem 'devise'
-gem 'omniauth'
+gem 'omniauth-twitter'
 gem 'cancan'
 gem 'jquery-rails'
 gem 'simple_form'
