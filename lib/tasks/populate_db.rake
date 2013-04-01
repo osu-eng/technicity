@@ -11,7 +11,7 @@ namespace :db do
       [Study].each(&:delete_all);
 
       # Add columbus to ohio
-      s = Study.new()
+      s = StudyComparison.new()
       s.id = 1
       s.region_set_id = 1
       s.user_id = 505
@@ -22,7 +22,7 @@ namespace :db do
       s.save()
 
       # Add columbus to ohio
-      s = Study.new()
+      s = StudyComparison.new()
       s.id = 2
       s.region_set_id = 1
       s.user_id = 505

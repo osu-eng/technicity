@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327004923) do
+ActiveRecord::Schema.define(:version => 20130401140542) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130327004923) do
     t.integer  "region_set_id"
     t.string   "name"
     t.integer  "user_id"
+    t.string   "type"
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true
