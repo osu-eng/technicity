@@ -26,6 +26,12 @@ class RegionsController < ApplicationController
   def new
     @region = Region.new
 
+    # A study to redirect to afterwards
+    @study = Study.find(params[:study_id])
+
+    # Whether or not to automatically create a region_set containing this region
+    @create_set = params[:create_set]
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @region }
@@ -43,8 +49,36 @@ class RegionsController < ApplicationController
     @region = Region.new(params[:region])
     @region.user_id = User::current_id
 
+    if params[:study_id]
+      @study = Study.find(params[:study_id])
+    end
+
     respond_to do |format|
-      if @region.save
+      if @region.save()
+
+        if params[:create_set]
+
+          # create and save the region set
+          @rs = RegionSet.new()
+          @rs.name = @region.name
+          @rs.description = @region.description
+          @rs.save()
+
+          # add an association between the new regionset and the region
+          @rsm = RegionSetMembership.new()
+          @rsm.region_set_id = @rs.id
+          @rsm.region_id = @region.id
+          @rsm.save()
+
+          # set the region set field of the study
+          if @study && @study.editable?
+            @study.region_set_id = @rs.id
+            @study.save()
+            format.html { redirect_to @study, notice: 'Area was successfully created.' }
+          end
+        end
+
+        # show the region
         format.html { redirect_to @region, notice: 'Area was successfully created.' }
         format.json { render json: @region, status: :created, location: @region }
       else

@@ -30,7 +30,7 @@ end
 gem 'omniauth'
 gem 'cancan'
 gem 'jquery-rails'
-gem 'simple_form'
+gem 'simple_form', '~> 2.1.0'
 gem 'friendly_id'
 
 # This doesn't seem to do what we need
