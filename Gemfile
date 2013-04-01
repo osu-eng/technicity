@@ -27,7 +27,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'omniauth'
+gem 'devise'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 gem 'cancan'
 gem 'jquery-rails'
 gem 'simple_form', '~> 2.1.0'

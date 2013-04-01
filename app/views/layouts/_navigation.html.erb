@@ -15,26 +15,6 @@
     <a href="https://www.coursera.org/course/techcity">Technicity Course</a>
   </li>
 
-  <%# if user_signed_in? %>
-
-    <%# link_to('Logout', destroy_user_session_path, :method=>'delete') %>
-
-  <%# else %>
-
-
-    <%# link_to('Login', new_user_session_path)  %>
-
-  <%# end %>
-  <%# if user_signed_in? %>
-
-    <%# link_to('Edit account', edit_user_registration_path) %>
-
-  <%# else %>
-
-    <%#= link_to('Sign up', new_user_registration_path)  %>
-
-  <%# end %>
-
   <li class="dropdown">
     <a href="/dashboard" class="dropdown-toggle" data-toggle="dropdown">Public Studies <b class="caret"></b></a>
     <ul class="dropdown-menu">
@@ -47,13 +27,27 @@
     </ul>
   </li>
   <!-- MF will need an "if logged in" here -->
-  <li class="dropdown">
-    <a href="/my/dashboard" class="dropdown-toggle" data-toggle="dropdown">My Research <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-      <li><a href="/my/dashboard">Dashboard</a></li>
-      <li><a href="/my/studies">Studies</a></li>
-      <li><a href="/my/imagesets">Image Sets</a></li>
-      <li><a href="/my/regions">Areas</a></li>
-    </ul>
-  </li>
+  <% if user_signed_in? %>
+    <li class="dropdown">
+      <a href="/my/dashboard" class="dropdown-toggle" data-toggle="dropdown">My Research <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="/my/dashboard">Dashboard</a></li>
+        <li><a href="/my/studies">Studies</a></li>
+        <li><a href="/my/imagesets">Image Sets</a></li>
+        <li><a href="/my/regions">Areas</a></li>
+      </ul>
+    </li>
+  <% end %>
+
+  <div id="user_nav">
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+  </div>
+>>>>>>> auth
 </ul>

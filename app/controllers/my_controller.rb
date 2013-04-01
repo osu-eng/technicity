@@ -1,5 +1,7 @@
 class MyController < ApplicationController
 
+  before_filter :authenticate_user!
+  
   def dashboard
     @studies = Study.includes(:comparisons, :region_set => [:regions]).where(:user_id => User::current_id)
     @region_sets = RegionSet.includes(:studies, :regions ).where(:user_id => User::current_id)

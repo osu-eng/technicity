@@ -1,6 +1,8 @@
 Technicity::Application.routes.draw do
 
 
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+
   get 'my/dashboard'
   get 'my/studies'
   get 'my/imagesets'

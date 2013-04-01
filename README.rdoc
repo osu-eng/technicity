@@ -1,5 +1,13 @@
 == Welcome to Rails
 
+Technicity Specific Notes:
+Will need to create application.yml file to manage config variables, 
+so run this command before running the app:
+
+cp config/application.example.yml config/application.yml
+
+Then, customize the variables
+
 Rails is a web-application framework that includes everything needed to create
 database-backed web applications according to the Model-View-Control pattern.
 
