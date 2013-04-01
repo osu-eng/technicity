@@ -29,7 +29,7 @@ class MyController < ApplicationController
     end
   end
 
-  def collections
+  def imagesets
     @region_sets = RegionSet.includes(:studies, :regions ).where(:user_id => User::current_id)
 
     respond_to do |format|
