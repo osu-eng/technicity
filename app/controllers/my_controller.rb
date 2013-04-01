@@ -1,5 +1,7 @@
 class MyController < ApplicationController
 
+  before_filter :authenticate_user!
+  
   def dashboard
     @studies = My::studies
     @region_sets = My::region_sets
