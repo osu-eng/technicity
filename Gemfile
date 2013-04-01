@@ -29,6 +29,7 @@ end
 
 gem 'devise'
 gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 gem 'cancan'
 gem 'jquery-rails'
 gem 'simple_form'
