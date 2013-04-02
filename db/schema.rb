@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402191810) do
+ActiveRecord::Schema.define(:version => 20130402212435) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20130402191810) do
     t.text     "polygon"
     t.text     "description"
     t.integer  "zoom"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true

@@ -125,8 +125,8 @@ namespace :db do
       r.id = 45419
       r.slug = 'oh-dayton'
       r.name = 'Dayton'
-      r.latitude = 39.9816886411623
-      r.longitude = -83.0172621627688
+      r.latitude = 39.7589
+      r.longitude = -84.1917
       r.zoom = 5
       r.public = TRUE
       r.user_id = 505
@@ -136,6 +136,9 @@ namespace :db do
       r.id = 44130
       r.slug = 'oh-cleveland'
       r.name = 'Cleveland'
+      r.latitude = 41.4994
+      r.longitude = -81.6956
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -144,6 +147,9 @@ namespace :db do
       r.id = 43613
       r.slug = 'oh-toledo'
       r.name = 'Toledo'
+      r.latitude = 41.6639
+      r.longitude = -83.5553
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -152,6 +158,9 @@ namespace :db do
       r.id = 10453
       r.slug = 'ny-newyork'
       r.name = 'New York City'
+      r.latitude = 40.7142
+      r.longitude = -74.0064
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 501
       r.save()
@@ -160,6 +169,9 @@ namespace :db do
       r.id = 94101
       r.slug = 'ca-sanfrancisco'
       r.name = 'San Francisco'
+      r.latitude = 37.7750
+      r.longitude = -122.4183
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 501
       r.save()
@@ -168,6 +180,9 @@ namespace :db do
       r.id = 77006
       r.slug = 'tx-houston'
       r.name = 'Houston'
+      r.latitude = 29.7631
+      r.longitude = -95.3631
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 501
       r.save()
