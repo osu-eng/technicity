@@ -11,8 +11,9 @@ class Study < ActiveRecord::Base
 
 
   # Returns true if this is editable by the current user
-  def editable?
-    User::current_id == self.user_id
-  end
+  #2013-04-02 Can't access current user in a model
+  #def editable?
+  #  current_user.uid == self.user_id
+  #end
 
 end
