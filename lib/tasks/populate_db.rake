@@ -19,6 +19,7 @@ namespace :db do
       s.slug = 'oh-metro-pretty'
       s.public = TRUE
       s.question = "prettier"
+      s.description = "This study identifies the prettiest parts of Ohio's metro areas."
       s.save()
 
       # Add columbus to ohio
@@ -29,7 +30,8 @@ namespace :db do
       s.name = 'Ohio Cities Scary'
       s.slug = 'oh-metro-scary'
       s.public = TRUE
-      s.question = "terrifying"
+      s.question = "most terrifying"
+      s.description = "This study explores whether or not any parts of Ohio's metro areas are scary."
       s.save()
 
     end
@@ -116,7 +118,7 @@ namespace :db do
       r.name = 'Columbus'
       r.latitude = 39.9816886411623
       r.longitude = -83.0172621627688
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -127,7 +129,7 @@ namespace :db do
       r.name = 'Dayton'
       r.latitude = 39.7589
       r.longitude = -84.1917
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -138,7 +140,7 @@ namespace :db do
       r.name = 'Cleveland'
       r.latitude = 41.4994
       r.longitude = -81.6956
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -149,7 +151,7 @@ namespace :db do
       r.name = 'Toledo'
       r.latitude = 41.6639
       r.longitude = -83.5553
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -160,7 +162,7 @@ namespace :db do
       r.name = 'New York City'
       r.latitude = 40.7142
       r.longitude = -74.0064
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 501
       r.save()
@@ -171,7 +173,7 @@ namespace :db do
       r.name = 'San Francisco'
       r.latitude = 37.7750
       r.longitude = -122.4183
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 501
       r.save()
@@ -182,7 +184,7 @@ namespace :db do
       r.name = 'Houston'
       r.latitude = 29.7631
       r.longitude = -95.3631
-      r.zoom = 5
+      r.zoom = 10
       r.public = TRUE
       r.user_id = 501
       r.save()
