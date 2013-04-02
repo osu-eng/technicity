@@ -8,20 +8,8 @@
               :as => :text,
               :input_html => { :rows => 4 },
               :hint => 'A sentence or two describing your study.' %>
-  <!--
-  This needs to be moved to a precursor step if we ever add the multiple choice option
-  <%= f.input :type,
-              :collection => [['Comparison (should be augmented with a picture)', 'StudyComparison'], ['Multiple Choice (should be augmented with a picture)', 'StudyMultipleChoice']],
-              :hint => 'The type of study you are conducting.',
-              as: :radio_buttons %>
-  -->
-
-  <% case @study.type
-     when 'StudyComparison' %>
-        <%= f.input :question, label: 'Which place looks...?',
-                    :hint => 'Finish the question (more livable, safer, nicer, etc)' %>
-  <% when 'StudyMultipleChoice' %>
-  <% end %>
+  <%= f.input :question, label: 'Which place looks...?',
+              :hint => 'Finish the question (more livable, safer, nicer, etc)' %>
 
   <%= f.button :submit%>
 <% end %>

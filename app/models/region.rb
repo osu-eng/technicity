@@ -2,7 +2,7 @@ class Region < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  attr_accessible :name, :public, :slug, :user_id, :description
+  attr_accessible :name, :public, :slug, :user_id, :description, :latitude, :longitude, :zoom, :polygon
 
   has_many :locations
   has_many :region_set_memberships

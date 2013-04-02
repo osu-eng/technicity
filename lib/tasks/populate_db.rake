@@ -11,7 +11,7 @@ namespace :db do
       [Study].each(&:delete_all);
 
       # Add columbus to ohio
-      s = StudyComparison.new()
+      s = Study.new()
       s.id = 1
       s.region_set_id = 1
       s.user_id = 505
@@ -22,7 +22,7 @@ namespace :db do
       s.save()
 
       # Add columbus to ohio
-      s = StudyComparison.new()
+      s = Study.new()
       s.id = 2
       s.region_set_id = 1
       s.user_id = 505
@@ -114,6 +114,9 @@ namespace :db do
       r.id = 43210
       r.slug = 'oh-columbus'
       r.name = 'Columbus'
+      r.latitude = 39.9816886411623
+      r.longitude = -83.0172621627688
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -121,7 +124,10 @@ namespace :db do
       r = Region.new()
       r.id = 45419
       r.slug = 'oh-dayton'
-      r.name = 'Columbus'
+      r.name = 'Dayton'
+      r.latitude = 39.9816886411623
+      r.longitude = -83.0172621627688
+      r.zoom = 5
       r.public = TRUE
       r.user_id = 505
       r.save()
@@ -217,57 +223,93 @@ namespace :db do
 
       u = User.new()
       u.id = 500
+      u.username = "jake"
       u.name = "Jake Fake"
       u.email = 'jakefake@example.com'
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 501
+      u.username = "test"
       u.name = "Test McFerguson"
       u.email = "testferg@example.com"
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 502
+      u.username = "sam"
       u.name = "Sam Sample"
       u.email = "samsample@example.com"
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 503
+      u.username = "roger"
       u.name = "Roger Regression"
       u.email = "rogerregress@example.com"
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 504
+      u.username = "elbert"
       u.name = "Elbert Exception"
       u.email = "elbertexception@example.com"
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 505
+      u.username = "dana"
       u.name = "Dana Datum"
       u.email = "danadatum@example.com"
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 506
+      u.username = "sara"
       u.name = "Sara Soap"
       u.email = "sarasoap@example.com"
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
       u.save()
 
       u = User.new()
       u.id = 507
+      u.username = "rachel"
       u.name = "Rachel Rest"
       u.email = "rachelrest@example.com"
-      u.save();
+      u.password = "password"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
+      u.save()
 
       u = User.new()
       u.id = 508
+      u.username = "alice"
       u.name = "Alice Abstract"
       u.email = "aliceabstract@example.com"
-      u.save()
+      u.password = "donttelleve"
+      u.password_confirmation = u.password
+      u.reset_password_token = u.id
+      u.save!()
 
     end
   end

@@ -1,9 +1,13 @@
 Technicity::Application.routes.draw do
 
+  get "my/dashboard"
+  get "my/studies"
+  get "my/imagesets"
+  get "my/regions"
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
-  
+
   resources :region_set_memberships
 
 
@@ -25,7 +29,6 @@ Technicity::Application.routes.draw do
 
 
   resources :studies
-  resources :study_comparisons
 
 
   resources :users
