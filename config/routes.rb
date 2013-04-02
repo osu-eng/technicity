@@ -29,7 +29,6 @@ Technicity::Application.routes.draw do
 
 
   resources :studies
-  resources :study_comparisons
 
 
   resources :users

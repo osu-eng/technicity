@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   #attr_accessible :email, :name
-  
+
   validates_presence_of :username
 
   has_many :studies
@@ -33,11 +33,11 @@ class User < ActiveRecord::Base
       super
     end
   end
-  
+
   def password_required?
     super && provider.blank?
   end
-  
+
   def update_with_password(params, *options)
     if encrypted_password.blank?
       update_attributes(params, *options)
@@ -45,10 +45,10 @@ class User < ActiveRecord::Base
       super
     end
   end
-  # This should return the uid of the current user.
-  # After we get authentication in, this should be changed.
-  #def self.current_id
-  #  505
-  #end
+  # This needs to be here until the rest of the code is
+  # fixed to remove references to it.
+  def self.current_id
+    505
+  end
 
 end

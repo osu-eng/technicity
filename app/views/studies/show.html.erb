@@ -1,23 +1,18 @@
-<p id="notice"><%= notice %></p>
-
+<h1>Study: <%= @study.name %></h1>
 <p>
-  <b>User:</b>
-  <%= @study.user_id %>
+  <small>
+  Slug: <%= @study.slug %><br />
+  User: <%= @study.user.name %>
+  </small>
 </p>
 
 <p>
-  <b>Name:</b>
-  <%= @study.name %>
+  <strong>Description</strong><br />
+  <%= @study.description %>
 </p>
-
 <p>
-  <b>Slug:</b>
-  <%= @study.slug %>
-</p>
-
-<p>
-  <b>Question:</b>
-  <%= @study.question %>
+  <strong>Question</strong><br />
+  Which place looks <%= @study.question %>?
 </p>
 
 <%# Allow editor to create add a region set if necessary %>
@@ -25,13 +20,11 @@
   <p>You have not yet associated an Image Set. You can create a
      <%= link_to 'New Image Set', new_region_path() + '?study_id=' + @study.id.to_s() + '&create_set=true' %> or
      search for one below.</p>
-
+<% else %>
+  <h3>Image Set</h3>
+  <% @regions = @study.region_set.regions %>
+  <%= render 'regions/list', :locations => @study.region_set.regions, :show_user=>false  %>
 <% end %>
 
-<p>Before you can start collecting data, you must
 <%= link_to 'Edit', edit_study_path(@study) %> |
 <%= link_to 'Back', studies_path %>
-
-
-
-

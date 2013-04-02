@@ -25,7 +25,6 @@ class StudiesController < ApplicationController
   # GET /studies/new.json
   def new
     @study = Study.new
-    @study.type = 'StudyComparison'
 
     respond_to do |format|
       format.html # new.html.erb
