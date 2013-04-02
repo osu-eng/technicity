@@ -41,7 +41,7 @@ class StudiesController < ApplicationController
   # POST /studies.json
   def create
     @study = Study.new(params[:study])
-    @study.user_id = current_user.uid
+    @study.user_id = current_user.id
 
     respond_to do |format|
       if @study.save

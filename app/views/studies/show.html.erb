@@ -16,7 +16,7 @@
 </p>
 
 <%# Allow editor to create add a region set if necessary %>
-<% if (@study.user_id == current_user.uid) && @study.region_set.nil? %>
+<% if (@study.user_id == current_user.id) && @study.region_set.nil? %>
   <p>You have not yet associated an Image Set. You can create a
      <%= link_to 'New Image Set', new_region_path() + '?study_id=' + @study.id.to_s() + '&create_set=true' %> or
      search for one below.</p>

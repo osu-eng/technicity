@@ -47,7 +47,7 @@ class RegionsController < ApplicationController
   # POST /regions.json
   def create
     @region = Region.new(params[:region])
-    @region.user_id = User::current_id
+    @region.user_id = current_user.id
 
     if params[:study_id]
       @study = Study.find(params[:study_id])
@@ -60,8 +60,9 @@ class RegionsController < ApplicationController
 
           # create and save the region set
           @rs = RegionSet.new()
-          @rs.name = @region.name
-          @rs.description = @region.description
+          @rs.name = @study.name + ' Image Set'
+          @rs.user_id = current_user.id
+          @rs.description = 'This is image set was created specifically for the study "' + @study.name + '"'
           @rs.save()
 
           # add an association between the new regionset and the region
@@ -70,8 +71,8 @@ class RegionsController < ApplicationController
           @rsm.region_id = @region.id
           @rsm.save()
 
-          # set the region set field of the study
-          if @study && @study.editable?
+          # set the region set field of the study (security)
+          if @study
             @study.region_set_id = @rs.id
             @study.save()
             format.html { redirect_to @study, notice: 'Area was successfully created.' }

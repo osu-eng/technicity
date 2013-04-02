@@ -9,11 +9,4 @@ class Study < ActiveRecord::Base
   belongs_to :user
   has_many :comparisons
 
-
-  # Returns true if this is editable by the current user
-  #2013-04-02 Can't access current user in a model
-  #def editable?
-  #  current_user.uid == self.user_id
-  #end
-
 end
