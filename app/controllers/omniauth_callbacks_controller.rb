@@ -11,5 +11,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   alias_method :twitter, :all
   alias_method :facebook, :all
+  # 2013-04-01 MF not positive this will work, code is slightly different in github
+  alias_method :coursera, :all
 end
 
