@@ -21,8 +21,8 @@
       <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="/studies">Studies</a></li>
       <!--
-      <li><a href="/collections">Region Collections</a></li>
-      <li><a href="/regions">Regions</a></li>
+      <li><a href="/imagesets">Image Sets</a></li>
+      <li><a href="/regions">Areas</a></li>
       -->
     </ul>
   </li>
@@ -33,12 +33,12 @@
       <ul class="dropdown-menu">
         <li><a href="/my/dashboard">Dashboard</a></li>
         <li><a href="/my/studies">Studies</a></li>
-        <li><a href="/my/collections">Image Sets</a></li>
+        <li><a href="/my/imagesets">Image Sets</a></li>
         <li><a href="/my/regions">Areas</a></li>
       </ul>
     </li>
   <% end %>
-  
+
   <div id="user_nav">
     <% if user_signed_in? %>
       Logged in as <strong><%= current_user.email %></strong>.

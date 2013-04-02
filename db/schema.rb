@@ -44,8 +44,9 @@ ActiveRecord::Schema.define(:version => 20130401193831) do
     t.string   "slug"
     t.string   "name"
     t.boolean  "public"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "description"
   end
 
   create_table "regions", :force => true do |t|
@@ -53,9 +54,10 @@ ActiveRecord::Schema.define(:version => 20130401193831) do
     t.string   "slug"
     t.string   "name"
     t.boolean  "public"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.text     "polygon"
+    t.text     "description"
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
@@ -69,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20130401193831) do
     t.integer  "region_set_id"
     t.string   "name"
     t.integer  "user_id"
+    t.string   "type"
+    t.text     "description"
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true

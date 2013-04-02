@@ -5,14 +5,13 @@ Technicity::Application.routes.draw do
 
   get 'my/dashboard'
   get 'my/studies'
-  get 'my/collections'
+  get 'my/imagesets'
   get 'my/regions'
 
   resources :region_set_memberships
 
 
   resources :region_sets
-
 
   get "static_pages/home"
 
@@ -30,6 +29,7 @@ Technicity::Application.routes.draw do
 
 
   resources :studies
+  resources :study_comparisons
 
 
   resources :users

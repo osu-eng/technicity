@@ -1,0 +1,2 @@
+class StudyComparison < Study
+end

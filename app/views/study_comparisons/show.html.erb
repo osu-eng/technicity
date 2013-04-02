@@ -1,27 +1,35 @@
-<%= simple_form_for(@region) do |f| %>
-  <%= f.input :name,
-              :hint => 'A short, friendly name by which to remember this area.' %>
-  <%= f.input :description,
-              :as => :text,
-              :input_html => { :rows => 4 },
-              :hint => 'A sentence or two describing this area.' %>
-  <% if !@study.nil? %>
-    <%= hidden_field_tag :study_id, @study.id %>
-  <% end %>
-  <% if !@create_set.nil? %>
-    <%= hidden_field_tag :create_set,  true %>
-  <% end %>
+<p id="notice"><%= notice %></p>
 
-  <% if true %>
-    <p>Polygon code goes here.</p>
-  <% end %>
+<p>
+  <b>User:</b>
+  <%= @study.user_id %>
+</p>
 
-  <div class="actions">
-    <%= f.submit 'Create Area' %>
-  </div>
+<p>
+  <b>Name:</b>
+  <%= @study.name %>
+</p>
+
+<p>
+  <b>Slug:</b>
+  <%= @study.slug %>
+</p>
+
+<p>
+  <b>Question:</b>
+  <%= @study.question %>
+</p>
+
+<p>
+  <b>Public:</b>
+  <%= @study.public %>
+</p>
+
+<p>Before you can start collecting data, you must
+<%= link_to 'Edit', edit_study_path(@study) %> |
+<%= link_to 'Back', studies_path %>
 
 
-<% end %>
 
 <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize' %>
 <script>
