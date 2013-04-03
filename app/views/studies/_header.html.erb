@@ -8,9 +8,12 @@
 <!-- active li needs class active -->
 <!-- security - tabs should only show if there is a choice -->
 <ul class="nav nav-tabs">
-  <li><%= link_to "Vote", :controller => "studies", :action => "vote", :id => @study %></li>
+  <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "vote", :id => @study) %>>
+    <%= link_to "Vote", :controller => "studies", :action => "vote", :id => @study %></li>
   <!-- security - analyze should only show if study is public -->
-  <li><%= link_to "Analyze", :controller => "studies", :action => "analyze", :id => @study %></li>
+  <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "analyze", :id => @study) %>>
+    <%= link_to "Analyze", :controller => "studies", :action => "analyze", :id => @study %></li>
   <!-- security - edit should only show if study is public -->
-  <li><%= link_to "Edit", :controller => "studies", :action => "edit", :id => @study %></li>
+  <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "edit", :id => @study) %>>
+    <%= link_to "Edit", :controller => "studies", :action => "edit", :id => @study %></li>
 </ul>
