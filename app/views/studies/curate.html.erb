@@ -1,9 +1,14 @@
 <%= render 'header', :study => @study %>
 
-<div id="map" style="float:right; width:500; height:350;"></div>
+<div id="map" style="float:right; width:200; height:140;"></div>
 <h2><%= @region.name %></h2>
-Todo: create curate page.
-<%= debug @region %>
+<p>
+  <small>
+    Slug: <%= @region.slug %><br />
+    Owner: <%= @region.user.name %>
+  </small>
+</p>
+<p><strong>Description:</strong><br /><%= @region.description %><p>
 
 <hr />
 
@@ -31,8 +36,9 @@ Todo: create curate page.
   function initialize() {
 
     map = new google.maps.Map(document.getElementById("map"), {
-      zoom: <%= @region.zoom %>,
+      zoom: <%= (@region.zoom - 2) > 0 ? (@region.zoom - 2) : 0 %>,
       center: new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>),
+      disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
