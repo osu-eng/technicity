@@ -9,11 +9,17 @@
 <!-- security - tabs should only show if there is a choice -->
 <ul class="nav nav-tabs">
   <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "vote", :id => @study) %>>
-    <%= link_to "Vote", :controller => "studies", :action => "vote", :id => @study %></li>
+    <a href="<%= url_for :controller => "studies", :action => "vote", :id => @study %>">
+      <i class="icon-ok" style=""></i> Vote</a>
+    </li>
   <!-- security - analyze should only show if study is public -->
   <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "analyze", :id => @study) %>>
-    <%= link_to "Analyze", :controller => "studies", :action => "analyze", :id => @study %></li>
+    <a href="<%= url_for :controller => "studies", :action => "analyze", :id => @study %>">
+      <i class="icon-signal" style=""></i> Analyze</a>
+    </li>
   <!-- security - edit should only show if study is public -->
-  <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "edit", :id => @study) %>>
-    <%= link_to "Edit", :controller => "studies", :action => "edit", :id => @study %></li>
+  <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "edit", :id => @study) %>">
+    <a href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
+      <i class="icon-edit" style=""></i> Edit</a>
+    </li>
 </ul>
