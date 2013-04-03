@@ -28,8 +28,10 @@ Technicity::Application.routes.draw do
   resources :regions
 
 
-  resources :studies
-
+  resources :studies do
+    get :analyze, :on => :member
+    get :vote,    :on => :member
+  end
 
   resources :users
 
