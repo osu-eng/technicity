@@ -12,4 +12,8 @@ class Region < ActiveRecord::Base
   def show
     @locations = self.locations
   end
+
+  def polygon_array
+    self.polygon.scan /([\d.-]+)[^\d.-]+([\d.-]+)/
+  end
 end

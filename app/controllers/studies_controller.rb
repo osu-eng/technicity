@@ -43,6 +43,19 @@ class StudiesController < ApplicationController
     end
   end
 
+  # GET /studies/1
+  # GET /studies/1.json
+  def curate
+    # security - users should only be able to curate regions they own
+    @study = Study.find(params[:id])
+    @region = Region.find(params[:region_id])
+
+    respond_to do |format|
+      format.html # vote.html.erb
+      format.json { render json: @study }
+    end
+  end
+
   # GET /studies/new
   # GET /studies/new.json
   def new

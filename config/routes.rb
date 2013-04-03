@@ -31,6 +31,7 @@ Technicity::Application.routes.draw do
   resources :studies do
     get :analyze, :on => :member
     get :vote,    :on => :member
+    get :curate,  :on => :member
   end
 
   resources :users

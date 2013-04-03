@@ -27,7 +27,9 @@ class RegionsController < ApplicationController
     @region = Region.new
 
     # A study to redirect to afterwards
-    @study = Study.find(params[:study_id])
+    if (!params[:study].nil?)
+      @study = Study.find(params[:study_id])
+    end
 
     # Whether or not to automatically create a region_set containing this region
     @create_set = params[:create_set]
