@@ -11,7 +11,7 @@
   </tr>
 <% @regions.each do |region| %>
   <tr>
-    <td><img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&amp;location=<%= region.latitude %>,%20<%= region.longitude %>&amp;sensor=false"></td>
+    <td><a href="<%= url_for(region) %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region.latitude %>,<%= region.longitude %>&zoom=<%= region.zoom %>&size=150x100&sensor=false"></a></td>
     <td><%= link_to region.name, region %></td>
     <% if show_user  %>
       <td><%= region.user_id %></td>
