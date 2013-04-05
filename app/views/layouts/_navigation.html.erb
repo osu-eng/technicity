@@ -1,52 +1,49 @@
 <%# #link_to "Home", root_path, :class => 'brand' %>
 <ul class="nav">
-  <!-- MF - static pages -->
-  <li>
-    <a href="/static_pages/home">Home</a>
-  </li>
-  <li>
-    <a href="/static_pages/about">About</a>
-  </li>
-  <li>
-    <a href="/static_pages/help">Help</a>
-  </li>
-  <li>
-    <!-- MF - will need to adjust when course starts -->
-    <a href="https://www.coursera.org/course/techcity">Technicity Course</a>
-  </li>
+  <li><%= link_to "About", about_path %></li>
+  <li><%= link_to "Public Studies", studies_path %></li>
+  <li><%= link_to "Help", help_path %></li>
+  <li><a href="https://www.coursera.org/course/techcity">Technicity</a>
+</ul>
+<ul id="usernav" class="nav">
+  <% if user_signed_in? %>
+    <!-- MF - placeholder -->
+    <li><%= link_to "My Research", studies_path %></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <%= current_user.email %>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+        <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </li>
+  <% else %>
+    <li><%= link_to "Login", new_user_session_path %></li>
+  <% end %>
+</ul>
 
+
+
+<!-- OLD 
   <li class="dropdown">
-    <a href="/dashboard" class="dropdown-toggle" data-toggle="dropdown">Public Studies <b class="caret"></b></a>
+    <a href="/dashboard" class="dropdown-toggle" data-toggle="dropdown">Public Studies 
+    <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="/studies">Studies</a></li>
-      <!--
       <li><a href="/imagesets">Image Sets</a></li>
       <li><a href="/regions">Areas</a></li>
-      -->
     </ul>
   </li>
-  <!-- MF will need an "if logged in" here -->
   <% if user_signed_in? %>
     <li class="dropdown">
-      <a href="/my/dashboard" class="dropdown-toggle" data-toggle="dropdown">My Research <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><a href="/my/dashboard">Dashboard</a></li>
-        <li><a href="/my/studies">Studies</a></li>
-        <li><a href="/my/imagesets">Image Sets</a></li>
-        <li><a href="/my/regions">Areas</a></li>
-      </ul>
+
     </li>
   <% end %>
 
-  <div id="user_nav">
-    <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path %>
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %>
-      <%= link_to "Login", new_user_session_path %>
-    <% end %>
-  </div>
+  
 </ul>
+<%= link_to "Sign up", new_user_registration_path %>
+-->

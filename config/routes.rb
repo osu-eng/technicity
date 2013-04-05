@@ -1,10 +1,5 @@
 Technicity::Application.routes.draw do
 
-  get "my/dashboard"
-  get "my/studies"
-  get "my/imagesets"
-  get "my/regions"
-
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
 
@@ -13,11 +8,9 @@ Technicity::Application.routes.draw do
 
   resources :region_sets
 
-  get "static_pages/home"
-
-  get "static_pages/help"
-
-  get "static_pages/about"
+  get "home", to: 'static_pages#home'
+  get "help", to: 'static_pages#help'
+  get "about", to: 'static_pages#about'
 
   resources :comparisons
 
@@ -40,11 +33,11 @@ Technicity::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
-  match '/home' => 'static_pages#home'
-  match '/about' => 'static_pages#about'
-  match '/help' => 'static_pages#help'
-  match '/studies' => 'studies#show'
-  match '/studies/:userid' => 'studies#show'
+  match 'about' => 'static_pages#about'
+  match 'help' => 'static_pages#help'
+  match 'home' => 'static_pages#home'
+  match 'studies' => 'studies#show'
+  match 'studies/:userid' => 'studies#show'
 
 
   # Sample of named route:
