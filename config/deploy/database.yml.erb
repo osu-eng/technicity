@@ -1,0 +1,20 @@
+# database.yml template
+base: &base
+  adapter: sqlite3
+  timeout: 5000
+  pool: 5
+development:
+  database: <%= shared_path %>/db/development.sqlite3
+  <<: *base
+test:
+  database: <%= shared_path %>/db/test.sqlite3
+  <<: *base
+production:
+  adapter: mysql2
+  database: <%= application %>_production
+  username: <%= database_user %>
+  password: <%= Capistrano::CLI.password_prompt("Enter MySQL database password: ") %>
+  encoding: utf8
+  timeout: 5000
+  host: <%= database_server %>
+  port: 3306
