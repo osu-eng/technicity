@@ -27,7 +27,7 @@ class RegionsController < ApplicationController
     @region = Region.new
 
     # A study to redirect to afterwards
-    if (!params[:study].nil?)
+    if (!params[:study_id].nil?)
       @study = Study.find(params[:study_id])
     end
 
@@ -72,6 +72,22 @@ class RegionsController < ApplicationController
           @rsm.region_set_id = @rs.id
           @rsm.region_id = @region.id
           @rsm.save()
+
+          # add locations
+          # return render :text => "The object is #{params[:points]}"
+          if (!params[:points].empty?)
+            points = params[:points].scan /([\d.-]+)[^\d.-]+([\d.-]+)/
+            logger.debug "The object is #{points}"
+            points.each do |point|
+              l = Location.new()
+              l.region_id = @region.id
+              l.latitude = point[0].to_f
+              l.longitude = point[1].to_f
+              l.heading = 90
+              l.pitch = 90
+              l.save()
+            end
+          end
 
           # set the region set field of the study (security)
           if @study
