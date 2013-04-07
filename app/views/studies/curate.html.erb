@@ -10,8 +10,7 @@
 </p>
 <p><strong>Description:</strong><br /><%= @region.description %><p>
 
-<hr />
-<%= debug @region.polygon_bounds %>
+<hr style="clear:both;"/>
 <% @region.locations.each do |location| %>
   <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
 <% end %>
