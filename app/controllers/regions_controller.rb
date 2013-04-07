@@ -93,7 +93,7 @@ class RegionsController < ApplicationController
           if @study
             @study.region_set_id = @rs.id
             @study.save()
-            format.html { redirect_to @study, notice: 'Area was successfully created.' }
+            format.html { redirect_to url_for(:controller => "studies", :action => "curate", :id => @study) + '?region_id=' + @region.id.to_s , notice: 'Area was successfully created.' }
           end
         end
 

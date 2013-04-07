@@ -2,7 +2,7 @@
 <table class="table table-striped table-hover">
   <tr>
     <th>Name</th>
-    <th>Which is... ?</th>
+    <th>Which place looks...</th>
     <% if show_user  %>
       <th>User</th>
     <% end %>
@@ -13,8 +13,8 @@
 
 <% @studies.each do |study| %>
   <tr>
-    <td><%= link_to study.name, study %></td>
-    <td><%= link_to study.question, study %></td>
+    <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
+    <td><%= link_to study.question, study %>?</td>
     <% if show_user  %>
       <td><%= study.user_id %></td>
     <% end %>

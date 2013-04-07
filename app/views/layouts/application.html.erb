@@ -33,6 +33,8 @@
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
     <%= yield :scripts %>
-
+    <script type="text/javascript">
+      $('.label-with-popover').popover();
+    </script>
   </body>
 </html>
