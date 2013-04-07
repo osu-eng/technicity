@@ -9,26 +9,27 @@
 </p>
 
 <%# Allow editor to create add a region set if necessary %>
-<% if @study.region_set.nil? %>
-  <p>You have not yet associated an Image Set. You can create a
-     <%= link_to 'New Image Set', new_region_path() + '?study_id=' + @study.id.to_s() + '&create_set=true' %> or
-     search for one below.</p>
-<% else %>
-  <h3>Image Set</h3>
-  <table class="table table-striped table-hover">
-    <tr>
-      <th>Map</th>
-      <th>Name</th>
-      <th># Locations Included</th>
-    </tr>
-    <% @study.region_set.regions.each do |region| %>
-    <tr>
-      <td>
-        <a href="<%= url_for(region) %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region.latitude %>,<%= region.longitude %>&zoom=<%= region.zoom %>&size=150x100&sensor=false"></a></td>
-      <td><%= link_to region.name, region %></td>
-      <td><%= region.locations.count %></td>
-    </tr>
-    <% end %>
-  </table>
+<% if user_signed_in? && @study.user_id == current_user.id %>
+  <% if @study.region_set.nil? %>
+    <p>You have not yet associated an Image Set. You can create a
+       <%= link_to 'New Image Set', new_region_path() + '?study_id=' + @study.id.to_s() + '&create_set=true' %> or
+       search for one below.</p>
+  <% else %>
+    <h3>Image Set</h3>
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Map</th>
+        <th>Name</th>
+        <th># Locations Included</th>
+      </tr>
+      <% @study.region_set.regions.each do |region| %>
+      <tr>
+        <td>
+          <a href="<%= url_for(region) %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region.latitude %>,<%= region.longitude %>&zoom=<%= region.zoom %>&size=150x100&sensor=false"></a></td>
+        <td><%= link_to region.name, region %></td>
+        <td><%= region.locations.count %></td>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
 <% end %>
-
