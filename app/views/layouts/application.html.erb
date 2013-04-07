@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false' %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
@@ -48,6 +49,8 @@
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
     <%= yield :scripts %>
-
+    <script type="text/javascript">
+      $('.label-with-popover').popover();
+    </script>
   </body>
 </html>

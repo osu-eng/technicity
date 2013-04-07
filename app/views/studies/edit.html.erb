@@ -6,7 +6,8 @@
 </fieldset>
 
 <fieldset>
-  <legend>Image Set</legend>
+  <legend>Image Set <i class="icon-info-sign label-with-popover" data-content="An Image Set defines the set of images used by your study. An image set consists of multiple areas or cities each of which contains many images."
+         data-title="What is an Image Set?"></i></legend>
   <%# Allow editor to create add a region set if necessary %>
   <% if @study.region_set.nil? %>
     <p>
@@ -14,8 +15,14 @@
       <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true' %>">
         <i class="icon-plus-sign"></i> New Image Set</a>
       or search for one below.</p>
+  <% elsif true %>
+    <%# security - need to check permission/ability to change this image set. %>
+    <% @region_set = @study.region_set %>
+    <%= render :partial => 'region_sets/form', :region_set => @study.region_set %>
   <% else %>
-    <h3>Image Set</h3>
+    <p>
+      You do not have permission/ability to change this imageset.
+      </p>
     <table class="table table-striped table-hover">
       <tr>
         <th>Map</th>
@@ -33,3 +40,4 @@
     </table>
   <% end %>
 </fieldset>
+
