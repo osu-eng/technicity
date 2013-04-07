@@ -119,13 +119,12 @@ class StudiesController < ApplicationController
   end
   
   #authorization
-  private
   def require_ownership
     @study = Study.find(params[:id])
 
     if @study.user_id != current_user.id
       respond_to do |format|
-        format.html { redirect_to @studies, alert: 'You can only modify your own Image Sets' }
+        format.html { redirect_to @study, alert: 'You can only modify your own studies' }
       end
     end
   end
