@@ -1,0 +1,54 @@
+<%= render 'header', :study => @study %>
+
+<div id="map" style="float:right; width:200; height:140;"></div>
+<h2><%= @region.name %></h2>
+<p>
+  <small>
+    Slug: <%= @region.slug %><br />
+    Owner: <%= @region.user.name %>
+  </small>
+</p>
+<p><strong>Description:</strong><br /><%= @region.description %><p>
+
+<hr />
+
+<% @region.locations.each do |location| %>
+  <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
+<% end %>
+
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  /**
+   * This code is based on this example
+   * http://gmaps-samples-v3.googlecode.com/svn/trunk/poly/poly_edit.html
+   */
+  var poly, map;
+  var markers = [];
+  var path = new google.maps.MVCArray;
+
+  <% @region.polygon_array.each do |latlng| %>
+  path.push(new google.maps.LatLng(<%= latlng[0] %>, <%= latlng[1] %>));
+  <% end %>
+
+  window.onload = initialize;
+
+  function initialize() {
+
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: <%= (@region.zoom - 2) > 0 ? (@region.zoom - 2) : 0 %>,
+      center: new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>),
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    poly = new google.maps.Polygon({
+      strokeWeight: 3,
+      fillColor: '#5555FF'
+    });
+    poly.setMap(map);
+    poly.setPaths(new google.maps.MVCArray([path]));
+
+  }
+
+</script>

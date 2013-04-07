@@ -22,6 +22,41 @@ class StudiesController < ApplicationController
     end
   end
 
+  # GET /studies/1
+  # GET /studies/1.json
+  def analyze
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # vote.html.erb
+      format.json { render json: @study }
+    end
+  end
+
+  # GET /studies/1
+  # GET /studies/1.json
+  def vote
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # vote.html.erb
+      format.json { render json: @study }
+    end
+  end
+
+  # GET /studies/1
+  # GET /studies/1.json
+  def curate
+    # security - users should only be able to curate regions they own
+    @study = Study.find(params[:id])
+    @region = Region.find(params[:region_id])
+
+    respond_to do |format|
+      format.html # vote.html.erb
+      format.json { render json: @study }
+    end
+  end
+
   # GET /studies/new
   # GET /studies/new.json
   def new
@@ -42,7 +77,7 @@ class StudiesController < ApplicationController
   # POST /studies.json
   def create
     @study = Study.new(params[:study])
-    @study.user_id = current_user.uid
+    @study.user_id = current_user.id
 
     respond_to do |format|
       if @study.save

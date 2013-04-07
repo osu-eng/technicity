@@ -1,0 +1,40 @@
+<div style="float:right;width:200px;">
+  <small>
+  Slug: <%= @study.slug %><br />
+  Owner: <%= @study.user.name %>
+  </small>
+</div>
+<h1><%= @study.name %></h1>
+<!-- active li needs class active -->
+<!-- security - tabs should only show if there is a choice -->
+<ul class="nav nav-tabs">
+  <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "vote", :id => @study) %>>
+    <a href="<%= url_for :controller => "studies", :action => "vote", :id => @study %>">
+      <i class="icon-ok" style=""></i> Vote</a>
+    </li>
+  <!-- security - analyze should only show if study is public -->
+  <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "analyze", :id => @study) %>>
+    <a href="<%= url_for :controller => "studies", :action => "analyze", :id => @study %>">
+      <i class="icon-signal" style=""></i> Analyze</a>
+    </li>
+  <!-- security - edit should only show if study is public -->
+  <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "edit", :id => @study) %>">
+    <a href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
+      <i class="icon-edit" style=""></i> Edit</a>
+    </li>
+  <!-- security - curate should only show if study is public -->
+  <% if !@study.region_set.nil? && @study.region_set.regions.count > 0 %>
+  <li class="dropdown <%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
+      <i class="icon-th" style=""></i> Curate<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <% @study.region_set.regions.each do |region| %>
+        <li>
+          <a href="<%= url_for :controller => "studies", :action => "curate", :id => @study %>?region_id=<%= region.id %>">
+            <%= region.name %></a>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
