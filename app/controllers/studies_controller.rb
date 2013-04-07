@@ -1,5 +1,6 @@
 class StudiesController < ApplicationController
-    before_filter :require_ownership, only: [ :edit, :update, :destroy ]
+    before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate ]
+    before_filter :authenticate_user!, only: [ :new ]
   # GET /studies
   # GET /studies.json
   def index
@@ -128,5 +129,6 @@ class StudiesController < ApplicationController
       end
     end
   end
+  
   
 end
