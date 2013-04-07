@@ -1,4 +1,5 @@
 class StudiesController < ApplicationController
+    before_filter :require_ownership, only: [ :edit, :update, :destroy ]
   # GET /studies
   # GET /studies.json
   def index
@@ -81,4 +82,17 @@ class StudiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  #authorization
+  private
+  def require_ownership
+    @study = Study.find(params[:id])
+
+    if @study.user_id != current_user.id
+      respond_to do |format|
+        format.html { redirect_to @studies, alert: 'You can only modify your own Image Sets' }
+      end
+    end
+  end
+  
 end
