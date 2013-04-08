@@ -46,7 +46,6 @@ Capistrano::Configuration.instance(:must_exist).load do
         location = fetch(:template_dir, "config/deploy") + '/application.yml.erb'
         template = File.file?(location) ? File.read(location) : default_template
 
-        Capistrano::CLI.ui.say("Creating application.yml from template...")
         config = ERB.new(template)
 
         run "mkdir -p #{shared_path}/config"
