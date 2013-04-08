@@ -27,8 +27,32 @@ body {
     color: $darkgray;
     text-align: center;
     @include rounded-corners;
+    height: 200px;
+    p {
+      padding: 10px;
+      }
   }
+  
   padding-top: 40px;
 }
+
+.vote-button {
+  margin: auto;
+  }
+
+.voting-table td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.voting-table table {
+  margin-left: 85px;
+  margin-right: 20px;
+  }
+
+.display-question {
+  text-align: center;
+}
+
 @import "bootstrap-responsive";
 

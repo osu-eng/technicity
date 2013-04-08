@@ -1,2 +1,27 @@
-<h1>Home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<!-- select a random study -->
+<% @study = Study.find(:all, :limit => 1, :order => "RANDOM()") %>
+<!-- select 2 random locations from a random region from a region set within the study -->
+<% @regions = @study[0].region_set.regions.find(:all, :limit => 1, :order => "RANDOM()") %>
+<% @locations = @regions[0].locations.find(:all, :limit => 2, :order => "RANDOM()") %>
+  <div class="display-question">
+  <h3>Which image looks <%= @study[0].question %>?</h3>
+  </div>  
+  <div class="voting-table">
+  <table>
+  <tr>
+  <% @locations.each do |location| %>
+    <td class="vote-image">
+      <img src="http://maps.googleapis.com/maps/api/streetview?size=470x306&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
+    </td>
+  <% end %>
+  </tr>
+  <tr>
+  <td class="vote-button">
+    <%= button_to "1", new_comparison_path(:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id), :method => :post %>
+  </td>
+   <td class="vote-button">
+    <%= button_to "2", new_comparison_path(:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id), :method => :post %>
+  </td>
+  </tr>
+</table>
+</div>
