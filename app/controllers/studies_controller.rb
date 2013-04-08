@@ -1,4 +1,6 @@
 class StudiesController < ApplicationController
+    before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate ]
+    before_filter :authenticate_user!, only: [ :new ]
   # GET /studies
   # GET /studies.json
   def index
@@ -116,4 +118,17 @@ class StudiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  #authorization
+  def require_ownership
+    @study = Study.find(params[:id])
+
+    if @study.user_id != current_user.id
+      respond_to do |format|
+        format.html { redirect_to @study, alert: 'You can only modify your own studies' }
+      end
+    end
+  end
+  
+  
 end
