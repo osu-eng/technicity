@@ -2,8 +2,8 @@
 <!-- <p>Todo: voting interface</p> -->
 
 <!-- select 2 random locations from a random region from a region set within the study -->
-<% @regions = @study.region_set.regions.find(:all, :limit => 1, :order => "RANDOM()") %>
-<% @locations = @regions[0].locations.find(:all, :limit => 2, :order => "RANDOM()") %>
+<% @regions = @study.region_set.regions.find(:all).sample(1) %>
+<% @locations = @regions[0].locations.find(:all).sample(2) %>
   <table>
   <tr>
   <% @locations.each do |location| %>
