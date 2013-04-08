@@ -1,0 +1,10 @@
+# application.yml template
+TWITTER_CONSUMER_KEY: "<%= Capistrano::CLI.ui.ask("Enter the Twitter consumer key: ") %>"
+TWITTER_CONSUMER_SECRET: "<%= Capistrano::CLI.password_prompt("Enter the Twitter consumer secret: ") %>"
+
+FB_APP_ID: "<%= Capistrano::CLI.ui.ask("Enter the Facebook App ID: ") %>"
+FB_APP_SECRET: "<%= Capistrano::CLI.password_prompt("Enter the Facebook App secret: ") %>"
+
+COURSERA_APP_ID: "<%= Capistrano::CLI.ui.ask("Enter the Coursera App ID: ") %>"
+COURSERA_APP_SECRET: "<%= Capistrano::CLI.password_prompt("Enter the Cousera App secret: ") %>"
+#2013-04-01 Eventually will want to move other things in here, ie secret token

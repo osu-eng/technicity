@@ -1,2 +1,9 @@
 TWITTER_CONSUMER_KEY: "your-key-here"
 TWITTER_CONSUMER_SECRET: "your-secret-here"
+
+FB_APP_ID: "your-id-here"
+FB_APP_SECRET: "your-secret-here"
+
+COURSERA_APP_ID: "your-id-here"
+COURSERA_APP_SECRET: "you-secret-here"
+#2013-04-01 Eventually will want to move other things in here, ie secret token
