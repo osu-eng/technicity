@@ -1,5 +1,6 @@
 $:.unshift File.join(File.dirname(__FILE__), 'deploy') 
 require "capistrano_database_yml"
+require "capistrano_application_yml"
 
 set :application, "technicity"
 set :deploy_to, "/var/www/apps/#{application}"

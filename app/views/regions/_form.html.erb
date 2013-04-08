@@ -8,13 +8,17 @@
               :as => :text,
               :input_html => { :rows => 4 },
               :hint => 'A sentence or two describing this area.' %>
-  <% if !@study.nil? %>
+  <% if @study %>
     <%= hidden_field_tag :study_id, @study.id %>
+  <% end %>
+  <% if @region_set %>
+    <%= hidden_field_tag :region_set_id, @region_set.id %>
   <% end %>
   <% if !@create_set.nil? %>
     <%= hidden_field_tag :create_set,  true %>
   <% end %>
   <%= hidden_field_tag   :points %>
+  <%= hidden_field_tag   :add_another %>
 
   <%= f.input :latitude,  :as => :hidden %>
   <%= f.input :longitude, :as => :hidden %>
@@ -22,8 +26,11 @@
   <%= f.input :polygon,   :as => :hidden %>
 
   <div class="actions">
-    <button type="button" class="btn btn-primary" onclick="update_populate_and_submit();">
-      <i class="icon-ok icon-white"></i> Populate & Create Area
+    <button type="button" class="btn btn-primary" onclick="update_populate_and_submit(true);">
+      <i class="icon-plus-sign icon-white"></i> Save and Add Another
+    </button>
+    <button type="button" class="btn btn-primary" onclick="update_populate_and_submit(false);">
+      <i class="icon-ok icon-white"></i> Save and Return to Study
     </button>
   </div>
 
@@ -62,11 +69,13 @@
    * For now, this populates points, sets form values, and then submits.
    * This should probably be refactored to improve UI.
    */
-  function update_populate_and_submit() {
+  function update_populate_and_submit(add_another) {
 
     // Don't do anything if there aren't enough markers to define a triangle
     if (markers.length > 2) {
 
+      // This indicates whether or not we are going to add another region after this
+      document.getElementById('add_another').value = add_another;
       // First render the map readonly and repopulate points
       // Next lets populate some points and ensure they are in streetview
       populatePoints(50);

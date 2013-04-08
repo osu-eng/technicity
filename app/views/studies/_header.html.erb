@@ -39,6 +39,10 @@
               <%= region.name %></a>
             </li>
           <% end %>
+          <li>
+            <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @study.region_set.id.to_s %>">
+              Add New Region</a>
+            </li>
         </ul>
       </li>
     <% end %>
