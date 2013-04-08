@@ -82,7 +82,8 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       if @study.save
-        format.html { redirect_to @study, notice: 'Study was successfully created.' }
+
+        format.html { redirect_to url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true', notice: 'Study was successfully created.' }
         format.json { render json: @study, status: :created, location: @study }
       else
         format.html { render action: "new" }
@@ -118,7 +119,7 @@ class StudiesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   #authorization
   def require_ownership
     @study = Study.find(params[:id])
@@ -129,6 +130,6 @@ class StudiesController < ApplicationController
       end
     end
   end
-  
-  
+
+
 end
