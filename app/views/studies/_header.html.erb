@@ -1,8 +1,7 @@
 <div style="float:right;width:200px;">
   <small>
   Slug: <%= @study.slug %><br />
-  <!-- MF placeholder, should display name here -->
-  Owner: <%= @study.user_id %>
+  Owner: <%= @study.user.email %>
   </small>
 </div>
 <h1><%= @study.name %></h1>
