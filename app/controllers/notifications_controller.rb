@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  before_filter :require_admin, only: [ :edit, :update, :destroy, :index ]
   # GET /notifications
   # GET /notifications.json
   def index
@@ -80,4 +81,21 @@ class NotificationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  #authorization
+  def require_admin
+    #@notification = Notification.new
+    if user_signed_in?
+      if current_user.id != 1
+        respond_to do |format|
+          format.html { redirect_to :home, alert: 'You must be an admin to view this content.' }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :home, alert: 'You must be an admin to view this content.' }
+      end
+    end
+  end
+  
 end
