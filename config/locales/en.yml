@@ -1,10 +1,20 @@
 # English translation
 
 en:
-  dictionary:
-    site_title: &site_title StreetSeen
+  site_name: &site_title StreetSeen
 
   layouts:
+    application:
+      trio1:
+        title: Explore StreetSeen
+        text: Here would be some text about the about and help pages
+      trio2:
+        title: See Study Results
+        text: Here would be some text about how to view results
+      trio3:
+        title: Contact Us
+        text: Here would be some text on how to reach us with questions
+
     navigation:
       about: About
       public_studies: Public Studies
