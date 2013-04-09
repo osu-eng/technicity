@@ -4,11 +4,15 @@
 <!-- select 2 random locations from a random region from a region set within the study -->
 <% @regions = @study.region_set.regions.find(:all).sample(1) %>
 <% @locations = @regions[0].locations.find(:all).sample(2) %>
+  <div class="display-question">
+  <h3>Which image looks <%= @study[0].question %>?</h3>
+  </div>  
+  <div class="voting-table">
   <table>
   <tr>
   <% @locations.each do |location| %>
     <td class="vote-image">
-      <img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
+      <img src="http://maps.googleapis.com/maps/api/streetview?size=470x306&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
     </td>
   <% end %>
   </tr>
@@ -21,6 +25,7 @@
   </td>
   </tr>
 </table>
+</div>
 
 
       

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402212435) do
+ActiveRecord::Schema.define(:version => 20130409144359) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(:version => 20130402212435) do
     t.float    "longitude"
     t.integer  "heading"
     t.integer  "pitch"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
