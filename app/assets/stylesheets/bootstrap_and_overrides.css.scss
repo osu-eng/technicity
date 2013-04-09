@@ -54,5 +54,13 @@ body {
   text-align: center;
 }
 
+.overlay-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1500;
+  border: 0 none;
+}
+
 @import "bootstrap-responsive";
 
