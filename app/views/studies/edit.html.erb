@@ -6,8 +6,7 @@
 </fieldset>
 
 <fieldset>
-  <legend>Image Set <i class="icon-info-sign label-with-popover" data-content="An Image Set defines the set of images used by your study. An image set consists of multiple areas or cities each of which contains many images."
-         data-title="What is an Image Set?"></i></legend>
+  <legend>Image Set <%= render :partial => 'layouts/info_icon', :locals => { :topic => 'image_set' } %></legend>
   <%# Allow editor to create add a region set if necessary %>
   <% if @study.region_set.nil? %>
     <p>

@@ -33,3 +33,8 @@ en:
       title: Editing comparison
       show: *show
       back: *back
+
+  help:
+    image_set:
+      title: What is an image set?
+      content: An Image Set defines the set of images used by your study. An image set consists of multiple areas or cities each of which contains many images.
