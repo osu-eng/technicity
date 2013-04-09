@@ -1,5 +1,16 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# English translation
 
 en:
-  hello: "Hello world"
+  dictionary:
+    site_title: &site_title StreetSeen
+
+  layouts:
+    _navigation:
+      about: About
+      public_studies: Public Studies
+      help: Help
+      technicity: Technicity
+      my_research: My Research
+      edit_profile: Edit Profile
+      logout: Logout
+      login: Login
