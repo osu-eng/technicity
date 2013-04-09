@@ -2,6 +2,9 @@
 
 en:
   site_name: &site_title StreetSeen
+  show: &show Show
+  back: &back Back
+  edit: &edit Edit
 
   layouts:
     application:
@@ -24,3 +27,9 @@ en:
       edit_profile: Edit Profile
       logout: Logout
       login: Login
+
+  comparisons:
+    edit:
+      title: Editing comparison
+      show: *show
+      back: *back

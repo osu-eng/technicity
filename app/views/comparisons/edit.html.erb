@@ -1,6 +1,6 @@
-<h1>Editing comparison</h1>
+<h1><%= t '.title' %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @comparison %> |
-<%= link_to 'Back', comparisons_path %>
+<%= link_to t('.show'), @comparison %> |
+<%= link_to t('.back'), comparisons_path %>
