@@ -1,5 +1,8 @@
 Technicity::Application.routes.draw do
 
+  resources :notifications
+
+
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
 
@@ -12,8 +15,11 @@ Technicity::Application.routes.draw do
   get "help", to: 'static_pages#help'
   get "about", to: 'static_pages#about'
 
-  resources :comparisons
-
+  resources :comparisons do
+    member do
+      post 'new'
+    end
+  end
 
   resources :locations
 

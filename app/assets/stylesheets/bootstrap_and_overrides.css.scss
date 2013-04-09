@@ -11,6 +11,10 @@ $darkred: #990033;
 
 @import "bootstrap";
 
+a:hover {
+  background-color: #ffffff;
+  }
+  
 body { 
   padding-top: 60px;
   background: $white;
@@ -61,6 +65,10 @@ body {
   z-index: 1500;
   border: 0 none;
 }
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  height: 25px;
+  }
 
 @import "bootstrap-responsive";
 

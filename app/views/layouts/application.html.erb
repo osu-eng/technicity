@@ -13,7 +13,7 @@
   </head>
   <body >
     <div class="overlay-corner">
-    <%= image_tag("SS-corner.png", :alt => "Email Us") %>
+    <%= link_to image_tag("SS-corner.png", :alt => "Email Us"), {:action => 'new', :controller => 'notifications'} %>
     </div>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
