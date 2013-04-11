@@ -12,9 +12,6 @@
     <%= yield(:head) %>
   </head>
   <body >
-    <div class="overlay-corner">
-    <%= link_to image_tag("SS-corner.png", :alt => "Email Us"), {:action => 'new', :controller => 'notifications'} %>
-    </div>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -29,6 +26,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- MF - remove in production -->
+    <div class="overlay-corner">
+    <%= link_to image_tag("SS-corner.png", :alt => "Email Us"), :notify %>
     </div>
     <div id="main" role="main">
       <div class="container">

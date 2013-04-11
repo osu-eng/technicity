@@ -1,11 +1,10 @@
 Technicity::Application.routes.draw do
 
-  resources :notifications
-
+  
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
-
+ 
   resources :region_set_memberships
 
 
@@ -14,6 +13,7 @@ Technicity::Application.routes.draw do
   get "home", to: 'static_pages#home'
   get "help", to: 'static_pages#help'
   get "about", to: 'static_pages#about'
+  get "notify", to: 'notifications#new'
 
   resources :comparisons do
     member do
@@ -34,7 +34,8 @@ Technicity::Application.routes.draw do
   end
 
   resources :users
-
+  
+  resources :notifications
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
