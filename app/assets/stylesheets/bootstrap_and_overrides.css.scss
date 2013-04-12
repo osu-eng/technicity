@@ -9,19 +9,30 @@ $darkred: #990033;
   -webkit-border-radius: 5px;
 }
 
+@mixin tab-corners {
+  border-radius: 0 0 10px 10px;
+  -moz-border-radius: 0 0 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
+}
+
+@mixin element-shadow {
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  }
+
 @import "bootstrap";
 
-a:hover {
-  background-color: #ffffff;
-  }
+
   
 body { 
-  padding-top: 60px;
+  padding-top: 40px;
   background: $white;
+  font-family: 'Noto Sans', sans-serif;
  }
 
-#usernav {
+.navbar .nav {
   float: right;
+  font-size: 16px;
+  margin: 30px 10px 0 0;
   }
 
 #bottom-trio {
@@ -36,22 +47,41 @@ body {
       padding: 10px;
       }
   }
-  
-  padding-top: 40px;
+  padding-top: 100px;
 }
 
 .vote-button {
-  margin: auto;
+  background: url('SS-vote-btn.png') no-repeat center;
+  height: 100px;
+  position:relative;
+  text-align: center;
+  display: inline;
+  padding: 250px;
+  }
+  
+.vote-button-text {
+  color: $white;
+  font-size: 48px;
+      left: 2px;
+    position: relative;
+    top: 10px;
   }
 
-.voting-table td {
-  padding-left: 10px;
-  padding-right: 10px;
-}
+#vote-container {
+ text-align: center;
+ margin-top: 20px;
+ }
+ #vote-button-container {
+   margin: 0;
+ }
 
-.voting-table table {
-  margin-left: 85px;
-  margin-right: 20px;
+.vote-image {
+  display: inline;
+  padding: 20px;
+  img {
+    position: relative;
+    padding-top: 20px;
+    }
   }
 
 .display-question {
@@ -68,6 +98,34 @@ body {
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   height: 25px;
+  }
+
+
+#main {
+  padding-top: 50px;
+  }
+
+.overlay-logo {
+  .span3 {
+    position: absolute;
+    top: 0;
+    z-index: 1400;
+    @include tab-corners;
+    @include element-shadow;
+    border: 0 1px 1px 1px;
+    border-color: $white;
+    background-color: $gray;
+    margin-left: 0;
+    }
+}
+
+.navbar .brand {
+  padding: 5px;
+  margin-left: 4px;
+  }
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+  position: absolute;
   }
 
 @import "bootstrap-responsive";

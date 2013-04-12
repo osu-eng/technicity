@@ -9,29 +9,32 @@
     <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false' %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
+    <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
     <%= yield(:head) %>
   </head>
   <body >
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
+              <a class="brand" href="home"><%= image_tag("SS-banner-sized.png", :alt => "StreetSeen") %></a>
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="home"><%= t :site_name %></a>
           <div class="nav-collapse">
             <%= render 'layouts/navigation' %>
           </div>
         </div>
       </div>
     </div>
+
     <!-- MF - remove in production -->
     <div class="overlay-corner">
     <%= link_to image_tag("SS-corner.png", :alt => "Email Us"), :notify %>
     </div>
     <div id="main" role="main">
+    
       <div class="container">
         <div class="row">
           <div class="span12">

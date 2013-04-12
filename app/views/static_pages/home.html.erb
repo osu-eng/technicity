@@ -3,25 +3,21 @@
 <!-- select 2 random locations from a random region from a region set within the study -->
 <% @regions = @study[0].region_set.regions.find(:all).sample(1) %>
 <% @locations = @regions[0].locations.find(:all).sample(2) %>
+<div class="row" id="vote-container">  
   <div class="display-question">
-  <h3>Which image looks <%= @study[0].question %>?</h3>
+    <h3>Which image looks <%= @study[0].question %>?</h3>
   </div>  
-  <div class="voting-table">
-  <table>
-  <tr>
   <% @locations.each do |location| %>
-    <td class="vote-image">
+    <div class="vote-image">
       <img src="http://maps.googleapis.com/maps/api/streetview?size=470x306&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
-    </td>
+    </div>
   <% end %>
-  </tr>
-  <tr>
-  <td class="vote-button">
-    <%= button_to "1", new_comparison_path(:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id), :method => :post %>
-  </td>
-   <td class="vote-button">
-    <%= button_to "2", new_comparison_path(:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id), :method => :post %>
-  </td>
-  </tr>
-</table>
-</div>
+  <div class="row" id="vote-button-container">
+    <div class="vote-button">
+      <%= link_to "1", :home, { :class => 'vote-button-text' } %>
+    </div>
+    <div class="vote-button">
+      <%= link_to "2", :home, { :class => 'vote-button-text' } %>
+    </div>
+  </div>
+  </div>
