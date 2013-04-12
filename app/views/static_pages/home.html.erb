@@ -6,18 +6,24 @@
 <div class="row" id="vote-container">  
   <div class="display-question">
     <h3>Which image looks <%= @study[0].question %>?</h3>
-  </div>  
-  <% @locations.each do |location| %>
-    <div class="vote-image">
-      <img src="http://maps.googleapis.com/maps/api/streetview?size=470x306&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
-    </div>
-  <% end %>
+  </div>
+  <% @imagelink1 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[0].latitude.to_s() + "%20" + @locations[0].longitude.to_s() + "&sensor=false" %>
+  <% @imagelink2 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[1].latitude.to_s() + "%20" + @locations[1].longitude.to_s() + "&sensor=false" %>
+
+  <div class="vote-image">
+    <%= link_to image_tag("#{@imagelink1}"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
+  </div>
+  <div class="vote-image">
+    <%= link_to image_tag("#{@imagelink2}"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
+  </div>
   <div class="row" id="vote-button-container">
-    <div class="vote-button">
-      <%= link_to "1", :home, { :class => 'vote-button-text' } %>
+    <div class="span5" id="vote-button">
+      <%= link_to '1', comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
-    <div class="vote-button">
-      <%= link_to "2", :home, { :class => 'vote-button-text' } %>
+    <div class="span5" id="vote-button">
+      <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
   </div>
-  </div>
+</div>
+
+

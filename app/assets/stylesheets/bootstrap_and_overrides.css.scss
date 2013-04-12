@@ -50,21 +50,18 @@ body {
   padding-top: 100px;
 }
 
-.vote-button {
+#vote-button {
   background: url('SS-vote-btn.png') no-repeat center;
   height: 100px;
   position:relative;
   text-align: center;
-  display: inline;
-  padding: 250px;
   }
   
 .vote-button-text {
   color: $white;
   font-size: 48px;
-      left: 2px;
-    position: relative;
-    top: 10px;
+  position: relative;
+  top: 36px;
   }
 
 #vote-container {
@@ -72,7 +69,8 @@ body {
  margin-top: 20px;
  }
  #vote-button-container {
-   margin: 0;
+   margin: -25px 0 0 0;
+   padding-left: 75px;
  }
 
 .vote-image {
