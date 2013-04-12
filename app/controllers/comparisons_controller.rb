@@ -44,8 +44,8 @@ class ComparisonsController < ApplicationController
 
     respond_to do |format|
       if @comparison.save
-        format.html { redirect_to @comparison, notice: 'Comparison was successfully created.' }
-        format.json { render json: @comparison, status: :created, location: @comparison }
+        format.html { redirect_to :back, notice: 'Thanks for your vote!' }
+        format.json { render json: @notification, status: :created, location: @notification }
       else
         format.html { render action: "new" }
         format.json { render json: @comparison.errors, status: :unprocessable_entity }

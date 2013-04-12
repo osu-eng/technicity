@@ -10,13 +10,13 @@ en:
     application:
       trio1:
         title: Explore StreetSeen
-        text: Here would be some text about the about and help pages
+        text: We will be developing About and Help pages as soon as we can.
       trio2:
-        title: See Study Results
-        text: Here would be some text about how to view results
+        title: What is Technicity?
+        text: This app was born to support TechniCity, a Coursera course taught by Jennifer Evans-Cowley and Thomas W. Sanchez.  Click on the icon above to learn more.
       trio3:
         title: Contact Us
-        text: Here would be some text on how to reach us with questions
+        text: Contact information will be coming soon.
 
     navigation:
       about: About
