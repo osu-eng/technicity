@@ -10,13 +10,14 @@ en:
     application:
       trio1:
         title: Explore StreetSeen
-        text: We will be developing About and Help pages as soon as we can.
+        text: This the demo version of StreetSeen.  Currently, you can vote on existing studies by selecting one of the images above.  Soon, you'll be able to create your own studies.
       trio2:
         title: What is Technicity?
         text: This app was born to support TechniCity, a Coursera course taught by Jennifer Evans-Cowley and Thomas W. Sanchez.  Click on the icon above to learn more.
       trio3:
         title: Contact Us
-        text: Contact information will be coming soon.
+        text: Welcome to StreetSeen version 1.0.  We encourage you to create your own study and let us know what you think - tweet us @OSUStreetSeen or email Cowley.11@osu.edu. The feedback of our users is essential to the continued evolution of StreetSeen. 
+
 
     navigation:
       about: About
