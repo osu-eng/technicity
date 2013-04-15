@@ -40,11 +40,17 @@ body {
     background-color: $gray;
     border: 1px;
     color: $darkgray;
-    text-align: center;
     @include rounded-corners;
-    height: 400px;
+    height: 340px;
     p {
-      padding: 10px;
+      padding: 10px 20px 0 20px;
+      }
+    a {
+      color: $darkred;
+      }
+    img {
+      position: relative;
+      float: left;
       }
   }
   padding-top: 40px;
@@ -137,6 +143,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   position: absolute;
   }
 
+.TC-icon {
+    margin: 10px 36px;
+  }
 
 @import "bootstrap-responsive";
 

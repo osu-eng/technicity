@@ -43,19 +43,8 @@
           </div>
         </div>
         <div class="row" id="bottom-trio">
-          <div class="span4">
-          <h3><%= t '.trio1.title' %></h3>
-          <p><%= t '.trio1.text' %></p>
-          </div>
-          <div class="span4">
-          <h3><%= t '.trio2.title' %></h3>
-          <%= link_to image_tag("FinalPerspective.jpg", :alt => "TechniCity on Coursera"), "https://www.coursera.org/course/techcity" %>
-          <p><%= t '.trio2.text' %></p>
-          </div>
-          <div class="span4">
-          <h3><%= t '.trio3.title' %></h3>
-          <p><%= t '.trio3.text' %></p>
-          </div>
+          <%= render "layouts/bottom_trio" %>
+        </div>
       </div>
 
         </div>
