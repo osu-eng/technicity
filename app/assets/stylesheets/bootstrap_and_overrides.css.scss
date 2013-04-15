@@ -139,6 +139,15 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   margin-left: 4px;
   }
 
+@media (max-width: 767px) {
+  .navbar .brand{
+    width: 150px;
+    }
+  .overlay-corner{
+    width: 200px;
+    }
+}
+
 .navbar-fixed-top, .navbar-fixed-bottom {
   position: absolute;
   }
