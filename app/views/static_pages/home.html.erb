@@ -24,6 +24,9 @@
       <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
   </div>
+  <div class="skip-vote-row">
+    <%= link_to 'Can\'t decide, let\'s skip this one.', :home %>
+  </div>
 </div>
 
 

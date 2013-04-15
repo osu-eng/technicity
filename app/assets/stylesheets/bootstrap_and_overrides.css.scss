@@ -72,11 +72,17 @@ a:hover, a:focus {
 #vote-container {
  text-align: center;
  margin-top: 20px;
+ margin-left: 10px;
+ .skip-vote-row a {
+   color: $darkred;
+   }
  }
- #vote-button-container {
+ 
+#vote-button-container {
    margin: -25px 0 0 0;
-   padding-left: 75px;
+   padding-left: 60px;
  }
+ 
 
 .vote-image {
   display: inline;
@@ -130,6 +136,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .navbar-fixed-top, .navbar-fixed-bottom {
   position: absolute;
   }
+
 
 @import "bootstrap-responsive";
 
