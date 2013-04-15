@@ -3,28 +3,34 @@
 <!-- select 2 random locations from a random region from a region set within the study -->
 <% @regions = @study[0].region_set.regions.find(:all).sample(1) %>
 <% @locations = @regions[0].locations.find(:all).sample(2) %>
-<div class="row" id="vote-container">  
-  <div class="display-question">
+<% @imagelink1 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[0].latitude.to_s() + "%20" + @locations[0].longitude.to_s() + "&sensor=false" %>
+<% @imagelink2 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[1].latitude.to_s() + "%20" + @locations[1].longitude.to_s() + "&sensor=false" %>
+<div class="row" id="display-question">  
+  <div class="span12 text-center">
     <h3>Which image looks <%= @study[0].question %>?</h3>
   </div>
-  <% @imagelink1 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[0].latitude.to_s() + "%20" + @locations[0].longitude.to_s() + "&sensor=false" %>
-  <% @imagelink2 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[1].latitude.to_s() + "%20" + @locations[1].longitude.to_s() + "&sensor=false" %>
-
-  <div class="vote-image">
-    <%= link_to image_tag("#{@imagelink1}"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
-  </div>
-  <div class="vote-image">
-    <%= link_to image_tag("#{@imagelink2}"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
-  </div>
-  <div class="row" id="vote-button-container">
-    <div class="span5" id="vote-button">
+</div>
+<div class="row text-center">
+  <div class="span5 offset1">
+    <div class="vote-image">
+      <%= link_to image_tag("#{@imagelink1}", :size => "470x306"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
+    </div>
+    <div class="vote-button">
       <%= link_to '1', comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
-    <div class="span5" id="vote-button">
+  </div>
+  <div class="span5">
+    <div class="vote-image">
+      <%= link_to image_tag("#{@imagelink2}", :size => "470x306"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
+    </div>
+    <div class="vote-button">
       <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
   </div>
-  <div class="skip-vote-row">
+</div>
+
+<div class="row">
+  <div class="span12 skip-vote-row text-center">
     <%= link_to 'Can\'t decide, let\'s skip this one.', :home %>
   </div>
 </div>
