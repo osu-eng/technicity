@@ -7,7 +7,7 @@ en:
   edit: &edit Edit
 
   layouts:
-    application:
+    bottom_trio:
       trio1:
         title: Explore StreetSeen
         text: This the demo version of StreetSeen.  Currently, you can vote on existing studies by selecting one of the images above.  Soon, you'll be able to create your own studies.
