@@ -60,7 +60,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location.update_attributes(params[:location])
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @location}
       else
         format.html { render action: "edit" }
         format.json { render json: @location.errors, status: :unprocessable_entity }
@@ -73,10 +73,10 @@ class LocationsController < ApplicationController
   def destroy
     @location = Location.find(params[:id])
     @location.destroy
-
+    flash[:notice] = "Successfully deleted image."
     respond_to do |format|
       format.html { redirect_to locations_url }
-      format.json { head :no_content }
+      format.json { render json: @location}
     end
   end
 end

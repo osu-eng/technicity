@@ -22,8 +22,8 @@ $darkred: #990033;
 @import "bootstrap";
 
 
-  
-body { 
+
+body {
   padding-top: 40px;
   background: $white;
   font-family: 'Noto Sans', sans-serif;
@@ -68,14 +68,14 @@ body {
   text-align: center;
   margin: -25px 0 0 0;
   }
-  
+
 .vote-button-text {
   color: $white;
   font-size: 48px;
   position: relative;
   top: 36px;
   }
-  
+
 a:hover, a:focus {
   text-decoration: none;
   color: $gray;
@@ -160,3 +160,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 @import "bootstrap-responsive";
 
+.curate a.thumbnail {
+  width:220px;
+  float:left;
+}
