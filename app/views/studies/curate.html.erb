@@ -11,12 +11,54 @@
 <p><strong>Description:</strong><br /><%= @region.description %><p>
 
 <hr style="clear:both;"/>
+
+<div id="edit-location-modal" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" >&times;</a>
+    <h3>Edit Image</h3>
+  </div>
+  <div class="modal-body" align="center">
+    <div id="panorama" style="width:400px;height:300px"></div>
+    <p>To edit, rotate to your desired heading by clicking and dragging.</p>
+    <div id="panorama-map" style=""></div>
+  </div>
+  <div class="modal-footer">
+    <a id="save_changes" class="btn btn-primary cursor" onclick="page.updateLocation();">Save Changes</a>
+    <a id="delete_image" class="btn cursor" onclick="page.deleteLocation()">Delete Image</a>
+    <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
+  </div>
+</div>
+<div class="curate thumbs">
 <% @region.locations.each do |location| %>
-  <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&sensor=false" />
+  <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
+     onclick="page.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
+    <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
+  </a>
 <% end %>
+</div>
+
+<div class="modal hide fade" id="delete-location-modal" align="left">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Confirm Delete</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this image?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" onclick="page.deleteLocationCancel();">Cancel</a>
+    <a id="delete-locatio-confirm" class="btn btn-primary" onclick="page.deleteLocationConfirm();">Delete Image</a>
+  </div>
+</div>
 
 
 <script type="text/javascript">
+
+  // A handler for the curate process
+  var page = new ss.handler.Curate(
+    'edit-location-modal', 'panorama-map', 'panorama',
+    'delete-location-modal', 'location-');
+
   /**
    * These variables are global in scope.
    * They are used by functions in polygon.js.
@@ -55,7 +97,6 @@
     <% end %>
   }
 
+
 </script>
 
-
-s
