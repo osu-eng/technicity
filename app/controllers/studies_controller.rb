@@ -120,15 +120,10 @@ class StudiesController < ApplicationController
     end
   end
 
+  private
   #authorization
   def require_ownership
-    @study = Study.find(params[:id])
-
-    if @study.user_id != current_user.id
-      respond_to do |format|
-        format.html { redirect_to @study, alert: 'You can only modify your own studies' }
-      end
-    end
+    @study = require_model_ownership(Study)
   end
 
 
