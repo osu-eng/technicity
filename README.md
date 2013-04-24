@@ -31,7 +31,5 @@ Problems have been observed with libv8, therubyracer, and mysql. You may need to
 Credits and Licensing
 ---------------------
 
-
-This is probably going to be licensed under GPLv2
-http://code.google.com/p/google-maps-extensions/source/browse/google.maps.Polygon.getBounds.js
-http://gmaps-samples-v3.googlecode.com/svn/trunk/poly/poly_edit.html
+http://code.google.com/p/google-maps-extensions/source/browse/google.maps.Polygon.getBounds.js  
+http://gmaps-samples-v3.googlecode.com/svn/trunk/poly/poly_edit.html  
