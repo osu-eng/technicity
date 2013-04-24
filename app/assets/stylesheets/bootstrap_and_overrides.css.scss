@@ -164,3 +164,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   width:220px;
   float:left;
 }
+
+/**
+ * We were getting squished markers on maps
+ * http://stackoverflow.com/questions/10821304/google-maps-marker-strangely-stretched-issue
+ */
+.map label { width: auto; display:inline; }
+.map img { max-height: none; max-width: none; }

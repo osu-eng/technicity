@@ -122,47 +122,7 @@ if (!google.maps.Polygon.prototype.getBounds) {
   }
 }
 
-/**
- * Generates random points within a polygon.
- *
- * This algorithm works by constructing a bounding box for a polygon
- * and guessing points randomly within that box. These are then checked
- * to see if they inside the polygon. Note, this extends the polygon class.
- *
- * @param  {[integer]} desired   Desired number of points
- * @return {[MVCArray]}          Points in the polygon
- */
-google.maps.Polygon.prototype.randomPoints = function(desired) {
 
-  var maxTries = 1000;
-
-  var points = new google.maps.MVCArray;
-  var bounds = this.getBounds();
-
-  var lowerLat = bounds.getSouthWest().lat();
-  var lowerLng = bounds.getSouthWest().lng();
-
-  // There is a concern here about crossing the international date line
-  var latRange = bounds.getNorthEast().lat() - lowerLat;
-  var lngRange = bounds.getNorthEast().lng() - lowerLng;
-
-  // Iterate until we reach the desired number of points
-  var tries = 0;
-  while ((points.length < desired) && (tries < maxTries)) {
-
-    // Guess a point in the bounding box.
-    var candidate = new google.maps.LatLng(lowerLat + latRange * Math.random(), lowerLng + lngRange * Math.random());
-
-    // Test to see if it is in our polygon.
-    if (google.maps.geometry.poly.containsLocation(candidate, this)) {
-      points.push(candidate);
-    }
-
-    tries++;
-  }
-
-  return points;
-}
 
 /**
  * PHP-like print_r() & var_dump() equivalent for JavaScript Object

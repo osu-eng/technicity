@@ -29,7 +29,7 @@ ss.Location = function (id, latitude, longitude, heading, pitch) {
  *
  * @param  {function} successHandler function to be called upon success.
  */
-ss.Location.prototype.update= function(successHandler) {
+ss.Location.prototype.update = function(successHandler) {
   $.ajax({
     url:'/locations/' + this.id,
     // Expect JSON to be returned. This is also enforced on the server via mimetype.
