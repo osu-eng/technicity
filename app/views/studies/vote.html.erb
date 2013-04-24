@@ -14,18 +14,18 @@
 <div class="row text-center">
   <div class="span5 offset1">
     <div class="vote-image">
-      <%= link_to image_tag("#{@imagelink1}", :size => "470x306"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
+      <%= link_to image_tag("#{@imagelink1}", :size => "470x306"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id, :study_id => @study.id}) , :method => :post %>
     </div>
     <div class="vote-button">
-      <%= link_to '1', comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post, :class => 'vote-button-text' %>
+      <%= link_to '1', comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id, :study_id => @study.id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
   </div>
   <div class="span5">
     <div class="vote-image">
-      <%= link_to image_tag("#{@imagelink2}", :size => "470x306"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id}) , :method => :post %>
+      <%= link_to image_tag("#{@imagelink2}", :size => "470x306"), comparisons_path(:comparison => {:chosen_location_id => @locations[0].id, :rejected_location_id => @locations[1].id, :study_id => @study.id}) , :method => :post %>
     </div>
     <div class="vote-button">
-      <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id}) , :method => :post, :class => 'vote-button-text' %>
+      <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => @locations[1].id, :rejected_location_id => @locations[0].id, :study_id => @study.id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
   </div>
 </div>
