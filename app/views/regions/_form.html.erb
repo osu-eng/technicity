@@ -1,6 +1,7 @@
 <%= simple_form_for(@region) do |f| %>
   <div style="width: 500px; float:right;">
-    <div id="map" style="width: 500; height: 350;"></div>
+    <div id="map" class="map" style="width: 500; height: 350;"></div>
+    <div id="found-id" style="font-size:larger;"></div>
   </div>
   <%= f.input :name,
               :hint => 'A short, friendly name by which to remember this area.' %>
@@ -26,10 +27,10 @@
   <%= f.input :polygon,   :as => :hidden %>
 
   <div class="actions">
-    <button type="button" class="btn btn-primary" onclick="update_populate_and_submit(true);">
+    <button type="button" class="btn btn-primary" onclick="handler.lock();handler.addPoints(50, 50, 'found-id');">
       <i class="icon-plus-sign icon-white"></i> Save and Add Another
     </button>
-    <button type="button" class="btn btn-primary" onclick="update_populate_and_submit(false);">
+    <button type="button" class="btn btn-primary" onclick="handler.lock();">
       <i class="icon-ok icon-white"></i> Save and Return to Study
     </button>
   </div>
@@ -43,32 +44,36 @@
    * These variables are global in scope.
    * They are used by functions in polygon.js.
    */
-  var map;
-  var polygon;
-  var markers = [];
-  var locations = [];
-  var path = new google.maps.MVCArray;
+  // var map;
+  // var polygon;
+  // var markers = [];
+  // var locations = [];
+  // var path = new google.maps.MVCArray;
 
   // The google maps api requires us to use an onload initializer.
-  window.onload = initialize;
+  var handler;
+  window.onload = function () {
+    handler = new ss.handler.Polygon('map');
+  }
 
   /**
    * Initializes are map.
-   */
   function initialize() {
 
     var center = new google.maps.LatLng(39.9611, -82.9989);
     var zoom = 10;
 
-    map = initializeMap('map', center, zoom, true);
+    map = new ss.initializeMap('map', center, zoom, true);
     google.maps.event.addListener(map, 'click', addPoint);
   }
+   */
 
   /**
    * Submit callback for the form.
    * For now, this populates points, sets form values, and then submits.
    * This should probably be refactored to improve UI.
    */
+   /*
   function update_populate_and_submit(add_another) {
 
     // Don't do anything if there aren't enough markers to define a triangle
@@ -84,7 +89,6 @@
       setInterval(check_submit, 1000);
     }
   }
-
   function check_submit() {
     if (locations.length > 9) {
       // Lets build a string representation of the polygon
@@ -111,4 +115,5 @@
       document.getElementById('new_region').submit();
     }
   }
+  */
 </script>
