@@ -11,6 +11,10 @@
   Which place looks <%= @study.question %>?
 </p>
 
+<h3>Results</h3>
+<%= render 'comparisons/listbystudy', :study => @study %>
+
+<!-- MF do we want this to be a link out to an image set view? -->
 <%# Allow editor to create add a region set if necessary %>
 <!-- MF added check for owner for edit links-->
 <% if @study.region_set.nil? %>
