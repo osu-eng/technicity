@@ -1,14 +1,42 @@
 <%= simple_form_for(@region) do |f| %>
-  <div style="width: 500px; float:right;">
-    <div id="map" class="map" style="width: 500; height: 350;"></div>
-    <div id="found-id" style="font-size:larger;"></div>
+  <div class="clearfix">
+    <div style="float:left;width:400px;margin-right:80px;">
+      <%= f.input :name,
+                  :input_html => { :style => 'width:400px;'},
+                  :hint => 'A short, friendly name by which to remember this area.' %>
+      <%= f.input :description,
+                  :as => :text,
+                  :input_html => { :rows => 4, :style => 'width:400px;height:200px'},
+                  :hint => 'A sentence or two describing this area.' %>
+
+      <div class="control-group string optional quantity">
+        <label>How many images do you want from this area?</label>
+        <div class="controls">
+          Give me
+          <input id="quantity" type="textfield" style="width:50px;" value="25" />
+          images at least
+          <input id="proximity" type="textfield" style="width:50px;" value="50" />
+          meters apart.
+        </div>
+      </div>
+    </div>
+    <div style="width: 500px; float:left;margin-top:20px;margin-bottom:40px;">
+      <div id="map" class="map" style="width: 500; height: 350;"></div>
+
+      <div class="clearfix" style="margin-top:12px;">
+        <%= image_tag("SS-drawn-polygon.png", :style => "width:70px;float:right;") %>
+        <label>
+          Pan and Zoom to find the area you wish to study.
+          <br />
+          Draw a polygon by clicking on the map.</label>
+      </div>
+
+
+
+      <div id="found-id" style="font-size:larger;"></div>
+    </div>
   </div>
-  <%= f.input :name,
-              :hint => 'A short, friendly name by which to remember this area.' %>
-  <%= f.input :description,
-              :as => :text,
-              :input_html => { :rows => 4 },
-              :hint => 'A sentence or two describing this area.' %>
+
   <% if @study %>
     <%= hidden_field_tag :study_id, @study.id %>
   <% end %>
@@ -27,10 +55,10 @@
   <%= f.input :polygon,   :as => :hidden %>
 
   <div class="actions">
-    <button type="button" class="btn btn-primary" onclick="handler.lock();handler.addPoints(50, 50, 'found-id');">
+    <button type="button" class="btn btn-primary" onclick="addAndSubmit('true');">
       <i class="icon-plus-sign icon-white"></i> Save and Add Another
     </button>
-    <button type="button" class="btn btn-primary" onclick="handler.lock();">
+    <button type="button" class="btn btn-primary" onclick="addAndSubmit('false');">
       <i class="icon-ok icon-white"></i> Save and Return to Study
     </button>
   </div>
@@ -40,80 +68,63 @@
 
 
 <script type="text/javascript">
-  /**
-   * These variables are global in scope.
-   * They are used by functions in polygon.js.
-   */
-  // var map;
-  // var polygon;
-  // var markers = [];
-  // var locations = [];
-  // var path = new google.maps.MVCArray;
 
-  // The google maps api requires us to use an onload initializer.
   var handler;
   window.onload = function () {
     handler = new ss.handler.Polygon('map');
   }
 
-  /**
-   * Initializes are map.
-  function initialize() {
+  function addAndSubmit(addAnother) {
+    addPoints();
+    document.getElementById('add_another').value = addAnother;
+    submitCheck(addAnother);
 
-    var center = new google.maps.LatLng(39.9611, -82.9989);
-    var zoom = 10;
-
-    map = new ss.initializeMap('map', center, zoom, true);
-    google.maps.event.addListener(map, 'click', addPoint);
   }
-   */
 
-  /**
-   * Submit callback for the form.
-   * For now, this populates points, sets form values, and then submits.
-   * This should probably be refactored to improve UI.
-   */
-   /*
-  function update_populate_and_submit(add_another) {
-
-    // Don't do anything if there aren't enough markers to define a triangle
-    if (markers.length > 2) {
-
-      // This indicates whether or not we are going to add another region after this
-      document.getElementById('add_another').value = add_another;
-      // First render the map readonly and repopulate points
-      // Next lets populate some points and ensure they are in streetview
-      populatePoints(50);
-
-      // Next lets submit the form
-      setInterval(check_submit, 1000);
-    }
-  }
-  function check_submit() {
-    if (locations.length > 9) {
+  function submitCheck() {
+    if (ss.handler.Polygon.populated) {
       // Lets build a string representation of the polygon
-      var polygon_string = markers[0].position;
-      for (var i = 1; i < markers.length; ++i) {
-        polygon_string = polygon_string + ', ' + markers[i].position;
+      var polygon_string = ss.handler.Polygon.path.getAt(0);
+      for (var i = 1; i < ss.handler.Polygon.path.length; ++i) {
+        polygon_string = polygon_string + ', ' + ss.handler.Polygon.path.getAt(i);
       }
 
       // Lets build a string representation of the locations
-      var location_string = locations[0].position;
-      for (var i = 1; i < locations.length; ++i) {
-        location_string = location_string + ', ' + locations[i].position;
+      var location_string = ss.handler.Polygon.locations.getAt(0);
+      for (var i = 1; i < ss.handler.Polygon.locations.length; ++i) {
+        location_string = location_string + ', ' + ss.handler.Polygon.locations.getAt(i);
       }
 
       // Next lets record some of this information in the form
       document.getElementById('points').value = location_string; // should be json?
       document.getElementById('region_polygon').value = polygon_string; // should be json?
-      document.getElementById('region_zoom').value = map.zoom;
+      document.getElementById('region_zoom').value = ss.handler.Polygon.map.zoom;
 
-      var center = map.getCenter();
+      var center = ss.handler.Polygon.map.getCenter();
       document.getElementById('region_latitude').value = center.lat();
       document.getElementById('region_longitude').value = center.lng();
 
+      // Actually submit the form
       document.getElementById('new_region').submit();
     }
+    else {
+      // If the polygon has not been populated, let's keep trying
+      setTimeout(function() {
+        submitCheck();
+      }, 500);
+    }
   }
-  */
+
+  function addPoints() {
+    if (ss.handler.Polygon.editable) {
+      handler.lock();
+    }
+    handler.addPoints(
+      document.getElementById('quantity').value,
+      document.getElementById('proximity').value,
+      function() {
+        $('#found-id').html('Found <strong>' + ss.handler.Polygon.locations.length + '</strong> images');
+        }); // found-id should probably be refactored as a callback
+  }
+
 </script>

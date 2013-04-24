@@ -75,8 +75,8 @@ class RegionsController < ApplicationController
           l.region_id = @region.id
           l.latitude = point[0].to_f
           l.longitude = point[1].to_f
-          l.heading = 90
-          l.pitch = 90
+          l.heading = rand(360)
+          l.pitch = 0
           l.save()
         end
       end

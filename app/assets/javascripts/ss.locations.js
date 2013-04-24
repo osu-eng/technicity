@@ -53,6 +53,32 @@ ss.Location.prototype.update = function(successHandler) {
     });
 }
 
+ss.Location.prototype.create = function(region_id, latitude, longitude, heading, pitch, successHandler) {
+  console.log('region=' + region_id + ', lat=' + latitude + ', lng=' + longitude);
+
+  $.ajax({
+    url:'/locations.json',
+    // Expect JSON to be returned. This is also enforced on the server via mimetype.
+    dataType: 'json',
+    type: 'post',
+    processData: false,
+    contentType: "application/json",
+    data: JSON.stringify({
+      location: {
+        region_id: region_id,
+        latitude: latitude,
+        longitude: longitude,
+        heading: heading,
+        pitch: pitch,
+
+      },
+      "_method":"create"
+    }),
+    success: successHandler
+    });
+
+}
+
 /**
  * Deletes a location
  *

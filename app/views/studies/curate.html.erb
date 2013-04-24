@@ -1,6 +1,19 @@
 <%= render 'header', :study => @study %>
 
-<div id="map" style="float:right; width:500; height:350;"></div>
+<div style="float:right;width:500px;margin-bottom:40px;">
+  <div id="map" style="float:right; width:500; height:350;"></div>
+  <button type="button" class="btn btn-primary" onclick="addPoints();">
+    <i class="icon-search icon-white"></i> Find
+  </button>
+  a total of
+  <input id="quantity" type="textfield" style="width:50px;" value="<%= @region.locations.length %>" />
+  points at least
+  <input id="proximity" type="textfield" style="width:50px;" value="50" />
+  meters apart.
+  <div id="found-id" style="font-size:larger;">Found <strong><%= @region.locations.length %></strong> images.</div>
+
+</div>
+
 <h2><%= @region.name %></h2>
 <p>
   <small>
@@ -9,8 +22,6 @@
   </small>
 </p>
 <p><strong>Description:</strong><br /><%= @region.description %><p>
-
-<hr style="clear:both;"/>
 
 <div id="edit-location-modal" class="modal hide fade">
   <div class="modal-header">
@@ -23,19 +34,22 @@
     <div id="panorama-map" style=""></div>
   </div>
   <div class="modal-footer">
-    <a id="save_changes" class="btn btn-primary cursor" onclick="page.updateLocation();">Save Changes</a>
-    <a id="delete_image" class="btn cursor" onclick="page.deleteLocation()">Delete Image</a>
+    <a id="save_changes" class="btn btn-primary cursor" onclick="curateHandler.updateLocation();">Save Changes</a>
+    <a id="delete_image" class="btn cursor" onclick="curateHandler.deleteLocation()">Delete Image</a>
     <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
   </div>
 </div>
-<div class="curate thumbs">
-<% @region.locations.each do |location| %>
-  <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
-     onclick="page.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
-    <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
-  </a>
-<% end %>
-</div>
+<fieldset class="clearfix" style="clear:both;">
+  <legend>Click on an image to rotate or remove it.</legend>
+  <div id="images" class="curate thumbs">
+  <% @region.locations.each do |location| %>
+    <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
+       onclick="curateHandler.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
+      <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
+    </a>
+  <% end %>
+  </div>
+</fieldset>
 
 <div class="modal hide fade" id="delete-location-modal" align="left">
   <div class="modal-header">
@@ -46,8 +60,8 @@
     <p>Are you sure you want to delete this image?</p>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal" onclick="page.deleteLocationCancel();">Cancel</a>
-    <a id="delete-locatio-confirm" class="btn btn-primary" onclick="page.deleteLocationConfirm();">Delete Image</a>
+    <a href="#" class="btn" data-dismiss="modal" onclick="curateHandler.deleteLocationCancel();">Cancel</a>
+    <a id="delete-locatio-confirm" class="btn btn-primary" onclick="curateHandler.deleteLocationConfirm();">Delete Image</a>
   </div>
 </div>
 
@@ -55,48 +69,70 @@
 <script type="text/javascript">
 
   // A handler for the curate process
-  var page = new ss.handler.Curate(
-    'edit-location-modal', 'panorama-map', 'panorama',
-    'delete-location-modal', 'location-');
+  var curateHandler;
+  var polygonHandler;
 
-  /**
-   * These variables are global in scope.
-   * They are used by functions in polygon.js.
-   */
-  var map;
-  var polygon;
-  var markers = [];
-  var locations = [];
-  var path = new google.maps.MVCArray;
+  window.onload = function () {
 
-  // The google maps api requires us to use an onload initializer.
-  window.onload = initialize;
+    curateHandler = new ss.handler.Curate(
+      'edit-location-modal', 'panorama-map', 'panorama',
+      'delete-location-modal', 'location-');
 
-  /**
-   * Initializes are map.
-   */
-  function initialize() {
-
-    var center = new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>);
-    var zoom = <%= @region.zoom %>;
-
-    // Add polygon path
+    // create polygon path
+    var path = new google.maps.MVCArray;
     <% @region.polygon_path.each do |latlng| %>
     path.push(new google.maps.LatLng(<%= latlng[:lat] %>, <%= latlng[:lng] %>));
     <% end %>
 
-    // Initialize the map
-    map = initializeMap('map', center, zoom, false);
-
-    // Add location points
+    // create polygon locations
+    var locations = new google.maps.MVCArray;
     <% @region.locations.each do |location| %>
-    var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
-        map: map
-      });
+    locations.push(new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>));
     <% end %>
+
+    var center = new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>);
+
+    polygonHandler = new ss.handler.Polygon('map', center, <%= @region.zoom %>, false, path, locations);
   }
 
+  function addPoints() {
 
+    console.log('adding points');
+    if (ss.handler.Polygon.editable) {
+      polygonHandler.lock();
+    }
+    var oldLength = ss.handler.Polygon.locations.length;
+    polygonHandler.addPoints(
+      document.getElementById('quantity').value,
+      document.getElementById('proximity').value,
+      function() {
+        // This should fire periodically
+        var newLength = ss.handler.Polygon.locations.length;
+        $('#found-id').html('Found <strong>' + newLength + '</strong> images');
+      },
+      // this should fire every time a point is created
+      function(latLng) {
+
+        ss.Location.prototype.create(<%= @region.id %>, latLng.lat(), latLng.lng(), Math.floor(Math.random()*360), 0, function(loc, status, xhr) {
+
+          // We should append a linked image below
+          $(
+            '<a>',
+            {
+              id: 'id-' + loc.id,
+              href: '#',
+              class: 'thumbnail cursor',
+              'data-toggle': 'modal',
+              onclick: 'curateHandler.editLocation(' + loc.id + ', ' + loc.latitude + ', ' + loc.longitude + ', ' +loc.heading + ', ' + loc.pitch + ');'
+
+            }
+          ).html('<img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150'
+                + '&location=' + loc.latitude + ',%20' + loc.longitude
+                + '&heading=' + loc.heading + '&pitch=' + loc.pitch + '&sensor=false" />').prependTo('#images');
+
+        });
+
+      });
+  }
 </script>
 

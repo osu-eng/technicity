@@ -27,7 +27,7 @@ ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations) {
   zoom = typeof zoom !== 'undefined' ? zoom : 10;
 
   // Editable determines the initial state of the polygon
-  editable = typeof editable !== 'undefined' ? editable : true;
+  ss.handler.Polygon.editable = typeof editable !== 'undefined' ? editable : true;
 
   // path is an ordered list of points that make up our polygon.
   if (typeof path == 'undefined') {
@@ -39,29 +39,46 @@ ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations) {
     ss.handler.Polygon.path = path;
   }
 
-  // locations are points inside of our polygon
-  if (typeof locations == 'undefined') {
-    if (!ss.handler.Polygon.locations) {
-      ss.handler.Polygon.locations = new google.maps.MVCArray;
-    }
-  }
-  else {
-    ss.handler.Polygon.locations = locations;
-  }
-
-  // pathMarkers contains an array of markers corresponding to points on our path.
-  // If we allow re-editing the polygon, this may need initialized.
-  ss.handler.Polygon.pathMarkers = new google.maps.MVCArray;
-
   // map is the google map object
   ss.handler.Polygon.map = new google.maps.Map(
     document.getElementById(ss.handler.Polygon.mapId),
     {
       zoom: zoom,
       center: center,
-      disableDefaultUI: !editable,
+      disableDefaultUI: !ss.handler.Polygon.editable,
+      scrollwheel: ss.handler.Polygon.editable,
+      navigationControl: ss.handler.Polygon.editable,
+      scaleControl: ss.handler.Polygon.editable,
+      draggable: ss.handler.Polygon.editable,
+      mapTypeControl: ss.handler.Polygon.editable,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
+  // locations are points inside of our polygon
+  if (typeof locations == 'undefined') {
+    if (!ss.handler.Polygon.locations) {
+      ss.handler.Polygon.locations = new google.maps.MVCArray;
+      ss.handler.Polygon.pathMarkers = new google.maps.MVCArray;
+    }
+  }
+  else {
+    // Initialize locations an pathMarkers
+    ss.handler.Polygon.locations = locations;
+    ss.handler.Polygon.pathMarkers = new google.maps.MVCArray;
+
+    for (i=0; i<ss.handler.Polygon.locations.length; i++ ) {
+      // Create a marker for our path point
+      var marker = new google.maps.Marker({
+        position: ss.handler.Polygon.locations.getAt(i),
+        map: ss.handler.Polygon.map,
+        title: ss.handler.Polygon.locations.getAt(i).toString(),
+        draggable: true
+      });
+
+      // add our marker to the list of markers
+      ss.handler.Polygon.pathMarkers.push(marker);
+    }
+  }
 
   polygon = new google.maps.Polygon({
     strokeWeight: 3,
@@ -70,7 +87,7 @@ ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations) {
   polygon.setMap(ss.handler.Polygon.map);
   polygon.setPaths(new google.maps.MVCArray([ss.handler.Polygon.path]));
 
-  if (editable) {
+  if (ss.handler.Polygon.editable) {
     // Register a listener to add points to the polygon's path
     google.maps.event.addListener(ss.handler.Polygon.map, 'click', function (event) {
 
@@ -129,13 +146,20 @@ ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations) {
 
 ss.handler.Polygon.prototype.lock = function() {
 
+  ss.handler.Polygon.editable = false;
+
   // Reinitialize our map as ineditable
   ss.handler.Polygon.map = new google.maps.Map(
     document.getElementById(ss.handler.Polygon.mapId),
     {
       zoom: ss.handler.Polygon.map.getZoom(),
       center: ss.handler.Polygon.map.getCenter(),
-      disableDefaultUI: true,
+      disableDefaultUI: !ss.handler.Polygon.editable,
+      scrollwheel: ss.handler.Polygon.editable,
+      navigationControl: ss.handler.Polygon.editable,
+      scaleControl: ss.handler.Polygon.editable,
+      draggable: ss.handler.Polygon.editable,
+      mapTypeControl: ss.handler.Polygon.editable,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 }
@@ -154,7 +178,9 @@ ss.handler.Polygon.prototype.tooClose = function (candidate, distance) {
 
 }
 
-ss.handler.Polygon.prototype.addPoints = function(quantity, proximity, foundId) {
+ss.handler.Polygon.prototype.addPoints = function(quantity, proximity, batchCallback, singleCallback ) {
+
+  ss.handler.Polygon.populated = false;
 
   ss.handler.Polygon.pointQuantity = quantity;
   ss.handler.Polygon.pointProximity = proximity;
@@ -208,6 +234,11 @@ ss.handler.Polygon.prototype.addPoints = function(quantity, proximity, foundId) 
 
                 // Add the marker's position to our locations
                 ss.handler.Polygon.locations.push(marker.getPosition());
+
+                // Trigger a callback to update database
+                if (typeof singleCallback !== 'undefined') {
+                  singleCallback(ss.handler.Polygon.locations.getAt(ss.handler.Polygon.locations.length-1));
+                }
               }
             }
           }
@@ -218,12 +249,14 @@ ss.handler.Polygon.prototype.addPoints = function(quantity, proximity, foundId) 
     }
 
     // Update setInterval information
-    $('#' + foundId).html('Found <strong>' + ss.handler.Polygon.locations.length + '</strong> locations');
+    // $('#' + foundId).html('Found <strong>' + ss.handler.Polygon.locations.length + '</strong> locations');
+    batchCallback();
     tries++;
 
     // Check and see if it is time to clear the interval
     if ((ss.handler.Polygon.locations.length == quantity) || (tries > 4 * quantity / batch)) {
       clearInterval(retry);
+      ss.handler.Polygon.populated = true;
     }
   }, 400); // 400ms is our interval
 
