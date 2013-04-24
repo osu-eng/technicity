@@ -22,13 +22,19 @@ numbers as the values in an array -->
 
 <table class="table table-striped table-hover">
   <tr>
-    <th>Chosen Location</th>
+    <th>Location</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
     <th>Times Picked (out of total votes)</th>
     <th>Times Rejected (out of total votes)</th>
   </tr>
   <% @votes.each do |spot, counts| %>
+  <!-- get location info -->
+    <% @location = Location.find(spot) %>
     <tr>
-    <td><%= spot %></td>
+    <td width="150"><a href="/locations/<%= @location.id %>"><img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&location=<%= @location.latitude %>,%20<%= @location.longitude %>&sensor=false" /></a></td>
+    <td><%= @location.latitude.round(4) %></td>
+    <td><%= @location.longitude.round(5) %></td>
     <td><%= counts[0] %> / <%= counts[0].to_i + counts[1].to_i %></td>
     <td><%= counts[1] %> / <%= counts[0].to_i + counts[1].to_i %></td>
     </tr>
