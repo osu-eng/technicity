@@ -45,6 +45,11 @@ class StudiesController < ApplicationController
     end
   end
 
+  def status
+    @study = Study.find(params[:id])
+    render :partial => "studies/status"
+  end
+
   # GET /studies/1
   # GET /studies/1.json
   def curate
@@ -105,6 +110,39 @@ class StudiesController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @study.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def open
+    @study = Study.find(params[:id])
+
+    if @study.active.nil?
+
+    end
+
+    if !@study.active
+      @study.active = true
+      @study.opened_at = DateTime.now()
+      @study.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @study, notice: 'Study was successfully updated.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def close
+    @study = Study.find(params[:id])
+    if @study.active
+      @study.active = false
+      @study.closed_at = DateTime.now()
+      @study.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @study, notice: 'Study was successfully updated.' }
+      format.json { head :no_content }
     end
   end
 

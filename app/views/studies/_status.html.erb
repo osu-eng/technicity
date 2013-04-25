@@ -1,0 +1,47 @@
+<% if @study.active.nil? # it's never been open %>
+  <button type="button" class="btn btn-success study-launch" onclick="$('#study-active-modal').modal();">
+   Launch
+  </button>
+  <div id="study-active-modal" class="modal hide fade">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" >&times;</a>
+      <h3>Are you sure?</h3>
+    </div>
+    <div class="modal-body">
+      <p>
+        After launching your study, you will no longer be able to:
+        <ul>
+          <li>Change the question</li>
+          <li>Add new areas</li>
+          <li>Add, remove, or modify images</li>
+        </ul>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a id="save_changes" class="btn btn-primary cursor" onclick="$('#study-active-modal').modal('toggle');changeActiveStatus(<%= @study.id %>, true)">
+        Yes, launch my study</a>
+      <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
+    </div>
+  </div>
+
+<% elsif @study.active # it's open %>
+  <button type="button" class="btn btn-danger study-close" onclick="changeActiveStatus(<%= @study.id %>, false)">
+    <i class="icon-off icon-white"></i> Close
+  </button>
+  <br />
+  <span class="votes"><%= @study.comparisons.length %> Votes</span>
+  <br />
+  <span class="opened">Opened <%= @study.opened_at.strftime('%b %e, %Y') %></span>
+
+<% else # it's closed %>
+  <button type="button" class="btn btn-primary study-open" onclick="changeActiveStatus(<%= @study.id %>, true)">
+    <i class="icon-share icon-white"></i> Open
+  </button>
+  <br />
+  <span class="votes"><%= @study.comparisons.length %> Votes</span>
+  <br />
+  <span class="closed">Closed <%= @study.opened_at.strftime('%b %e, %Y') %></span>
+<% end %>
+
+
+
