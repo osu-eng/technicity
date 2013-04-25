@@ -1,7 +1,7 @@
 <%= render 'header', :study => @study %>
 
 <div style="float:right;width:500px;margin-bottom:40px;">
-  <div id="map" style="float:right; width:500; height:350;"></div>
+  <div id="map" class="map" style="float:right; width:500; height:350;"></div>
   <button type="button" class="btn btn-primary" onclick="addPoints();">
     <i class="icon-search icon-white"></i> Find
   </button>
@@ -120,7 +120,7 @@
             '<a>',
             {
               id: 'location-' + loc.id,
-              class: 'thumbnail cursor',
+              class: 'thumbnail cursor new',
               'data-toggle': 'modal',
               onclick: 'curateHandler.editLocation(' + loc.id + ', ' + loc.latitude + ', ' + loc.longitude + ', ' +loc.heading + ', ' + loc.pitch + ');'
 
