@@ -1,3 +1,4 @@
+
 <%= render 'header', :study => @study %>
 <!-- <p>Todo: voting interface</p> -->
 
@@ -6,7 +7,7 @@
 <% @locations = @regions[0].locations.find(:all).sample(2) %>
 <% @imagelink1 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[0].latitude.to_s() + "%20" + @locations[0].longitude.to_s() + "&sensor=false" %>
 <% @imagelink2 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[1].latitude.to_s() + "%20" + @locations[1].longitude.to_s() + "&sensor=false" %>
-<div class="row" id="display-question">  
+<div class="row" id="display-question">
   <div class="span12 text-center">
     <h3>Which image looks <%= @study.question %>?</h3>
   </div>
@@ -37,5 +38,5 @@
 </div>
 
 
-      
- 
+
+

@@ -1,10 +1,10 @@
 Technicity::Application.routes.draw do
 
-  
+
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
- 
+
   resources :region_set_memberships
 
 
@@ -31,10 +31,13 @@ Technicity::Application.routes.draw do
     get :analyze, :on => :member
     get :vote,    :on => :member
     get :curate,  :on => :member
+    get :status,  :on => :member
+    put :open,    :on => :member
+    put :close,   :on => :member
   end
 
   resources :users
-  
+
   resources :notifications
 
   # The priority is based upon order of creation:
