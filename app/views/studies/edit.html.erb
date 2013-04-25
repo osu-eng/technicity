@@ -5,38 +5,3 @@
   <%= render 'form' %>
 </fieldset>
 
-<fieldset>
-  <legend>Image Set <%= render :partial => 'layouts/info_icon', :locals => { :topic => 'image_set' } %></legend>
-  <%# Allow editor to create add a region set if necessary %>
-  <% if @study.region_set.nil? %>
-    <p>
-      Create a
-      <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true' %>">
-        <i class="icon-plus-sign"></i> New Image Set</a>
-      or search for one below.</p>
-  <% elsif true %>
-    <%# security - need to check permission/ability to change this image set. %>
-    <% @region_set = @study.region_set %>
-    <%= render :partial => 'region_sets/form', :region_set => @study.region_set %>
-  <% else %>
-    <p>
-      You do not have permission/ability to change this imageset.
-      </p>
-    <table class="table table-striped table-hover">
-      <tr>
-        <th>Map</th>
-        <th>Name</th>
-        <th># Locations Included</th>
-      </tr>
-      <% @study.region_set.regions.each do |region| %>
-      <tr>
-        <td>
-          <a href="<%= url_for(region) %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region.latitude %>,<%= region.longitude %>&zoom=<%= region.zoom %>&size=150x100&sensor=false"></a></td>
-        <td><%= link_to region.name, region %></td>
-        <td><%= region.locations.count %></td>
-      </tr>
-      <% end %>
-    </table>
-  <% end %>
-</fieldset>
-
