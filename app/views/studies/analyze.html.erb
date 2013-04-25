@@ -12,6 +12,17 @@
 </p>
 
 <h3>Results</h3>
+<div class="navbar analyze-options">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>"><a href="#">Summary</a></li>
+        <li>class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>"><a href="#">Heatmap</a></li>
+        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>"><a href="#">Download</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <%= render 'comparisons/listbystudy', :study => @study %>
 
 <!-- MF do we want this to be a link out to an image set view? -->
