@@ -2,6 +2,7 @@
   <button type="button" class="btn btn-success study-launch" onclick="$('#study-active-modal').modal();">
    Launch
   </button>
+
   <div id="study-active-modal" class="modal hide fade">
     <div class="modal-header">
       <a class="close" data-dismiss="modal" >&times;</a>
@@ -20,6 +21,23 @@
     <div class="modal-footer">
       <a id="save_changes" class="btn btn-primary cursor" onclick="$('#study-active-modal').modal('toggle');changeActiveStatus(<%= @study.id %>, true)">
         Yes, launch my study</a>
+      <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
+    </div>
+  </div>
+
+  <div id="study-active-errors-modal" class="modal hide fade">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" >&times;</a>
+      <h3>Problem Opening Study</h3>
+    </div>
+    <div class="modal-body">
+      <p>
+        Please fix the follow errors and then try opening your study again:
+        <div id="study-active-error-list">
+        </div>
+      </p>
+    </div>
+    <div class="modal-footer">
       <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
     </div>
   </div>

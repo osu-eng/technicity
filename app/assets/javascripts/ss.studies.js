@@ -15,10 +15,9 @@ ss.Study = function () {
  *
  * @param  {function} successHandler function to be called upon success.
  */
-ss.Study.prototype.open = function(id, successHandler) {
+ss.Study.prototype.open = function(id, successHandler, errorHandler) {
   $.ajax({
     url:'/studies/' + id + '/open',
-    // Expect JSON to be returned. This is also enforced on the server via mimetype.
     dataType: 'json',
     type: 'post',
     processData: false,
@@ -31,6 +30,7 @@ ss.Study.prototype.open = function(id, successHandler) {
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-Http-Method-Override", "PUT");
     },
+    error: errorHandler,
     success: successHandler
     });
 }

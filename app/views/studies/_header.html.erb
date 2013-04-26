@@ -12,8 +12,22 @@ function changeActiveStatus(id, status) {
   update = status ? ss.Study.prototype.open : ss.Study.prototype.close;
 
   // Do the update
-  update(id, function() {
-    $('.study-info').load('/studies/' + id + '/status');
+  update(id,
+    function(data, status, xhr) {
+      $('.study-info').load('/studies/' + id + '/status');
+    },
+    function(xhr, status, error) {
+      errors = JSON.parse(xhr.responseText);
+      messages = '<ul>';
+      for (key in errors) {
+        for (i=0; i<errors[key].length; i++) {
+          messages += '<li>' + errors[key][i] + '</li>';
+        }
+      }
+      messages += '</ul>';
+
+      $("#study-active-error-list").html(messages);
+      $('#study-active-errors-modal').modal('toggle');
     });
 }
 </script>

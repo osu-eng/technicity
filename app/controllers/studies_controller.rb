@@ -116,19 +116,36 @@ class StudiesController < ApplicationController
   def open
     @study = Study.find(params[:id])
 
-    if @study.active.nil?
-
-    end
-
+    # If the study is closed or never opened
     if !@study.active
-      @study.active = true
+
       @study.opened_at = DateTime.now()
-      @study.save
+      @study.active = true
+
+      # Are we launching the study for the first time?
+      if @study.valid?
+        # lock related objects
+        @study.region_set.locked = true
+        @study.region_set.save
+        @study.region_set.regions.each do |region|
+          region.locked = true
+          region.save
+        end
+      end
+
+
     end
 
-    respond_to do |format|
-      format.html { redirect_to @study, notice: 'Study was successfully updated.' }
-      format.json { head :no_content }
+    if @study.save
+      respond_to do |format|
+        format.html { redirect_to @study, notice: 'Study was successfully updated.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { render :nothing => true }
+        format.json { render json: @study.errors, status: :unprocessable_entity }
+      end
     end
   end
 
