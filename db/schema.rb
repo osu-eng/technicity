@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425172419) do
+ActiveRecord::Schema.define(:version => 20130426123319) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130425172419) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.text     "description"
+    t.boolean  "locked"
   end
 
   create_table "regions", :force => true do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130425172419) do
     t.integer  "zoom"
     t.decimal  "latitude",    :precision => 15, :scale => 12
     t.decimal  "longitude",   :precision => 15, :scale => 12
+    t.boolean  "locked"
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
