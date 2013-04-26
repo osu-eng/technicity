@@ -1,4 +1,5 @@
 <%= simple_form_for(@region) do |f| %>
+  <div class="control-group error"><%= f.error :base %></div>
   <div class="clearfix">
     <div style="float:left;width:400px;margin-right:80px;">
       <%= f.input :name,
@@ -105,7 +106,7 @@
       document.getElementById('region_longitude').value = center.lng();
 
       // Actually submit the form
-      document.getElementById('new_region').submit();
+      $('form.simple_form').submit();
     }
     else {
       // If the polygon has not been populated, let's keep trying
