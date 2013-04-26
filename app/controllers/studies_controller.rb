@@ -40,6 +40,7 @@ class StudiesController < ApplicationController
     @max_intensity = 0
     @study.region_set.regions.each do |region|
       @heatmaps[region.id] = Hash.new
+
       region.locations.each do |location|
         score = Comparison.where("study_id = ? AND chosen_location_id = ?", @study.id, location.id).count
         total = Comparison.where("study_id = ? AND (chosen_location_id = ? OR rejected_location_id = ?)", @study.id, location.id, location.id).count

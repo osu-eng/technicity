@@ -1,7 +1,30 @@
-<p>
-<div style="float:right;width:500px;margin-bottom:40px;">
-  <div id="map" class="map" style="float:right; width:500; height:350;"></div>
-</div>
-<%= @max_intensity %><br>
-<%= @heatmaps.to_yaml %>
-</p>
+<% @study.region_set.regions.each_slice(2) do |region_row| -%>
+  <div class="row show-grid">
+  <% region_row.each do |region| -%>
+    <div id="map-<%= region.id %>" class="map span6" style="height:350px;"></div>
+  <% end -%>
+  </div>
+<% end -%>
+
+<script type="text/javascript">
+  <% @study.region_set.regions.each do |region| %>
+  var heatMapHandler<%= region.id %>;
+  <% end %>
+
+  window.onload = function () {
+
+    <% @study.region_set.regions.each do |region| %>
+    // Create array of weighted locations.
+    var locations = [];
+    <% @heatmaps[region.id].each do |location_id, location| %>
+    locations.push({location: new google.maps.LatLng(<%= location['latitude'] %>, <%= location['longitude'] %>), weight: location['weight']});
+    <% end %>
+
+    // Set center of heat map
+    var center = new google.maps.LatLng(<%= region.latitude %>, <%= region.longitude %>);
+
+    // Creat heatmap
+    heatMapHandler<%= region.id %> = new ss.handler.Heatmap('map-<%= region.id %>', center, <%= region.zoom %>, <%= @max_intensity %>, locations);
+    <% end %>   
+  }
+</script>
