@@ -72,7 +72,16 @@
 
   var handler;
   window.onload = function () {
-    handler = new ss.handler.Polygon('map');
+    <% if request.location.nil? || request.location.latitude == 0 %>
+    // Columbus, Ohio - zoomed way out
+    center = new google.maps.LatLng(39.9611, -82.9989);
+    zoom = 2;
+    <% else %>
+    // Guessing location from IP address, never works for localhost
+    center = new google.maps.LatLng(<%= request.location.latitude %>, <%= request.location.longitude %>);
+    zoom = 10;
+    <% end %>
+    handler = new ss.handler.Polygon('map', center, zoom);
   }
 
   function addAndSubmit(addAnother) {
