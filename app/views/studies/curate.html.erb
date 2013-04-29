@@ -1,27 +1,52 @@
 <%= render 'header', :study => @study %>
 
-<div style="float:right;width:500px;margin-bottom:40px;">
-  <div id="map" class="map" style="float:right; width:500; height:350;"></div>
-  <button type="button" class="btn btn-primary" onclick="addPoints();">
-    <i class="icon-search icon-white"></i> Find
-  </button>
-  a total of
-  <input id="quantity" type="textfield" style="width:50px;" value="<%= @region.locations.length %>" />
-  points at least
-  <input id="proximity" type="textfield" style="width:50px;" value="50" />
-  meters apart.
-  <div id="found-id" style="font-size:larger;">Found <strong><%= @region.locations.length %></strong> images.</div>
 
+<div style="float:left;width:400px;margin-right:40px;">
+  <h2><span id="region_name_plain">Area: <%= @region.name %></span></h2>
+  <%= render 'regions/base_form', :region => @region %>
+
+  <button type="button" class="btn btn-primary" onclick="saveRegion();">
+    <i class="icon-edit icon-white"></i> Save
+  </button>
+  <button type="button" class="btn btn-primary" onclick="$('#delete-region-modal').modal('toggle')">
+    <i class="icon-trash icon-white"></i> Delete
+  </button>
+  <div id="save-notice" class="alert"></div>
+  </div>
+  <div style="float:left;width:500px;">
+    <div id="map" class="map" style="float:right; width:500; height:350;"></div>
+    <button type="button" class="btn btn-primary" onclick="addPoints();">
+      <i class="icon-search icon-white"></i> Find
+    </button>
+    a total of
+    <input id="quantity" type="textfield" style="width:50px;" value="<%= @region.locations.length %>" />
+    points at least
+    <input id="proximity" type="textfield" style="width:50px;" value="50" />
+    meters apart.
+    <div id="found-id" style="font-size:larger;">Found <strong><%= @region.locations.length %></strong> images.</div>
+
+  </div>
 </div>
 
-<h2><%= @region.name %></h2>
-<p>
-  <small>
-    Slug: <%= @region.slug %><br />
-    Owner: <%= @region.user.email %>
-  </small>
-</p>
-<p><strong>Description:</strong><br /><%= @region.description %><p>
+<div id="delete-region-modal" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" >&times;</a>
+    <h3>Are you sure?</h3>
+  </div>
+  <div class="modal-body" align="left">
+    <p>
+      Kepp in mind:
+      <ul>
+        <li>Deleting an area is irreversible.</li>
+        <li>Any votes referencing images in this area will be lost.</li>
+      </ul>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a id="delete_image" class="btn btn-primary cursor" onclick="deleteRegion();">Confirm Delete</a>
+    <a class="btn cursor" data-dismiss="modal" id="close_modal">Cancel</a>
+  </div>
+</div>
 
 <div id="edit-location-modal" class="modal hide fade">
   <div class="modal-header">
@@ -39,10 +64,10 @@
     <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
   </div>
 </div>
-<fieldset class="clearfix" style="clear:both;">
+<fieldset class="clearfix" style="clear:both;margin-top:30px;">
   <legend>Click on an image to rotate or remove it.</legend>
   <div id="images" class="curate thumbs">
-  <% @region.locations.each do |location| %>
+  <% @region.locations.order('id desc').each do |location| %>
     <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
        onclick="curateHandler.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
       <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
@@ -97,7 +122,6 @@
 
   function addPoints() {
 
-    console.log('adding points');
     if (ss.handler.Polygon.editable) {
       polygonHandler.lock();
     }
@@ -132,6 +156,23 @@
         });
 
       });
+  }
+
+  function saveRegion(){
+    region = new ss.Region(<%=@region.id%>, $('#region_name').val(), $('#region_description').val());
+    region.update(function() {
+      $('#edit-region-modal').modal('toggle');
+      $('#region-name-plain').html($('#region_name').val());
+      $('#save-notice').html('Area has been saved.');
+      $("#save-notice").delay(2000).fadeOut("slow");
+    });
+  }
+
+  function deleteRegion(){
+    region = new ss.Region(<%=@region.id%>);
+    region.delete(function() {
+      window.location.replace('/studies/<%= @study.slug %>/vote');
+    });
   }
 </script>
 

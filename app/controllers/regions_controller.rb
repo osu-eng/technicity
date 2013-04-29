@@ -164,7 +164,7 @@ class RegionsController < ApplicationController
     respond_to do |format|
       if @region.update_attributes(params[:region])
         format.html { redirect_to @region, notice: 'Area was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @region}
       else
         format.html { render action: "edit" }
         format.json { render json: @region.errors, status: :unprocessable_entity }
@@ -177,10 +177,11 @@ class RegionsController < ApplicationController
   def destroy
     @region = Region.find(params[:id])
     @region.destroy
+    flash[:notice] = "Successfully deleted area."
 
     respond_to do |format|
       format.html { redirect_to regions_url }
-      format.json { head :no_content }
+      format.json { render json: @region}
     end
   end
 end
