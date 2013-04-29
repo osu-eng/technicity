@@ -1,10 +1,25 @@
+
+class RegionValidator < ActiveModel::Validator
+
+  def validate(region)
+    if region.polygon_path.length < 3
+      region.errors[:base] << 'You must click at least three points on the map to define a polygon'
+    end
+  end
+end
+
 class Region < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  include ActiveModel::Validations
+  validates_with RegionValidator
+  validates_presence_of :name, :description, :latitude, :longitude, :zoom, :polygon, :user_id, :slug
+
   attr_accessible :name, :public, :slug, :user_id, :description, :latitude, :longitude, :zoom, :polygon
 
-  has_many :locations
+
+  has_many :locations, :dependent => :destroy
   has_many :region_set_memberships
   has_many :region_sets, :through => :region_set_memberships
   belongs_to :user

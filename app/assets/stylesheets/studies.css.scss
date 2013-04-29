@@ -5,4 +5,31 @@
 .show-grid {
   margin-top: 10px;
   margin-bottom: 20px;
+
+// Box containing study info
+.study-info {
+  float:right;
+  width:160px;
+}
+
+// The launch button should be big and shiny
+.study-info .study-launch {
+  font-size:2.4em;
+  padding:0.85em 0.5em 0.85em 0.5em;
+  width:100%;
+  margin-bottom:10px;
+}
+
+// The launch button should be big and shiny
+.study-info .study-open,
+.study-info .study-close {
+  font-size:1.2em;
+  padding:0.4em 0.25em 0.4em 0.25em;
+  width:100%;
+  margin-bottom:10px;
+}
+
+.study-info .votes {
+  font-size: 2em;
+  font-weight: strong;
 }

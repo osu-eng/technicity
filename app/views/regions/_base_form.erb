@@ -1,0 +1,15 @@
+<%= simple_form_for(@region) do |f| %>
+  <div class="control-group error"><%= f.error :base %></div>
+  <div class="clearfix">
+    <div style="float:left;width:400px;margin-right:80px;">
+      <%= f.input :name,
+                  :input_html => { :style => 'width:100%;'},
+                  :hint => 'A short, friendly name by which to remember this area.' %>
+      <%= f.input :description,
+                  :as => :text,
+                  :input_html => { :rows => 4, :style => 'width:100%;height:200px'},
+                  :hint => 'A sentence or two describing this area.' %>
+
+    </div>
+  </div>
+<% end %>

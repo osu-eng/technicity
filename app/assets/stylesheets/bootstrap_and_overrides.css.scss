@@ -106,12 +106,15 @@ a:hover, a:focus {
   border: 0 none;
 }
 
+/* Bootstrap overrides */
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   height: 25px;
   color: $black;
   }
 
-
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+  color: $darkgray;
+  }
 
 #main {
   padding-top: 50px;

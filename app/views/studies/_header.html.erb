@@ -1,13 +1,41 @@
-<div style="float:right;width:200px;">
-  <small>
-  Slug: <%= @study.slug %><br />
-  Owner: <%= @study.user.email %>
-  </small>
+<!-- security - should only be available to editor -->
+<div class="study-info">
+  <%= render 'status', :study => @study %>
 </div>
+
+<script type="text/javascript">
+/**
+ * This goes with the study status partial
+ */
+function changeActiveStatus(id, status) {
+  // which function do we call
+  update = status ? ss.Study.prototype.open : ss.Study.prototype.close;
+
+  // Do the update
+  update(id,
+    function(data, status, xhr) {
+      $('.study-info').load('/studies/' + id + '/status');
+    },
+    function(xhr, status, error) {
+      errors = JSON.parse(xhr.responseText);
+      messages = '<ul>';
+      for (key in errors) {
+        for (i=0; i<errors[key].length; i++) {
+          messages += '<li>' + errors[key][i] + '</li>';
+        }
+      }
+      messages += '</ul>';
+
+      $("#study-active-error-list").html(messages);
+      $('#study-active-errors-modal').modal('toggle');
+    });
+}
+</script>
+
 <h1><%= @study.name %></h1>
 <!-- active li needs class active -->
 <!-- security - tabs should only show if there is a choice -->
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" >
   <li class=<%= "active" if url_for() == url_for(:controller => "studies", :action => "vote", :id => @study) %>>
     <a href="<%= url_for :controller => "studies", :action => "vote", :id => @study %>">
       <i class="icon-ok" style=""></i> Vote</a>
@@ -28,6 +56,12 @@
   <!-- security - curate should only show if study is public -->
   <!-- MF - added check for owner -->
   <% if user_signed_in? && @study.user_id == current_user.id %>
+    <% if @study.region_set.nil? %>
+      <li>
+        <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true' %>">
+        <i class="icon-plus-sign" style=""></i> Add Area</a>
+      </li>
+    <% end %>
     <% if !@study.region_set.nil? && @study.region_set.regions.count > 0 %>
       <li class="dropdown <%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>">
         <a class="dropdown-toggle" data-toggle="dropdown" href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
@@ -41,7 +75,7 @@
           <% end %>
           <li>
             <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @study.region_set.id.to_s %>">
-              Add New Region</a>
+              Add New Area</a>
             </li>
         </ul>
       </li>

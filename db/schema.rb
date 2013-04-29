@@ -11,25 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409144359) do
+ActiveRecord::Schema.define(:version => 20130428153902) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
     t.integer  "rejected_location_id"
-    t.string   "remote_ip"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.string   "voter_remote_ip"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.integer  "study_id"
+    t.string   "voter_session_id"
+    t.decimal  "voter_latitude",       :precision => 15, :scale => 12
+    t.decimal  "voter_longitude",      :precision => 15, :scale => 12
   end
 
   create_table "locations", :force => true do |t|
     t.integer  "region_id"
-    t.float    "latitude"
-    t.float    "longitude"
     t.integer  "heading"
     t.integer  "pitch"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.decimal  "latitude",   :precision => 15, :scale => 12
+    t.decimal  "longitude",  :precision => 15, :scale => 12
   end
 
   create_table "notifications", :force => true do |t|
@@ -54,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20130409144359) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.text     "description"
+    t.boolean  "locked"
   end
 
   create_table "regions", :force => true do |t|
@@ -61,13 +65,14 @@ ActiveRecord::Schema.define(:version => 20130409144359) do
     t.string   "slug"
     t.string   "name"
     t.boolean  "public"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.text     "polygon"
     t.text     "description"
     t.integer  "zoom"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.decimal  "latitude",    :precision => 15, :scale => 12
+    t.decimal  "longitude",   :precision => 15, :scale => 12
+    t.boolean  "locked"
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
@@ -82,6 +87,9 @@ ActiveRecord::Schema.define(:version => 20130409144359) do
     t.string   "name"
     t.integer  "user_id"
     t.text     "description"
+    t.boolean  "active"
+    t.datetime "opened_at"
+    t.datetime "closed_at"
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true
