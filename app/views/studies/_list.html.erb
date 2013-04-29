@@ -3,24 +3,28 @@
   <tr>
     <th>Name</th>
     <th>Which place looks...</th>
-    <% if show_user  %>
-      <th>User</th>
-    <% end %>
+    <!-- add check here for admin -->
+    <th>User</th>
     <th>Image Set</th>
     <th>Votes</th>
-    <th>Public</th>
+    <th>Status</th>
   </tr>
 
 <% @studies.each do |study| %>
   <tr>
     <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
     <td><%= link_to study.question, study %>?</td>
-    <% if show_user  %>
-      <td><%= study.user_id %></td>
-    <% end %>
+    <!-- add check here for admin -->
+    <td><%= study.user_id %></td>
     <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
     <td><%= study.comparisons.count %></td>
-    <td><%= study.public %></td>
+    <% if study.active.nil? %>
+      <td><span class="label label-warning">In Draft</span></td>
+    <% elsif study.active %>
+      <td><span class="label label-success">Open</span></td>
+    <% else %>
+      <td><span class="label label-important">Closed</span></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
