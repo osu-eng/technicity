@@ -42,7 +42,7 @@ class Study < ActiveRecord::Base
 
   belongs_to :region_set
   belongs_to :user
-  has_many :comparisons
+  has_many :comparisons, :dependent => :destroy
 
 end
 

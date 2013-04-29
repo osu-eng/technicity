@@ -19,7 +19,7 @@ class Region < ActiveRecord::Base
   attr_accessible :name, :public, :slug, :user_id, :description, :latitude, :longitude, :zoom, :polygon
 
 
-  has_many :locations
+  has_many :locations, :dependent => :destroy
   has_many :region_set_memberships
   has_many :region_sets, :through => :region_set_memberships
   belongs_to :user
