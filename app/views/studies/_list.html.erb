@@ -3,7 +3,7 @@
   <tr>
     <th>Name</th>
     <th>Which place looks...</th>
-    <!-- add check here for admin -->
+    <!-- add check here for admin? -->
     <th>User</th>
     <th>Image Set</th>
     <th>Votes</th>
@@ -12,17 +12,29 @@
 
 <% @studies.each do |study| %>
   <tr>
-    <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
-    <td><%= link_to study.question, study %>?</td>
-    <!-- add check here for admin -->
-    <td><%= study.user_id %></td>
-    <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
-    <td><%= study.comparisons.count %></td>
+    <!-- only show draft studies to logged in owners -->
     <% if study.active.nil? %>
-      <td><span class="label label-warning">In Draft</span></td>
+      <% if user_signed_in? && study.user_id == current_user.id %>
+        <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
+        <td><%= link_to study.question, study %>?</td>
+        <td><%= study.user_id %></td>
+        <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
+        <td><%= study.comparisons.count %></td>
+        <td><span class="label label-warning">Not Launched</span></td>
+      <% end %>
     <% elsif study.active %>
+      <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
+      <td><%= link_to study.question, study %>?</td>
+      <td><%= study.user_id %></td>
+      <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
+      <td><%= study.comparisons.count %></td>
       <td><span class="label label-success">Open</span></td>
     <% else %>
+      <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
+      <td><%= link_to study.question, study %>?</td>
+      <td><%= study.user_id %></td>
+      <td><%= study.region_set ? link_to(study.region_set.name, study.region_set) + ' (' + study.region_set.regions.count.to_s + ')' : '' %></td>
+      <td><%= study.comparisons.count %></td>
       <td><span class="label label-important">Closed</span></td>
     <% end %>
   </tr>
