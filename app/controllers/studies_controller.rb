@@ -11,6 +11,20 @@ class StudiesController < ApplicationController
       format.json { render json: @studies }
     end
   end
+  
+  def mine
+    @studies = Study.where("user_id = ?", params[:user_id])
+    respond_to do |format|
+      if @studies.nil?
+        format.html { redirect_to studies_url, notice: 'You have not yet created any studies.' }
+        # MF - not sure what json should be here
+        format.json { head :no_content }
+      else
+        format.html # mine.html.erb
+        format.json { render json: @studies }
+      end
+    end
+  end
 
   # GET /studies/1
   # GET /studies/1.json
