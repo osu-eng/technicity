@@ -14,6 +14,6 @@ class Location < ActiveRecord::Base
   end
 
   def normalized (study_id)
-    self.score(study_id).to_f / (self.total(study_id).nonzero? || 1).to_f
+    self.score(:study_id).to_f / (self.total(:study_id).nonzero? || 1).to_f
   end
 end

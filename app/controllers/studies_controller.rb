@@ -23,17 +23,28 @@ class StudiesController < ApplicationController
     end
   end
 
-  # GET /studies/1/analyze
-  def analyze
+  # GET /studies/1/summary
+  # GET /studies/1/summary.json
+  def summary
     @study = Study.find(params[:id])
 
     respond_to do |format|
       format.html # analyze.html.erb
+      format.json { render json: @study }
     end
   end
 
   # GET /studies/1/heatmap
   def heatmap
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # heatmap.html.erb
+    end
+  end
+
+  # GET /studies/1/download
+  def download
     @study = Study.find(params[:id])
 
     respond_to do |format|

@@ -1,3 +1,5 @@
+<%= render 'analyze_header', :study => @study %>
+
 <% @study.region_set.regions.each_slice(2) do |region_row| -%>
   <div class="row show-grid">
   <% region_row.each do |region| -%>
