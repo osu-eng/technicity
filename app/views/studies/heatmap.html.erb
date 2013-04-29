@@ -18,7 +18,7 @@
     <% @study.region_set.regions.each do |region| %>
     // Create array of weighted locations.
     var locations = [];
-    <% @heatmaps[region.id].each do |location_id, location| %>
+    <% @study.heatmaps[region.id].each do |location_id, location| %>
     locations.push({location: new google.maps.LatLng(<%= location['latitude'] %>, <%= location['longitude'] %>), weight: location['weight']});
     <% end %>
 
@@ -32,7 +32,7 @@
     var center = new google.maps.LatLng(<%= region.latitude %>, <%= region.longitude %>);
 
     // Creat heatmap
-    heatMapHandler<%= region.id %> = new ss.handler.Heatmap('map-<%= region.id %>', center, <%= region.zoom %>, <%= @max_intensity %>, locations, path);
+    heatMapHandler<%= region.id %> = new ss.handler.Heatmap('map-<%= region.id %>', center, <%= region.zoom %>, <%= @study.max_intensity %>, locations, path);
     <% end %>   
   }
 </script>

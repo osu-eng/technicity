@@ -33,22 +33,8 @@ class StudiesController < ApplicationController
   end
 
   # GET /studies/1/heatmap
-  # GET /studies/1.json
   def heatmap
     @study = Study.find(params[:id])
-    @heatmaps = Hash.new
-    @max_intensity = 0
-    @study.region_set.regions.each do |region|
-      @heatmaps[region.id] = Hash.new
-
-      region.locations.each do |location|
-        score = Comparison.where("study_id = ? AND chosen_location_id = ?", @study.id, location.id).count
-        total = Comparison.where("study_id = ? AND (chosen_location_id = ? OR rejected_location_id = ?)", @study.id, location.id, location.id).count
-        weighted = score.to_f / (total.nonzero? || 1).to_f
-        @heatmaps[region.id][location.id] = {'latitude' => location.latitude, 'longitude' => location.longitude, 'weight' => weighted}
-        @max_intensity = [@max_intensity, weighted].max
-      end
-    end
 
     respond_to do |format|
       format.html # heatmap.html.erb
