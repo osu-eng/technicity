@@ -104,7 +104,7 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       if @study.update_attributes(params[:study])
-        format.html { redirect_to @study, notice: 'Study was successfully updated.' }
+        format.html { render action: "edit", notice: 'Study was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -167,6 +167,11 @@ class StudiesController < ApplicationController
   # DELETE /studies/1.json
   def destroy
     @study = Study.find(params[:id])
+
+    if !@study.region_set.nil?
+      @study.region_set.destroy
+    end
+
     @study.destroy
 
     respond_to do |format|

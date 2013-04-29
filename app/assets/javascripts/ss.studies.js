@@ -5,55 +5,38 @@
 // Declare a ss (street seen) name space if it doesn't exist
 var ss = ss || {};
 
-ss.Study = function () {
-}
 /**
- * Opens a study
- *
- * Used example here:
- * http://blog.project-sierra.de/archives/1788
- *
- * @param  {function} successHandler function to be called upon success.
+ * Region class
  */
-ss.Study.prototype.open = function(id, successHandler, errorHandler) {
-  $.ajax({
-    url:'/studies/' + id + '/open',
-    dataType: 'json',
-    type: 'post',
-    processData: false,
-    contentType: "application/json",
-    data: JSON.stringify({
-      study: {
-        id: id,
-      }
-    }),
-    beforeSend: function(xhr) {
-      xhr.setRequestHeader("X-Http-Method-Override", "PUT");
-    },
-    error: errorHandler,
-    success: successHandler
-    });
+ss.Study = function (id, name, description, question) {
+  this.id = id;
+  this.name = name;
+  this.description = description;
+  this.question = question;
 }
 
 /**
- * Opens a study
+ * Updates a region.
  *
  * Used example here:
  * http://blog.project-sierra.de/archives/1788
  *
  * @param  {function} successHandler function to be called upon success.
  */
-ss.Study.prototype.close = function(id, successHandler) {
+ss.Study.prototype.update = function(successHandler) {
   $.ajax({
-    url:'/studies/' + id + '/close',
+    url:'/regions/' + this.id,
     // Expect JSON to be returned. This is also enforced on the server via mimetype.
     dataType: 'json',
     type: 'post',
     processData: false,
     contentType: "application/json",
     data: JSON.stringify({
-      study: {
-        id: id,
+      region: {
+        id: this.id,
+        name: this.name,
+        description: this.description,
+        question: this.question
       }
     }),
     beforeSend: function(xhr) {
@@ -63,3 +46,22 @@ ss.Study.prototype.close = function(id, successHandler) {
     });
 }
 
+
+/**
+ * Deletes a region
+ *
+ * Used example here:
+ * http://humanwebdevelopment.com/rails-jquery-ajax-delete-and-put-methods/
+ *
+ * @param   {function} successHandler function to be called upon successful felete.
+ */
+ss.Study.prototype.delete = function(successHandler) {
+  $.ajax({
+    url: "/studies/" + this.id,
+    type: "post",
+    dataType: "json",
+    data: {"_method":"delete"},
+    type: 'POST',
+    success: successHandler
+  });
+}
