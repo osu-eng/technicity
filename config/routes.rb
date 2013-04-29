@@ -52,9 +52,8 @@ Technicity::Application.routes.draw do
   match 'help' => 'static_pages#help'
   match 'home' => 'static_pages#home'
   match 'studies' => 'studies#show'
-  match 'studies/:userid' => 'studies#show'
   match 'studies/:id/analyze' => 'studies#summary'
-
+  match 'studies/mine/:user_id' => 'studies#mine'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

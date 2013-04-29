@@ -1,17 +1,19 @@
 <%= render 'header', :study => @study %>
 
 
+
 <div style="float:left;width:400px;margin-right:40px;">
   <h2><span id="region_name_plain">Area: <%= @region.name %></span></h2>
+
   <%= render 'regions/base_form', :region => @region %>
 
   <button type="button" class="btn btn-primary" onclick="saveRegion();">
-    <i class="icon-edit icon-white"></i> Save
+    <i class="icon-ok icon-white"></i> Save
   </button>
   <button type="button" class="btn btn-primary" onclick="$('#delete-region-modal').modal('toggle')">
     <i class="icon-trash icon-white"></i> Delete
   </button>
-  <div id="save-notice" class="alert"></div>
+  <span id="save-notice" class="alert success fade" data-alert="alert"></span>
   </div>
   <div style="float:left;width:500px;">
     <div id="map" class="map" style="float:right; width:500; height:350;"></div>
@@ -35,7 +37,7 @@
   </div>
   <div class="modal-body" align="left">
     <p>
-      Kepp in mind:
+      Keep in mind:
       <ul>
         <li>Deleting an area is irreversible.</li>
         <li>Any votes referencing images in this area will be lost.</li>
@@ -163,8 +165,8 @@
     region.update(function() {
       $('#edit-region-modal').modal('toggle');
       $('#region-name-plain').html($('#region_name').val());
-      $('#save-notice').html('Area has been saved.');
-      $("#save-notice").delay(2000).fadeOut("slow");
+      $('#save-notice').html('Area Saved');
+      $('#save-notice').addClass('in');
     });
   }
 

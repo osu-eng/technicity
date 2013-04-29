@@ -3,14 +3,60 @@
 <!-- :html => {:class => "form-horizontal"} -->
 <%= simple_form_for(@study) do |f| %>
   <%= f.input :name,
+              :input_html => { :style => 'width:400px;'},
               :hint => 'A short, friendly name by which to remember your study.' %>
   <%= f.input :description,
               :as => :text,
-              :input_html => { :rows => 4 },
+              :input_html => { :rows => 4, :style => 'width:400px;height:200px'},
               :hint => 'A sentence or two describing your study.' %>
-  <%= f.input :question, label: 'Which place looks...?',
-              :hint => 'Finish the question (more livable, safer, nicer, etc)' %>
+  <% if @study.active.nil? %>
+  <%= f.input :question, label: 'Which image...?',
+              :input_html => { :style => 'width:400px;' },
+              :hint => 'Finish the question (looks better, feels safer, etc). Cannot be changed after launching study.' %>
+  <% else # only changeable if study never launched %>
+  <%= f.input :question, label: 'Which image...?',
+              :input_html => { :disabled=> 'disabled', :style => 'width:400px;' },
+              :hint => 'This field can only be changed before launching your study.' %>
+  <% end %>
 
-  <%= f.button :submit%>
+  <% if @study.id %>
+  <button type="submit" class="btn btn-primary" >
+    <i class="icon-ok icon-white"></i> Save
+  </button>
+  <button type="button" class="btn btn-primary" onclick="$('#delete-study-modal').modal('toggle')">
+    <i class="icon-trash icon-white"></i> Delete
+  </button>
+  <% else %>
+  <button type="submit" class="btn btn-primary" >
+    <i class="icon-ok icon-white"></i> Add
+  </button>
+  <% end %>
 <% end %>
 
+<div id="delete-study-modal" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" >&times;</a>
+    <h3>Are you sure?</h3>
+  </div>
+  <div class="modal-body" align="left">
+    <p>
+      Keep in mind:
+      <ul>
+        <li>Deleting a study is irreversible.</li>
+        <li>All dependent entries will be deleted (areas, images, votes).</li>
+      </ul>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a id="delete_image" class="btn btn-primary cursor" onclick="deleteRegion();">Confirm Delete</a>
+    <a class="btn cursor" data-dismiss="modal" id="close_modal">Cancel</a>
+  </div>
+</div>
+<script type="text/javascript">
+  function deleteRegion(){
+    study = new ss.Study(<%=@study.id%>);
+    study.delete(function() {
+      window.location.replace('/studies');
+    });
+  }
+</script>
