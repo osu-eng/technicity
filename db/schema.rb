@@ -11,15 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426123319) do
+ActiveRecord::Schema.define(:version => 20130428153902) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
     t.integer  "rejected_location_id"
-    t.string   "remote_ip"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.string   "voter_remote_ip"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.integer  "study_id"
+    t.string   "voter_session_id"
+    t.decimal  "voter_latitude",       :precision => 15, :scale => 12
+    t.decimal  "voter_longitude",      :precision => 15, :scale => 12
   end
 
   create_table "locations", :force => true do |t|

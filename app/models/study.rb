@@ -36,13 +36,13 @@ class Study < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
-  validates_presence_of :name, :slug, :question, :description
+  validates_presence_of :name, :slug, :question, :description, :user_id
 
   attr_accessible :name, :public, :question, :description, :slug, :user_id, :active
 
   belongs_to :region_set
   belongs_to :user
-  has_many :comparisons
+  has_many :comparisons, :dependent => :destroy
 
 end
 

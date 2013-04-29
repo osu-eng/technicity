@@ -116,7 +116,14 @@ class RegionsController < ApplicationController
 
 
     respond_to do |format|
-      if @region
+      if !@region.valid?
+
+        # Whether or not to automatically create a region_set containing this region
+        @create_set = params[:create_set]
+        format.html { render action: "new" }
+        format.json { render json: @region.errors, status: :unprocessable_entity }
+      else
+
         if @study
           if params[:add_another] == 'true'
             # should go back to this page without create_set flag
@@ -145,9 +152,6 @@ class RegionsController < ApplicationController
           format.html { redirect_to @region, notice: 'Area was successfully created.' }
           format.json { render json: @region, status: :created, location: @region }
         end
-      else
-        format.html { render action: "new" }
-        format.json { render json: @region.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -160,7 +164,7 @@ class RegionsController < ApplicationController
     respond_to do |format|
       if @region.update_attributes(params[:region])
         format.html { redirect_to @region, notice: 'Area was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @region}
       else
         format.html { render action: "edit" }
         format.json { render json: @region.errors, status: :unprocessable_entity }
@@ -173,10 +177,11 @@ class RegionsController < ApplicationController
   def destroy
     @region = Region.find(params[:id])
     @region.destroy
+    flash[:notice] = "Successfully deleted area."
 
     respond_to do |format|
       format.html { redirect_to regions_url }
-      format.json { head :no_content }
+      format.json { render json: @region}
     end
   end
 end

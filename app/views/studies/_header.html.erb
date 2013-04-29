@@ -56,6 +56,12 @@ function changeActiveStatus(id, status) {
   <!-- security - curate should only show if study is public -->
   <!-- MF - added check for owner -->
   <% if user_signed_in? && @study.user_id == current_user.id %>
+    <% if @study.region_set.nil? %>
+      <li>
+        <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true' %>">
+        <i class="icon-plus-sign" style=""></i> Add Area</a>
+      </li>
+    <% end %>
     <% if !@study.region_set.nil? && @study.region_set.regions.count > 0 %>
       <li class="dropdown <%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>">
         <a class="dropdown-toggle" data-toggle="dropdown" href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
@@ -69,7 +75,7 @@ function changeActiveStatus(id, status) {
           <% end %>
           <li>
             <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @study.region_set.id.to_s %>">
-              Add New Region</a>
+              Add New Area</a>
             </li>
         </ul>
       </li>
