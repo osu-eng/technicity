@@ -1,10 +1,12 @@
 class StudiesController < ApplicationController
     before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate ]
     before_filter :authenticate_user!, only: [ :new ]
+  
+  helper_method :sort_column, :sort_direction
   # GET /studies
   # GET /studies.json
   def index
-    @studies = Study.all
+    @studies = Study.order(sort_column + " " + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -195,5 +197,13 @@ class StudiesController < ApplicationController
     @study = require_model_ownership(Study)
   end
 
+  #sorting
+  def sort_column
+    params[:sort] || "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 
 end
