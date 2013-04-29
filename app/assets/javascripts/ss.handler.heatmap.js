@@ -6,7 +6,7 @@
 var ss = ss || {};
 ss.handler = ss.handler || {};
 
-ss.handler.Heatmap = function(mapId, center, zoom, intensity, locations) {
+ss.handler.Heatmap = function(mapId, center, zoom, intensity, locations, path) {
   // 'map' is the default id for a map.
   ss.handler.Heatmap.mapId = typeof mapId !== 'undefined' ? mapId : 'map';
 
@@ -17,7 +17,17 @@ ss.handler.Heatmap = function(mapId, center, zoom, intensity, locations) {
   zoom = typeof zoom !== 'undefined' ? zoom : 10;
 
   // locations is an array of WeightedLocation objects.
-  locations = typeof locations !== 'undefined' ? locations : 10;
+  locations = typeof locations !== 'undefined' ? locations : Array();
+
+  // path is an ordered list of points that make up our polygon.
+  if (typeof path == 'undefined') {
+    if (!ss.handler.Heatmap.path) {
+      ss.handler.Heatmap.path = new google.maps.MVCArray;
+    }
+  }
+  else {
+    ss.handler.Heatmap.path = path;
+  }
 
   // map is the google map object
   ss.handler.Heatmap.map = new google.maps.Map(
@@ -31,8 +41,16 @@ ss.handler.Heatmap = function(mapId, center, zoom, intensity, locations) {
 
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: locations,
-    maxIntensity: intensity
+    maxIntensity: intensity,
+    radius: 15,
+    dissipating: true
   });
   heatmap.setMap(ss.handler.Heatmap.map);
 
+  polygon = new google.maps.Polygon({
+    strokeWeight: 3,
+    fillOpacity: 0
+  });
+  polygon.setMap(ss.handler.Heatmap.map);
+  polygon.setPaths(new google.maps.MVCArray([ss.handler.Heatmap.path]));
 }
