@@ -72,7 +72,7 @@ ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations) {
         position: ss.handler.Polygon.locations.getAt(i),
         map: ss.handler.Polygon.map,
         title: ss.handler.Polygon.locations.getAt(i).toString(),
-        draggable: true
+        draggable: false
       });
 
       // add our marker to the list of markers
