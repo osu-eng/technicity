@@ -3,8 +3,10 @@
 <% @study.region_set.regions.each_slice(2) do |region_row| -%>
   <div class="row show-grid">
   <% region_row.each do |region| -%>
-  <div class="span6"
-    <div id="map-<%= region.id %>" class="map span6" style="height:350px;"></div>
+  <div class="span6">
+    <h4><%= region.name %></h4>
+    <div id="map-<%= region.id %>" class="map" style="height:350px;"></div>
+  </div>
   <% end -%>
   </div>
 <% end -%>

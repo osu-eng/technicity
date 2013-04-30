@@ -70,13 +70,13 @@ class Region < ActiveRecord::Base
       region_heatmap[location.id] = {
         'latitude' => location.latitude,
         'longitude' => location.longitude,
-        'weight' => location.normalized(:study_id)
+        'weight' => location.normalized(study_id)
       }
     end
     region_heatmap
   end
 
   def max_intensity(study_id)
-    self.locations.map{|location| location.normalized(:study_id) }.max
+    self.locations.map{|location| location.normalized(study_id) }.max
   end
 end
