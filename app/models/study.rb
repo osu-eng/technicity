@@ -43,6 +43,8 @@ class Study < ActiveRecord::Base
   belongs_to :region_set
   belongs_to :user
   has_many :comparisons, :dependent => :destroy
+  has_many :regions, :through => :region_set
+  has_many :locations, :through => :regions
 
   def heatmaps
     heatmap_collection = Hash.new
