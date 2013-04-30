@@ -1,0 +1,22 @@
+<%= render 'header', :study => @study %>
+<p>
+  <strong>Description</strong><br />
+  <%= @study.description %>
+</p>
+<p>
+  <strong>Question</strong><br />
+  Which place looks <%= @study.question %>?
+</p>
+
+<h3>Results</h3>
+<div class="navbar analyze-options">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "summary", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "summary", :id => @study %>">Summary</a></li>
+        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "heatmap", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "heatmap", :id => @study %>">Heatmap</a></li>
+        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "download", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "download", :id => @study %>">Download</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

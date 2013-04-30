@@ -44,6 +44,15 @@ class Study < ActiveRecord::Base
   belongs_to :user
   has_many :comparisons, :dependent => :destroy
 
+  def heatmaps
+    heatmap_collection = Hash.new
+    self.region_set.regions.each do |region|
+      heatmap_collection[region.id] = region.heatmap(self.id)
+    end
+    heatmap_collection
+  end
+
+  def max_intensity
+    self.region_set.regions.map{|region| region.max_intensity(self.id)}.max
+  end
 end
-
-

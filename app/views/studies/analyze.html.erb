@@ -1,17 +1,5 @@
-<%= render 'header', :study => @study %>
 
-<p>Todo: analyze stuff</p>
-
-<p>
-  <strong>Description</strong><br />
-  <%= @study.description %>
-</p>
-<p>
-  <strong>Question</strong><br />
-  Which place looks <%= @study.question %>?
-</p>
-
-<h3>Results</h3>
+<%= render 'heatmap', :study => @study %>
 <%= render 'comparisons/listbystudy', :study => @study %>
 
 <!-- MF do we want this to be a link out to an image set view? -->

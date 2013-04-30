@@ -28,12 +28,14 @@ Technicity::Application.routes.draw do
 
 
   resources :studies do
-    get :analyze, :on => :member
-    get :vote,    :on => :member
-    get :curate,  :on => :member
-    get :status,  :on => :member
-    put :open,    :on => :member
-    put :close,   :on => :member
+    get :vote,     :on => :member
+    get :curate,   :on => :member
+    get :summary,  :on => :member
+    get :heatmap,  :on => :member
+    get :download, :on => :member
+    get :status,   :on => :member
+    put :open,     :on => :member
+    put :close,    :on => :member
   end
 
   resources :users
@@ -50,6 +52,7 @@ Technicity::Application.routes.draw do
   match 'help' => 'static_pages#help'
   match 'home' => 'static_pages#home'
   match 'studies' => 'studies#show'
+  match 'studies/:id/analyze' => 'studies#summary'
   match 'studies/mine/:user_id' => 'studies#mine'
 
   # Sample of named route:

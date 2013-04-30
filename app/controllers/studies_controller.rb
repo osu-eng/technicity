@@ -1,10 +1,12 @@
 class StudiesController < ApplicationController
     before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate ]
     before_filter :authenticate_user!, only: [ :new ]
+  
+  helper_method :sort_column, :sort_direction
   # GET /studies
   # GET /studies.json
   def index
-    @studies = Study.all
+    @studies = Study.order(sort_column + " " + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,25 +39,41 @@ class StudiesController < ApplicationController
     end
   end
 
-  # GET /studies/1
-  # GET /studies/1.json
-  def analyze
+  # GET /studies/1/summary
+  # GET /studies/1/summary.json
+  def summary
     @study = Study.find(params[:id])
 
     respond_to do |format|
-      format.html # vote.html.erb
+      format.html # analyze.html.erb
       format.json { render json: @study }
     end
   end
 
-  # GET /studies/1
-  # GET /studies/1.json
+  # GET /studies/1/heatmap
+  def heatmap
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # heatmap.html.erb
+    end
+  end
+
+  # GET /studies/1/download
+  def download
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # heatmap.html.erb
+    end
+  end
+
+  # GET /studies/1/vote
   def vote
     @study = Study.find(params[:id])
 
     respond_to do |format|
       format.html # vote.html.erb
-      format.json { render json: @study }
     end
   end
 
@@ -64,16 +82,14 @@ class StudiesController < ApplicationController
     render :partial => "studies/status"
   end
 
-  # GET /studies/1
-  # GET /studies/1.json
+  # GET /studies/1/curate
   def curate
     # security - users should only be able to curate regions they own
     @study = Study.find(params[:id])
     @region = Region.find(params[:region_id])
 
     respond_to do |format|
-      format.html # vote.html.erb
-      format.json { render json: @study }
+      format.html # curate.html.erb
     end
   end
 
@@ -200,5 +216,13 @@ class StudiesController < ApplicationController
     @study = require_model_ownership(Study)
   end
 
+  #sorting
+  def sort_column
+    params[:sort] || "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 
 end

@@ -64,5 +64,19 @@ class Region < ActiveRecord::Base
     end
   end
 
+  def heatmap(study_id)
+    region_heatmap = Hash.new
+    self.locations.each do |location|
+      region_heatmap[location.id] = {
+        'latitude' => location.latitude,
+        'longitude' => location.longitude,
+        'weight' => location.normalized(:study_id)
+      }
+    end
+    region_heatmap
+  end
 
+  def max_intensity(study_id)
+    self.locations.map{|location| location.normalized(:study_id) }.max
+  end
 end

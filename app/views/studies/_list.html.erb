@@ -1,15 +1,14 @@
 
 <table class="table table-striped table-hover">
   <tr>
-    <th>Name</th>
-    <th>Which place looks...</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "question", "Which place looks..." %></th>
     <!-- add check here for admin? -->
-    <th>User</th>
+    <th><%= sortable "user_id", "User" %></th>
     <th>Image Set</th>
     <th>Votes</th>
-    <th>Status</th>
-  </tr>
-
+    <th><%= sortable "active", "Status" %></th>
+</tr>    
 <% @studies.each do |study| %>
   <tr>
     <!-- only show draft studies to logged in owners -->

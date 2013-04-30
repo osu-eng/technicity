@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=geometry,streetview&sensor=false' %>
+    <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=geometry,visualization,streetview&sensor=false' %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -42,9 +42,11 @@
             <%= yield %>
           </div>
         </div>
+        <% if request.path == root_path -%>
         <div class="row" id="bottom-trio">
           <%= render "layouts/bottom_trio" %>
         </div>
+        <% end -%>
       </div>
 
         </div>

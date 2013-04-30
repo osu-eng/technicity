@@ -26,7 +26,7 @@ numbers as the values in an array -->
     <th>Latitude</th>
     <th>Longitude</th>
     <th>Times Picked (out of total votes)</th>
-    <th>Times Rejected (out of total votes)</th>
+    <th>Weighted percent</th>
   </tr>
   <% @votes.each do |spot, counts| %>
   <!-- get location info -->
@@ -36,7 +36,7 @@ numbers as the values in an array -->
     <td><%= @location.latitude.round(4) %></td>
     <td><%= @location.longitude.round(5) %></td>
     <td><%= counts[0] %> / <%= counts[0].to_i + counts[1].to_i %></td>
-    <td><%= counts[1] %> / <%= counts[0].to_i + counts[1].to_i %></td>
+    <td><%= (counts[0].to_f / ((counts[0].to_f + counts[1].to_f).nonzero? || 1) * 100).round %> %</td>
     </tr>
   <% end %>
 </table>
