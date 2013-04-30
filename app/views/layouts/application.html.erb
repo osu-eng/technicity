@@ -42,9 +42,11 @@
             <%= yield %>
           </div>
         </div>
+        <% if request.path == root_path -%>
         <div class="row" id="bottom-trio">
           <%= render "layouts/bottom_trio" %>
         </div>
+        <% end -%>
       </div>
 
         </div>
