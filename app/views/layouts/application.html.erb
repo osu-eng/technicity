@@ -42,16 +42,13 @@
             <%= yield %>
           </div>
         </div>
-        <% if request.path == root_path -%>
-        <div class="row" id="bottom-trio">
-          <%= render "layouts/bottom_trio" %>
-        </div>
-        <% end -%>
-      </div>
-
-        </div>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
+    
+    <div class="row" id="footer">
+          <%= render "layouts/footer" %>
+        </div>
+    
     <%= yield :scripts %>
     <script type="text/javascript">
       $('.label-with-popover').popover();

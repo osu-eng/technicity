@@ -1,0 +1,31 @@
+<!-- Test text - will all need to be moved into internationalization file -->
+ 
+  <div class="row text-center" id="contact-bar">
+      <div class="container">
+        <a target="_blank" href="mailto:eng-streetseen@osu.edu"><%= image_tag("email-50.png", :alt => "Email Us") %></a>
+        <a target="_blank" href="http://www.facebook.com/OsuStreetSeen"><%= image_tag("FB-f-Logo__white_50.png", :alt => "Follow us on Facebook") %></a>
+        <a target="_blank" href="http://twitter.com/OsuStreetSeen"><%= image_tag("twitter-bird-dark-50.png", :alt => "Follow us on Twitter") %></a>
+        <a target="_blank" href="https://www.coursera.org/course/techcity"><%= image_tag("coursera-square-50.png", :alt => "Visit Technicity on Coursera") %></a>
+        <a id="contact-text" href="<%= :home %>">Contact</a>
+      </div>
+  </div>
+<div class="row" id="trio-bar">  
+  <div class="container">
+    <div class="row trio-text">
+      <div class="span4">
+        <h4>Ohio State University</h4><p>OSU Logo ----------- | COE Address placeholder</p>
+      </div>
+      <div class="span4">
+        <h4>Technicity</h4>
+        <%= link_to image_tag("FinalPerspective.jpg", :alt => "TechniCity on Coursera"), "https://www.coursera.org/course/techcity" %>
+        <p>This app was designed to support <a href="https://www.coursera.org/course/techcity">TechniCity</a>, a Coursera course taught by Jennifer Evans-Cowley and 
+  Thomas W. Sanchez.
+        </p>
+      </div>
+      <div class="span4">
+        <h4>Use StreetSeen</h4><p>Materials and Studies here are licensed under a Creative Commons BY-NC-SA license, Software Github information.</p>
+      </div>
+    </div>
+  </div>
+ </div> 
+  
