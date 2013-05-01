@@ -43,16 +43,72 @@ class Study < ActiveRecord::Base
   belongs_to :region_set
   belongs_to :user
   has_many :comparisons, :dependent => :destroy
+  has_many :regions, :through => :region_set
+  has_many :locations, :through => :regions
 
   def heatmaps
     heatmap_collection = Hash.new
+    heatmap_collection['regions'] = Hash.new
+    heatmap_collection['max_intensity'] = 0
     self.region_set.regions.each do |region|
-      heatmap_collection[region.id] = region.heatmap(self.id)
+      heatmap_collection['regions'][region.id] = region.heatmap(self.id)
+      heatmap_collection['max_intensity'] = [ heatmap_collection['max_intensity'], heatmap_collection['regions'][region.id]['max_intensity'] ].max
     end
     heatmap_collection
   end
 
-  def max_intensity
-    self.region_set.regions.map{|region| region.max_intensity(self.id)}.max
+  def results
+    result_set = ActiveRecord::Base.connection.exec_query("
+    SELECT
+      l.id AS location_id,
+      l.latitude,
+      l.longitude,
+      l.heading,
+      l.pitch,
+      IFNULL(cl.chosen, 0) AS chosen,
+      IFNULL(rl.rejected, 0) AS rejected,
+      r.name AS region_name,
+      s.slug AS study,
+      s.question
+    FROM locations l
+    LEFT JOIN (
+      SELECT  
+        chosen_location_id as id, 
+        count(*) as chosen
+      FROM comparisons
+      WHERE study_id = #{self.id}
+      GROUP BY chosen_location_id
+    ) cl on cl.id = l.id
+    LEFT JOIN (
+      SELECT  
+        rejected_location_id as id, 
+        count(*) as rejected
+      FROM comparisons
+      WHERE study_id = #{self.id}
+      GROUP BY rejected_location_id
+    ) rl on rl.id = l.id
+    LEFT JOIN regions r ON r.id = l.region_id
+    LEFT JOIN studies s ON s.id = #{self.id}
+    WHERE 
+      l.region_id IN (
+        SELECT r.id
+        FROM regions r
+        JOIN region_set_memberships rsm ON rsm.region_id = r.id
+        JOIN region_sets rs on rs.id = rsm.region_set_id
+        JOIN studies s on s.region_set_id = rs.id
+        WHERE s.id = #{self.id})
+    ")
+    result_set
+  end
+
+  def to_csv(options = {})
+    study_results = self.results
+    CSV.generate(options) do |csv|
+      csv << study_results.first.keys.push('image_url')
+      study_results.each do |location|
+        location['image_url'] = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=#{location['latitude']}%2C%20#{location['longitude']}&heading=#{location['heading']}&pitch=#{location['pitch']}&sensor=false"
+        csv << location.values
+      end
+    end
   end
 end

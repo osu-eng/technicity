@@ -41,12 +41,23 @@ class StudiesController < ApplicationController
 
   # GET /studies/1/summary
   # GET /studies/1/summary.json
-  def summary
+  def results
     @study = Study.find(params[:id])
 
     respond_to do |format|
       format.html # analyze.html.erb
       format.json { render json: @study }
+      format.csv { send_data @study.to_csv }
+      format.xls { send_data @study.to_csv(col_sep: "\t") }
+    end
+  end
+
+  # GET /studies/1/region_results
+  def region_results
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # region_results.html.erb
     end
   end
 

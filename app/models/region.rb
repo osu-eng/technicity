@@ -65,18 +65,40 @@ class Region < ActiveRecord::Base
   end
 
   def heatmap(study_id)
+    location_results = ActiveRecord::Base.connection.execute("
+    SELECT l.id, l.latitude, l.longitude, cl.chosen, rl.rejected
+    FROM locations l
+    LEFT JOIN (
+      SELECT  
+        chosen_location_id as id, 
+        count(*) as chosen
+      FROM comparisons
+      WHERE study_id = #{study_id}
+      GROUP BY chosen_location_id
+    ) cl on cl.id = l.id
+    LEFT JOIN (
+      SELECT  
+        rejected_location_id as id, 
+        count(*) as rejected
+      FROM comparisons
+      WHERE study_id = #{study_id}
+      GROUP BY rejected_location_id
+    ) rl on rl.id = l.id
+    WHERE 
+      l.region_id = #{self.id}
+    ")
+
     region_heatmap = Hash.new
-    self.locations.each do |location|
-      region_heatmap[location.id] = {
-        'latitude' => location.latitude,
-        'longitude' => location.longitude,
-        'weight' => location.normalized(:study_id)
+    region_heatmap['locations'] = Hash.new
+    region_heatmap['max_intensity'] = 0
+    location_results.each do |location|
+      region_heatmap['locations'][location['id']] = {
+        'latitude' => location['latitude'],
+        'longitude' => location['longitude'],
+        'weight' => Location.normalized(location['chosen'], location['rejected'])
       }
+      region_heatmap['max_intensity'] = [ region_heatmap['max_intensity'], region_heatmap['locations'][location['id']]['weight'] ].max
     end
     region_heatmap
-  end
-
-  def max_intensity(study_id)
-    self.locations.map{|location| location.normalized(:study_id) }.max
   end
 end

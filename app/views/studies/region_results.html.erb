@@ -1,0 +1,27 @@
+<%= render 'analyze_header', :study => @study -%>
+
+<% if @study.region_set.nil? %>
+  <% if user_signed_in? && @study.user_id == current_user.id %>
+    <p>You have not yet associated an Image Set. You can create a
+      <%= link_to 'New Image Set', new_region_path() + '?study_id=' + @study.id.to_s() + '&create_set=true' %> or
+       search for one below.</p>
+  <% else %>
+    <p>No image set has been associated with this study.</p>
+  <% end %>
+<% else %>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th>Map</th>
+      <th>Name</th>
+      <th>Locations Included</th>
+    </tr>
+    <% @study.region_set.regions.each do |region| %>
+      <tr>
+        <td>
+          <a href="<%= url_for(:controller => "studies", :action => "curate", :id => @study) %>?region_id=<%= region.id %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region.latitude %>,<%= region.longitude %>&zoom=<%= region.zoom %>&size=150x100&sensor=false"></a></td>
+        <td><a href="<%= url_for(:controller => "studies", :action => "curate", :id => @study) %>?region_id=<%= region.id %>"><%= region.name %></a></td>
+        <td><%= region.locations.count %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
