@@ -5,15 +5,17 @@
     <th>Location</th>
     <th>Latitude</th>
     <th>Longitude</th>
-    <th>Times Picked (out of total votes)</th>
-    <th>Weighted percent</th>
+    <th>Region</th>
+    <th>Times Chosen / Total Votes</th>
+    <th>Percent Chosen</th>
   </tr>
-  <% @study.results.each do |location| 
+  <% @study.results.each do |location|
     total = location['chosen'].to_i + location['rejected'].to_i -%>
   <tr>
     <td width="150"><a href="/locations/<%= location['id'] %>"><img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&location=<%= location['latitude'] %>,%20<%= location['longitude'] %>&heading=<%= location['heading'] %>&pitch=<%= location['pitch'] %>&sensor=false" /></a></td>
     <td><%= location['latitude'].to_f.round(5) %></td>
     <td><%= location['longitude'].to_f.round(5) %></td>
+    <td><%= location['region_name'] %></td>
     <td><%= location['chosen'].to_i %> / <%= total %></td>
     <td><%= (location['chosen'].to_f / (total.nonzero? || 1).to_f * 100).round %> %</td>
   </tr>

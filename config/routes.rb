@@ -30,7 +30,7 @@ Technicity::Application.routes.draw do
   resources :studies do
     get :vote,     :on => :member
     get :curate,   :on => :member
-    get :summary,  :on => :member
+    get :results,  :on => :member
     get :heatmap,  :on => :member
     get :download, :on => :member
     get :status,   :on => :member

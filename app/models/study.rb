@@ -58,8 +58,18 @@ class Study < ActiveRecord::Base
   end
 
   def results
-    result_set = ActiveRecord::Base.connection.execute("
-    SELECT l.id, l.latitude, l.longitude, l.heading, l.pitch, cl.chosen, rl.rejected
+    result_set = ActiveRecord::Base.connection.exec_query("
+    SELECT
+      l.id AS location_id,
+      l.latitude,
+      l.longitude,
+      l.heading,
+      l.pitch,
+      IFNULL(cl.chosen, 0) AS chosen,
+      IFNULL(rl.rejected, 0) AS rejected,
+      r.name AS region_name,
+      s.slug AS study,
+      s.question
     FROM locations l
     LEFT JOIN (
       SELECT  
@@ -77,6 +87,8 @@ class Study < ActiveRecord::Base
       WHERE study_id = #{self.id}
       GROUP BY rejected_location_id
     ) rl on rl.id = l.id
+    LEFT JOIN regions r ON r.id = l.region_id
+    LEFT JOIN studies s ON s.id = #{self.id}
     WHERE 
       l.region_id IN (
         SELECT r.id
@@ -87,5 +99,16 @@ class Study < ActiveRecord::Base
         WHERE s.id = #{self.id})
     ")
     result_set
+  end
+
+  def to_csv(options = {})
+    study_results = self.results
+    CSV.generate(options) do |csv|
+      csv << study_results.first.keys.push('image_url')
+      study_results.each do |location|
+        location['image_url'] = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=#{location['latitude']}%2C%20#{location['longitude']}&heading=#{location['heading']}&pitch=#{location['pitch']}&sensor=false"
+        csv << location.values
+      end
+    end
   end
 end
