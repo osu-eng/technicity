@@ -8,92 +8,141 @@
 var ss = ss || {};
 ss.handler = ss.handler || {};
 
-ss.handler.Curate = function(editModalId, panoramaMapId, panoramaId, deleteModalId, locationIdPrefix) {
+ss.handler.Curate = function(regionId) {
 
-  // Ids for various modals and map elements.
-  ss.handler.Curate.editModalId = editModalId;
-  ss.handler.Curate.panoramaMapId = panoramaMapId;
-  ss.handler.Curate.panoramaId = panoramaId;
-  ss.handler.Curate.deleteModalId = deleteModalId;
-  ss.handler.Curate.locationIdPrefix = locationIdPrefix;
+  this.regionId = regionId;
 
-  // We track the working location with this static variable
-  // ss.handler.Curate.workingLocation = null;
+  // These instance variables can easily be overridden by setting
+  // the appropriate property.
+  this.panoramaMapId = 'panorama-map';
+  this.panoramaId = 'panorama';
+  this.editModalId = 'edit-location-modal';
+  this.deleteModalId = 'delete-location-modal';
+  this.locationIdPrefix = 'location-';
+  this.countId = 'location-count'
+  this.quantityId = 'quantity';
+  this.proximityId = 'proximity';
+
 }
 
-/**
- * Works with a modal popup named #edit_street_view.
- * @param  {[type]} id      [description]
- * @param  {[type]} lat     [description]
- * @param  {[type]} lng     [description]
- * @param  {[type]} heading [description]
- * @param  {[type]} pitch   [description]
- * @return {[type]}         [description]
- */
+ss.handler.Curate.prototype.initialize = function (mapId, center, zoom, path) {
+
+  polygon = new ss.Polygon(path);
+  this.polygonMap = new ss.PolygonMap(polygon, this.mapId, center, zoom, false);
+
+  var $this = this;
+
+  this.polygonMap.markerClickCb = function() {
+    // Fire the click handler of the curate link
+    $('#' + $this.locationIdPrefix + this.getZIndex()).click();
+  }
+
+  this.polygonMap.markerPersistCb = function(position) {
+    ss.Location.create($this.regionId, position.lat(), position.lng(), function(location, status, xhr) {
+
+      // Promote our point from a pending point to a full marker
+      point = new google.maps.LatLng(location.latitude, location.longitude);
+      $this.polygonMap.promotePendingToMarker(location.id, point);
+
+      // Update our counter
+      $('#' + $this.countId).html($this.polygonMap.markers.length);
+
+      // We should append a linked image below
+      $(
+        '<a>',
+        {
+          id: $this.locationIdPrefix + location.id,
+          class: 'thumbnail cursor new',
+          'data-toggle': 'modal',
+          onclick: 'curate.editLocation(' + location.id + ', ' + location.latitude + ', ' + location.longitude + ', ' +location.heading + ', ' + location.pitch + ');'
+        }
+      ).html('<img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150'
+        + '&location=' + location.latitude + ',%20' + location.longitude
+        + '&heading=' + location.heading + '&pitch=' + location.pitch + '&sensor=false" />').prependTo('#images');
+
+    });
+  }
+}
+
+ss.handler.Curate.prototype.addPoints = function() {
+  this.polygonMap.addPoints(
+    document.getElementById(this.quantityId).value,
+    document.getElementById(this.proximityId).value);
+}
+
 ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, heading, pitch) {
 
-  // Enable modal
-  $('#' + ss.handler.Curate.editModalId).modal();
+    // Enable modal
+    editModal = $('#' + this.editModalId);
+    editModal.modal();
 
-  // Set the working location to be this location.
-  ss.handler.Curate.workingLocation = new ss.Location(id, latitude, longitude, heading, pitch);
+    // Set the working location to be this location.
+    this.workingLocation = new ss.Location(id, latitude, longitude, heading, pitch);
 
-  // Create a panorama and google map (required for panorama?)
-  var position = new google.maps.LatLng(latitude,longitude);
-  var panoramaOptions = {
-    position: position,
-    pov: {
-      heading: heading,
-      pitch: pitch,
-    },
+    // Create a panorama and google map (required for panorama?)
+    var position = new google.maps.LatLng(latitude,longitude);
 
-    addressControl: false,
-    linksControl: false,
-    disableDoubleClickZoom: true,
-    zoomControl: false,
-    navigationControl: false,
-    enableCloseButton: false
-  };
+    // Create panorama options
+    var panoramaOptions = {
+      position: position,
+      pov: {
+        heading: heading,
+        pitch: pitch,
+      },
+
+      addressControl: false,
+      linksControl: false,
+      disableDoubleClickZoom: true,
+      zoomControl: false,
+      navigationControl: false,
+      enableCloseButton: false
+    };
+
+  // Create a map
   var mapOptions = {
     center: position,
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
-  var map = new google.maps.Map(document.getElementById(ss.handler.Curate.panoramaMapId), mapOptions);
-  var panorama = new google.maps.StreetViewPanorama(document.getElementById(ss.handler.Curate.panoramaId), panoramaOptions);
+  var map = new google.maps.Map(document.getElementById(this.panoramaMapId), mapOptions);
+
+  // Associate the panorama
+  var panorama = new google.maps.StreetViewPanorama(document.getElementById(this.panoramaId), panoramaOptions);
   map.setStreetView(panorama);
 
-  // Add some handlers for position and pov
-  $('#' + ss.handler.Curate.editModalId).on('shown', function () {
-    google.maps.event.trigger(panorama, 'resize');
-    google.maps.event.addListener(panorama, 'position_changed', function() {
-      ss.handler.Curate.workingLocation.latitude = panorama.getPosition().lat();
-      ss.handler.Curate.workingLocation.longitude = panorama.getPosition().lng();
-    });
+  var $this = this;
 
+  // Add some handlers for position and pov
+  editModal.on('shown', function () {
+
+    var $that = $this;
+
+    google.maps.event.trigger(panorama, 'resize');
     google.maps.event.addListener(panorama, 'pov_changed', function() {
-      ss.handler.Curate.workingLocation.heading = panorama.getPov().heading;
-      ss.handler.Curate.workingLocation.pitch = panorama.getPov().pitch;
+      $that.workingLocation.heading = panorama.getPov().heading;
+      $that.workingLocation.pitch = panorama.getPov().pitch;
     });
   });
 }
+
 
 /**
  * Shows the confirm delete dialog.
  */
 ss.handler.Curate.prototype.deleteLocation = function() {
-  $('#' + ss.handler.Curate.editModalId).modal('toggle');
-  $('#' + ss.handler.Curate.deleteModalId).modal('toggle');
+  $('#' + this.editModalId).modal('toggle');
+  $('#' + this.deleteModalId).modal('toggle');
 }
 
 /**
  * Actually deletes the location.
  */
 ss.handler.Curate.prototype.deleteLocationConfirm = function() {
-  $('#' + ss.handler.Curate.deleteModalId).modal('toggle');
-  ss.handler.Curate.workingLocation.delete(function (location, status, xhr) {
+  $('#' + this.deleteModalId).modal('toggle');
+  $this = this;
+  this.workingLocation.delete(function (location, status, xhr) {
     // delete the image
-    $('#' + ss.handler.Curate.locationIdPrefix + location.id).remove();
+    $('#' + $this.locationIdPrefix + location.id).remove();
   });
 }
 
@@ -101,24 +150,26 @@ ss.handler.Curate.prototype.deleteLocationConfirm = function() {
  * Cancels deletion and returns to the edit modal.
  */
 ss.handler.Curate.prototype.deleteLocationCancel = function() {
-  $('#' + ss.handler.Curate.deleteModalId).modal('toggle');
-  $('#' + ss.handler.Curate.editModalId).modal('toggle');
+  $('#' + this.deleteModalId).modal('toggle');
+  $('#' + this.editModalId).modal('toggle');
 }
 
 ss.handler.Curate.prototype.updateLocation = function() {
-  ss.handler.Curate.workingLocation.update(function(location, status, xhr) {
+  var $this = this;
+
+  this.workingLocation.update(function(location, status, xhr) {
     if (status == "success") {
       // update the onclick
-      $('#' + ss.handler.Curate.locationIdPrefix + location.id).click(function(){
-        page.editLocation(location.id, location.latitude, location.longitude, location.heading, location.pitch);
+      $('#' + $this.locationIdPrefix + location.id).click(function(){
+        $this.editLocation(location.id, location.latitude, location.longitude, location.heading, location.pitch);
       });
       // update the image
-      $('#' + ss.handler.Curate.locationIdPrefix + location.id).html(
+      $('#' + $this.locationIdPrefix + location.id).html(
         '<img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150'
         + '&location=' + location.latitude + ',%20' + location.longitude
         + '&heading=' + location.heading + '&pitch=' + location.pitch + '&sensor=false" />'
         );
-      $('#' + ss.handler.Curate.editModalId).modal('toggle');
+      $('#' + $this.editModalId).modal('toggle');
     }
   });
 

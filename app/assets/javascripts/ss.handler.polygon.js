@@ -15,7 +15,7 @@ ss.handler = ss.handler || {};
  * @param {[type]} path      [description]
  * @param {[type]} locations [description]
  */
-ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations) {
+ss.handler.Polygon = function(mapId, center, zoom, editable, path, locations, markers) {
 
   // 'map' is the default id for a map.
   ss.handler.Polygon.mapId = typeof mapId !== 'undefined' ? mapId : 'map';
