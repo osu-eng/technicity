@@ -28,14 +28,15 @@ Technicity::Application.routes.draw do
 
 
   resources :studies do
-    get :vote,     :on => :member
-    get :curate,   :on => :member
-    get :results,  :on => :member
-    get :heatmap,  :on => :member
-    get :download, :on => :member
-    get :status,   :on => :member
-    put :open,     :on => :member
-    put :close,    :on => :member
+    get :vote,           :on => :member
+    get :curate,         :on => :member
+    get :results,        :on => :member
+    get :region_results, :on => :member
+    get :heatmap,        :on => :member
+    get :download,       :on => :member
+    get :status,         :on => :member
+    put :open,           :on => :member
+    put :close,          :on => :member
   end
 
   resources :users

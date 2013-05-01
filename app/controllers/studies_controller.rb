@@ -52,6 +52,15 @@ class StudiesController < ApplicationController
     end
   end
 
+  # GET /studies/1/region_results
+  def region_results
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # region_results.html.erb
+    end
+  end
+
   # GET /studies/1/heatmap
   def heatmap
     @study = Study.find(params[:id])
