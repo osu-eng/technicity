@@ -79,13 +79,10 @@ ss.PolygonMap.prototype.addMarker = function(id, point) {
   this.totalMarkers++;
 
   // Add an event handler for clicking if one is provided
-  if (this.markerClick) {
-    clickCb = this.markerClick;
+  if (this.markerClickCb) {
+    google.maps.event.addListener(marker, 'click', this.markerClickCb);
   }
-  else {
-    clickCb = ss.PolygonMap.markerClick;
-  }
-  google.maps.event.addListener(marker, 'click', clickCb);
+
 
   return marker;
 }
