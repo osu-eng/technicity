@@ -48,14 +48,13 @@ class Study < ActiveRecord::Base
 
   def heatmaps
     heatmap_collection = Hash.new
+    heatmap_collection['regions'] = Hash.new
+    heatmap_collection['max_intensity'] = 0
     self.region_set.regions.each do |region|
-      heatmap_collection[region.id] = region.heatmap(self.id)
+      heatmap_collection['regions'][region.id] = region.heatmap(self.id)
+      heatmap_collection['max_intensity'] = [ heatmap_collection['max_intensity'], heatmap_collection['regions'][region.id]['max_intensity'] ].max
     end
     heatmap_collection
-  end
-
-  def max_intensity
-    self.region_set.regions.map{|region| region.max_intensity(self.id)}.max
   end
 
   def results
