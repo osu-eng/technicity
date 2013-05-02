@@ -144,12 +144,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   padding-top: 50px;
   }
 
-@media (max-width: 990px) {
-  #main{
-    padding-top: 0;
-    }
-}
-
 .overlay-logo {
   .span3 {
     position: absolute;
@@ -171,9 +165,16 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 @media (max-width: 767px) {
   .navbar .brand{
     width: 150px;
+    margin-left: 20px;
     }
   .overlay-corner{
     width: 200px;
+    }
+  #main {
+    padding-top: 20px;;
+    }
+  .navbar-inner .btn-navbar {
+    margin-right: 30px;
     }
 }
 
@@ -181,7 +182,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   position: absolute;
   }
 
-
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+  padding: 0;
+}
 
 .curate a.thumbnail {
   width:220px;
