@@ -57,7 +57,7 @@ ss.handler.Curate.prototype.initialize = function (mapId, center, zoom, path) {
           onclick: 'curate.editLocation(' + location.id + ', ' + location.latitude + ', ' + location.longitude + ', ' +location.heading + ', ' + location.pitch + ');'
         }
       ).html('<img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150'
-        + '&location=' + location.latitude + ',%20' + location.longitude
+        + '&location=' + location.latitude + ',' + location.longitude
         + '&heading=' + location.heading + '&pitch=' + location.pitch + '&sensor=false" />').prependTo('#images');
 
     });
@@ -183,7 +183,7 @@ ss.handler.Curate.prototype.updateLocation = function() {
       // update the image
       $('#' + $this.locationIdPrefix + location.id).html(
         '<img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150'
-        + '&location=' + location.latitude + ',%20' + location.longitude
+        + '&location=' + location.latitude + ',' + location.longitude
         + '&heading=' + location.heading + '&pitch=' + location.pitch + '&sensor=false" />'
         );
       $('#' + $this.editModalId).modal('toggle');
