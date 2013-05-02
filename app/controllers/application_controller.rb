@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
-  
+
+
   protected
 
   # Authorization
@@ -14,5 +14,13 @@ class ApplicationController < ActionController::Base
       end
     end
     result
+  end
+
+  def trigger_403(message)
+    respond_to do |format|
+      format.html {
+        redirect_to :controller=>'static_pages', :action => 'denied'
+      }
+    end
   end
 end

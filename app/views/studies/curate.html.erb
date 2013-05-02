@@ -50,17 +50,19 @@
   </div>
 </div>
 
-<div id="edit-location-modal" class="modal hide fade">
+<div id="edit-location-modal" style="width:650px;" class="modal hide fade">
   <div class="modal-header">
     <a class="close" data-dismiss="modal" >&times;</a>
     <h3>Edit Image</h3>
   </div>
-  <div class="modal-body" align="center">
-    <div id="panorama" style="width:400px;height:300px"></div>
-    <p>To edit, rotate to your desired heading by clicking and dragging.</p>
-    <div id="panorama-map" style=""></div>
+  <div class="modal-body" align="left">
+    <div id="panorama" style="float:left;width:400px;height:300px"></div>
+    <div style="float:left;width:150px;margin-left:20px">
+      <div id="panorama-map" style="width:200px;height:150px;margin-bottom:20px;"></div>
+      <p>Rotate to the desired view by clicking and dragging on the image.</p>
+    </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer" align="left">
     <a id="save_changes" class="btn btn-primary cursor" onclick="curate.updateLocation()">Save Changes</a>
     <a id="delete_image" class="btn cursor" onclick="curate.deleteLocation()">Delete Image</a>
     <a class="btn cursor" data-dismiss="modal" id="close_modal">Close</a>
@@ -72,7 +74,7 @@
   <% @region.locations.order('id desc').each do |location| %>
     <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
        onclick="curate.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
-      <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,%20<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
+      <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
     </a>
   <% end %>
   </div>
