@@ -22,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <div class="nav-collapse" style="padding-right: 210px;">
+          <div class="nav-collapse">
             <%= render 'layouts/navigation' %>
           </div>
         </div>
@@ -44,11 +44,11 @@
         </div>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
-    
+
     <div class="row" id="footer">
           <%= render "layouts/footer" %>
         </div>
-    
+
     <%= yield :scripts %>
     <script type="text/javascript">
       $('.label-with-popover').popover();

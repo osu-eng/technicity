@@ -1,9 +1,11 @@
-<h1>Listing studies</h1>
+<h1>Public Studies</h1>
 
 <%= render 'studies/list', :studies => @studies, :show_user => true  %>
 
 <br />
 
 <% if user_signed_in? %>
-<%= link_to 'New Study', new_study_path %>
+<button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
+  <i class="icon-plus-sign icon-white"></i> Create a New Study
+</button>
 <% end %>

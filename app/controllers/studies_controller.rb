@@ -17,6 +17,7 @@ class StudiesController < ApplicationController
 
   def mine
     @studies = Study.where("user_id = ?", params[:user_id])
+    @mine = true
     respond_to do |format|
       if @studies.nil?
         format.html { redirect_to studies_url, notice: 'You have not yet created any studies.' }
