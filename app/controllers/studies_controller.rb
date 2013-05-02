@@ -1,7 +1,7 @@
 class StudiesController < ApplicationController
     before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate ]
     before_filter :authenticate_user!, only: [ :new ]
-  
+
   helper_method :sort_column, :sort_direction
   # GET /studies
   # GET /studies.json
@@ -13,7 +13,7 @@ class StudiesController < ApplicationController
       format.json { render json: @studies }
     end
   end
-  
+
   def mine
     @studies = Study.where("user_id = ?", params[:user_id])
     respond_to do |format|
@@ -231,7 +231,7 @@ class StudiesController < ApplicationController
   def sort_column
     params[:sort] || "name"
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
