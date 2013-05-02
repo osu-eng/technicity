@@ -27,7 +27,7 @@
           <td><%= link_to study.question, study %>?</td>
 
           <% if @mine.nil? %>
-          <td><%= study.user_id %></td>
+          <td><%= study.user.name %></td>
           <% end %>
 
           <td><%= study.region_set.regions.count %></td>
@@ -38,7 +38,7 @@
         <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
         <td><%= link_to study.question, study %>?</td>
         <% if @mine.nil? %>
-        <td><%= study.user_id %></td>
+          <td><%= study.user.name %></td>
         <% end %>
         <td><%= study.region_set.regions.count %></td>
         <td><%= study.comparisons.count %></td>
@@ -47,7 +47,7 @@
         <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
         <td><%= link_to study.question, study %>?</td>
         <% if @mine.nil? %>
-        <td><%= study.user_id %></td>
+        <td><%= study.user.name %></td>
         <% end %>
         <td><%= study.region_set.regions.count %></td>
         <td><%= study.comparisons.count %></td>
