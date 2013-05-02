@@ -4,15 +4,11 @@
 
 <% if @study.active.nil? %>
   <p>
-    This study has not yet been launched. Before you can vote, you will
-    need to launch your study by clicking the green "Launch" button
-    in the upper right.</p>
+    This study has not yet been launched. The owner must "Launch" it before voting can begin.</p>
 
 <% elsif !@study.active %>
   <p>
-    This study is currently closed. Before you can resume voting, you will
-    need to reopen your study by clicking the blue "Open" button
-    in the upper right.</p>
+    This study is currently closed. The owner must "Open" it before voting can resume.</p>
 
 <% else %>
   <!-- select 2 random locations from a random region from a region set within the study -->

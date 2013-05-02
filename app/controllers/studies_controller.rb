@@ -1,7 +1,6 @@
 class StudiesController < ApplicationController
     before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
-    before_filter :require_ownership_or_launched, only: [ :results, :region_results, :heatmap, :download ]
-    before_filter :require_ownership_or_open, only: [ :vote, :show]
+    before_filter :require_ownership_or_launched, only: [ :vote, :results, :region_results, :heatmap, :download ]
     before_filter :authenticate_user!, only: [ :new ]
 
   helper_method :sort_column, :sort_direction
@@ -227,13 +226,6 @@ class StudiesController < ApplicationController
   #authorization
   def require_ownership
     @study = require_model_ownership(Study)
-  end
-
-  def require_ownership_or_open
-    @study = Study.find(params[:id])
-    if !(@study.active || (@study.user == current_user))
-      trigger_403('You are trying to access a study that is closed and you are not the owner.')
-    end
   end
 
   def require_ownership_or_launched
