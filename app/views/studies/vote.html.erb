@@ -12,8 +12,7 @@
 
 <% else %>
   <!-- select 2 random locations from a random region from a region set within the study -->
-  <% @regions = @study.region_set.regions.find(:all).sample(1) %>
-  <% @locations = @regions[0].locations.find(:all).sample(2) %>
+  <% @locations = @study.locations.sample(2) %>
   <% @imagelink1 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[0].latitude.to_s() + "%20" + @locations[0].longitude.to_s() + "&sensor=false" %>
   <% @imagelink2 = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=" + @locations[1].latitude.to_s() + "%20" + @locations[1].longitude.to_s() + "&sensor=false" %>
   <div class="row" id="display-question">
