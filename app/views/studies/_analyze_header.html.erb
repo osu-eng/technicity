@@ -15,7 +15,7 @@
       <ul class="nav">
         <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "results", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "results", :id => @study %>">Summary</a></li>
 
-        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "region_results", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "region_results", :id => @study %>">Regions</a></li>
+        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "region_results", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "region_results", :id => @study %>">Areas</a></li>
 
         <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "heatmap", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "heatmap", :id => @study %>">Heatmap</a></li>
 

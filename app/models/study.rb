@@ -103,7 +103,14 @@ class Study < ActiveRecord::Base
 
   def region_results
     result_set = ActiveRecord::Base.connection.execute("
-      SELECT r.id, cl.chosen, rl.rejected
+      SELECT 
+        r.id,
+        r.name,
+        r.latitude,
+        r.longitude,
+        r.zoom,
+        cl.chosen,
+        rl.rejected
       FROM regions r
       JOIN region_set_memberships rsm ON rsm.region_id = r.id
       JOIN region_sets rs on rs.id = rsm.region_set_id
@@ -115,7 +122,7 @@ class Study < ActiveRecord::Base
         FROM comparisons c
         JOIN locations cl ON c.chosen_location_id = cl.id
         JOIN locations rl ON c.rejected_location_id = rl.id
-        WHERE c.study_id = #{self.id} AND cl.region_id = rl.region_id
+        WHERE c.study_id = #{self.id} AND cl.region_id <> rl.region_id
         GROUP BY cl.region_id
       ) cl ON cl.region_id = r.id
       LEFT JOIN (
@@ -125,7 +132,7 @@ class Study < ActiveRecord::Base
         FROM comparisons c
         LEFT JOIN locations cl ON c.chosen_location_id = cl.id
         LEFT JOIN locations rl ON c.rejected_location_id = rl.id
-        WHERE c.study_id = #{self.id} AND cl.region_id = rl.region_id
+        WHERE c.study_id = #{self.id} AND cl.region_id <> rl.region_id
         GROUP BY rl.region_id
       ) rl ON rl.region_id = r.id
       WHERE s.id=#{self.id}
