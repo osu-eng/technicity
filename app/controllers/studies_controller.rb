@@ -1,5 +1,5 @@
 class StudiesController < ApplicationController
-    before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate ]
+    before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
     before_filter :authenticate_user!, only: [ :new ]
 
   helper_method :sort_column, :sort_direction
