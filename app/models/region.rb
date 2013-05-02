@@ -66,12 +66,6 @@ class Region < ActiveRecord::Base
     end
   end
 
-  def results(study_id)
-    region_results = ActiveRecord::Base.connection.execute("
-      SELECT 
-    ")
-  end
-
   def heatmap(study_id)
     location_results = ActiveRecord::Base.connection.execute("
     SELECT l.id, l.latitude, l.longitude, cl.chosen, rl.rejected
