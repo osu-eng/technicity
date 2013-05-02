@@ -14,6 +14,7 @@
       <th>Map</th>
       <th>Name</th>
       <th>Locations Included</th>
+      <th>Test</th>
     </tr>
     <% @study.region_set.regions.each do |region| %>
       <tr>
@@ -21,6 +22,7 @@
           <a href="<%= url_for(:controller => "studies", :action => "curate", :id => @study) %>?region_id=<%= region.id %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region.latitude %>,<%= region.longitude %>&zoom=<%= region.zoom %>&size=150x100&sensor=false"></a></td>
         <td><a href="<%= url_for(:controller => "studies", :action => "curate", :id => @study) %>?region_id=<%= region.id %>"><%= region.name %></a></td>
         <td><%= region.locations.count %></td>
+        <td><%= region.chosen.where("study_id = ?", @study.id).count %> / <%= abort(@study.region_results.to_yaml) %></td>
       </tr>
     <% end %>
   </table>

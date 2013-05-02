@@ -22,6 +22,8 @@ class Region < ActiveRecord::Base
   has_many :locations, :dependent => :destroy
   has_many :region_set_memberships
   has_many :region_sets, :through => :region_set_memberships
+  has_many :chosen, :through => :locations
+  has_many :rejected, :through => :locations
   belongs_to :user
 
   def show
@@ -62,6 +64,12 @@ class Region < ActiveRecord::Base
         :range_lng => max_lng - min_lng,
       }
     end
+  end
+
+  def results(study_id)
+    region_results = ActiveRecord::Base.connection.execute("
+      SELECT 
+    ")
   end
 
   def heatmap(study_id)
