@@ -63,7 +63,7 @@ ss.PolygonMap = function(polygon, mapId, center, zoom, editable) {
  * @param {[type]} latitude
  * @param {[type]} longitude
  */
-ss.PolygonMap.prototype.addMarker = function(id, point) {
+ss.PolygonMap.prototype.addMarker = function(id, point, data) {
 
   // Create a marker
   marker = new google.maps.Marker({
@@ -73,6 +73,7 @@ ss.PolygonMap.prototype.addMarker = function(id, point) {
     draggable: false,
     zIndex: id,
     });
+  marker.data = data;
 
   // Add it to our list of markers
   this.markers.push(marker);

@@ -101,6 +101,7 @@ class StudiesController < ApplicationController
     # security - users should only be able to curate regions they own
     @study = Study.find(params[:id])
     @region = Region.find(params[:region_id])
+    @locations = @region.locations.paginate(:page => params[:page], :per_page => 25)
 
     respond_to do |format|
       format.html # curate.html.erb

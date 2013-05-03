@@ -71,14 +71,16 @@
 <fieldset class="clearfix" style="clear:both;margin-top:30px;">
   <legend>Click on an image to rotate or remove it.</legend>
   <div id="images" class="curate thumbs">
-  <% @region.locations.order('id desc').each do |location| %>
+  <% @locations.order('id desc').each do |location| %>
     <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
        onclick="curate.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
       <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
     </a>
   <% end %>
   </div>
+
 </fieldset>
+<%= will_paginate(@locations) %>
 
 <div class="modal hide fade" id="delete-location-modal" align="left">
   <div class="modal-header">
@@ -117,8 +119,11 @@
 
     // Create existing markers for our map
     <% @region.locations.each do |location| %>
-    point = new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>);
-    curate.polygonMap.addMarker(<%= location.id %>, point);
+    l = new ss.Location(
+      <%= location.id %>, <%= location.latitude %>, <%= location.longitude %>,
+      <%= location.heading %>, <%= location.pitch %>);
+    point = new google.maps.LatLng(l.latitude, l.longitude);
+    curate.polygonMap.addMarker(l.id, point, l);
     <% end %>
 
   }

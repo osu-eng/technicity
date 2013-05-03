@@ -34,7 +34,8 @@ ss.handler.Curate.prototype.initialize = function (mapId, center, zoom, path) {
 
   this.polygonMap.markerClickCb = function() {
     // Fire the click handler of the curate link
-    $('#' + $this.locationIdPrefix + this.getZIndex()).click();
+    // $('#' + $this.locationIdPrefix + this.getZIndex()).click();
+    $this.editLocation(this.data.id, this.data.latitude , this.data.longitude, this.data.heading, this.data.pitch);
   }
 
   this.polygonMap.markerPersistCb = function(position) {
