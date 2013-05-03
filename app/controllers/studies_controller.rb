@@ -1,13 +1,14 @@
 class StudiesController < ApplicationController
-    before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
-    before_filter :require_ownership_or_launched, only: [ :vote, :results, :region_results, :heatmap, :download ]
-    before_filter :authenticate_user!, only: [ :new ]
+  before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
+  before_filter :require_ownership_or_launched, only: [ :vote, :results, :region_results, :heatmap, :download ]
+  before_filter :authenticate_user!, only: [ :new ]
 
-  helper_method :sort_column, :sort_direction
+  handles_sortable_columns
+
   # GET /studies
   # GET /studies.json
   def index
-    @studies = Study.order(sort_column + " " + sort_direction)
+    @studies = Study.order(order).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,7 @@ class StudiesController < ApplicationController
   end
 
   def mine
-    @studies = Study.where("user_id = ?", params[:user_id])
+    @studies = Study.where("user_id = ?", params[:user_id]).order(order).paginate(:page => params[:page])
     @mine = true
     respond_to do |format|
       if @studies.nil?
@@ -236,13 +237,17 @@ class StudiesController < ApplicationController
     end
   end
 
-  #sorting
-  def sort_column
-    params[:sort] || "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  def order
+    order = sortable_column_order do |column, direction|
+      case column
+      when "name"
+        "LOWER(name) #{direction}"
+      when "active"
+        "#{column} #{direction}"
+      else
+        'LOWER(name) ASC'
+      end
+    end
   end
 
 end
