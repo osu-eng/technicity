@@ -1,31 +1,48 @@
 <!-- Test text - will all need to be moved into internationalization file -->
  
   <div class="row text-center" id="contact-bar">
-      <div class="container">
+        <div class="container">
         <a target="_blank" href="mailto:eng-streetseen@osu.edu"><%= image_tag("email-50.png", :alt => "Email Us") %></a>
         <a target="_blank" href="http://www.facebook.com/OsuStreetSeen"><%= image_tag("FB-f-Logo__white_50.png", :alt => "Follow us on Facebook") %></a>
         <a target="_blank" href="http://twitter.com/OsuStreetSeen"><%= image_tag("twitter-bird-dark-50.png", :alt => "Follow us on Twitter") %></a>
         <a target="_blank" href="https://www.coursera.org/course/techcity"><%= image_tag("coursera-square-50.png", :alt => "Visit Technicity on Coursera") %></a>
-        <a id="contact-text" href="<%= :home %>">Contact</a>
+     <p id="contact-text">Contact</p>
       </div>
   </div>
 <div class="row" id="trio-bar">  
   <div class="container">
     <div class="row trio-text">
       <div class="span4">
-        <h4>Ohio State University</h4><p>OSU Logo ----------- | COE Address placeholder</p>
-      </div>
-      <div class="span4">
         <h4>Technicity</h4>
         <%= link_to image_tag("FinalPerspective.jpg", :alt => "TechniCity on Coursera"), "https://www.coursera.org/course/techcity" %>
         <p>This app was designed to support <a href="https://www.coursera.org/course/techcity">TechniCity</a>, a Coursera course taught by Jennifer Evans-Cowley and 
-  Thomas W. Sanchez.
-        </p>
+  Thomas W. Sanchez.</p>
       </div>
       <div class="span4">
-        <h4>Use StreetSeen</h4><p>Materials and Studies here are licensed under a Creative Commons BY-NC-SA license, Software Github information.</p>
+        <h4>Use StreetSeen</h4>
+        <div id="license-images">
+        <%= link_to image_tag("by-nc-100.png", :alt => "Creative Commons License"), "http://creativecommons.org/licenses/by-nc/3.0/deed.en_US" %>
+        <%= link_to image_tag("GitHub_Logo-100.png", :alt => "StreetSeen on GitHub"), "https://github.com/osu-eng/technicity" %>
+        </div>
+        <p>Materials on this site is licensed under a Creative Commons BY-NC-SA license. The code is licensed under an Apache 2.0 license & available on GitHub.</p>
+      
+      </div>  
+
+      <div class="span4" id="COE">
+        <h4>The Ohio State University</h4>
+         <%= link_to image_tag("BlockO-Gray-70px.png", :alt => "The Ohio State University"), "http://www.osu.edu" %>
+        <p><strong><a href="http://knowlton.osu.edu/programs/city-and-regional-planning">City and Regional Planning</a></strong><br/>
+        <strong><a href="http://knowlton.osu.edu">Knowlton School of Architecture</a></strong><br/>
+        <strong><a href="http://engineering.osu.edu/">College of Engineering</a></strong><br/>
+        122 Hitchcock Hall, 2070 Neil Avenue<br/>Columbus, Ohio 43210</p>
       </div>
     </div>
   </div>
  </div> 
-  
+
+<div class="row text-center" id="end-text">
+        <div class="container">
+        <p>c. 2013 The Ohio State University | <a href="">Privacy Policy</a> | Help</p>
+        </div>
+    </div>
+        
