@@ -63,6 +63,24 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
     @region_results = @study.region_results.to_a
 
+
+    logger.debug(@region_results.class)
+    logger.debug(@region_results)
+    sortable_column_order do |column, direction|
+      case column
+      when 'name', 'percent_favored', 'chosen', 'rejected', 'locations', 'total'
+        if direction.to_s == 'asc'
+          logger.debug('sorting up')
+          @region_results.sort! {|a,b| a[column] <=> b[column]}
+        else
+          logger.debug('sorting down')
+          @region_results.sort! {|a,b| b[column] <=> a[column]}
+        end
+      else
+          @region_results.sort! {|a,b| b['locations'] <=> a['locations']}
+      end
+    end
+
     page = params[:page].nil? ? 1 : params[:page]
     per_page = 10
 
