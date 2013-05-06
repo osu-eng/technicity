@@ -3,7 +3,11 @@ require "capistrano_database_yml"
 require "capistrano_application_yml"
 
 set :application, "technicity"
-set :deploy_to, "/var/www/apps/#{application}"
+
+# Set up our application stages
+set :stages, ["production", "staging"]
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
 
 set :repository,  "git@github.com:osu-eng/technicity.git"
 set :scm, :git
@@ -14,7 +18,6 @@ set :user, "deployer"
 set :use_sudo, false
 set :ssh_options, { :forward_agent => true }
 
-set :database_user, "technicity"
 set :database_server, "db.web.engineering.osu.edu"
 
 # RVM configuration
@@ -25,11 +28,8 @@ role :web, "apps.web.engineering.osu.edu"
 role :app, "apps.web.engineering.osu.edu"
 role :db,  "apps.web.engineering.osu.edu", :primary => true
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+# Clean up old releases
+after "deploy:restart", "deploy:cleanup"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -39,9 +39,6 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
-
-# Clean up old releases
-after "deploy:update", "deploy:cleanup"
 
 require "bundler/capistrano"
 require "rvm/capistrano"
