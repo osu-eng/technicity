@@ -36,6 +36,10 @@ gem 'simple_form', '~> 2.1.0'
 gem 'friendly_id'
 gem 'geocoder'
 
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'handles_sortable_columns'
+
 # This doesn't seem to do what we need
 # gem 'gmaps4rails'
 
