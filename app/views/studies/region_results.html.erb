@@ -12,11 +12,11 @@
   <table class="table table-striped table-hover">
     <tr>
       <th>Area</th>
-      <th>Name</th>
-      <th>Locations</th>
-      <th>Times Favored</th>
-      <th>Total Votes</th>
-      <th>Percent Favored</th>
+      <th><%= sortable_column "Name", :column => "name" %></th>
+      <th><%= sortable_column "Locations", :column => "locations" %></th>
+      <th><%= sortable_column "Times Favored", :column => "chosen" %></th>
+      <th><%= sortable_column "Total Votes", :column => "total" %></th>
+      <th><%= sortable_column "Percent Favored", :column => "percent_favored" %></th>
     </tr>
     <% @page_results.each do |region|
       total = region['chosen'].to_i + region['rejected'].to_i -%>
