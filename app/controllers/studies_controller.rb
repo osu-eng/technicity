@@ -1,4 +1,7 @@
 class StudiesController < ApplicationController
+
+  require 'will_paginate/array'
+
   before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
   before_filter :require_ownership_or_launched, only: [ :vote, :results, :region_results, :heatmap, :download ]
   before_filter :authenticate_user!, only: [ :new ]
@@ -58,6 +61,12 @@ class StudiesController < ApplicationController
   # GET /studies/1/region_results
   def region_results
     @study = Study.find(params[:id])
+    @region_results = @study.region_results
+
+    page = params[:page].nil? ? 1 : params[:page]
+    per_page = 10
+
+    @page_results = @region_results.paginate(:page => page, :per_page => per_page)
 
     respond_to do |format|
       format.html # region_results.html.erb

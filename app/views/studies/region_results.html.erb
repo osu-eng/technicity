@@ -18,7 +18,7 @@
       <th>Total Votes</th>
       <th>Percent Favored</th>
     </tr>
-    <% @study.region_results.each do |region|
+    <% @page_results.each do |region|
       total = region['chosen'].to_i + region['rejected'].to_i -%>
       <tr>
         <td>
@@ -31,4 +31,5 @@
       </tr>
     <% end %>
   </table>
+  <%= will_paginate(@page_results) %>
 <% end %>
