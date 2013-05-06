@@ -67,6 +67,11 @@ class Study < ActiveRecord::Base
       l.pitch,
       IFNULL(cl.chosen, 0) AS chosen,
       IFNULL(rl.rejected, 0) AS rejected,
+      IFNULL(cl.chosen, 0) + IFNULL(rl.rejected, 0) as total_votes,
+      CASE
+        WHEN IFNULL(cl.chosen, 0) + IFNULL(rl.rejected, 0) > 0 THEN 100 * IFNULL(cl.chosen, 0) / (IFNULL(cl.chosen, 0) + IFNULL(rl.rejected, 0))
+        ELSE 0
+        END as percent_chosen,
       r.name AS region_name,
       s.slug AS study,
       s.question

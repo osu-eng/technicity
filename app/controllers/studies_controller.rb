@@ -51,6 +51,24 @@ class StudiesController < ApplicationController
   # GET /studies/1/results.xls
   def results
     @study = Study.find(params[:id])
+    @results = @study.results.to_a
+    logger.debug(@results)
+    sortable_column_order do |column, direction|
+      case column
+      when 'latitude', 'longitude', 'chosen', 'rejected', 'region_name', 'study', 'total_votes', 'percent_chosen'
+        if direction.to_s == 'asc'
+          @results.sort! {|a,b| a[column] <=> b[column]}
+        else
+          @results.sort! {|a,b| b[column] <=> a[column]}
+        end
+      else
+          @results.sort! {|a,b| b['percent_chosen'] <=> a['percent_chosen']}
+      end
+    end
+
+    page = params[:page].nil? ? 1 : params[:page]
+    per_page = 25
+    @page_results = @results.paginate(:page => page, :per_page => per_page)
 
     respond_to do |format|
       format.html # results.html.erb
@@ -80,17 +98,12 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
     @region_results = @study.region_results.to_a
 
-
-    logger.debug(@region_results.class)
-    logger.debug(@region_results)
     sortable_column_order do |column, direction|
       case column
       when 'name', 'percent_favored', 'chosen', 'rejected', 'locations', 'total'
         if direction.to_s == 'asc'
-          logger.debug('sorting up')
           @region_results.sort! {|a,b| a[column] <=> b[column]}
         else
-          logger.debug('sorting down')
           @region_results.sort! {|a,b| b[column] <=> a[column]}
         end
       else
