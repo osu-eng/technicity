@@ -3,6 +3,7 @@ $darkgray: #606060;
 $white: #ffffff;
 $darkred: #990033;
 $black: #000000;
+$osulink: #0E4E8E;
 
 @mixin rounded-corners {
   border-radius: 5px;
@@ -29,12 +30,15 @@ body {
   background: $white;
   font-family: 'Noto Sans', sans-serif;
  }
- 
-a:hover, a:focus {
-  text-decoration: none;
-  color: $gray;
-  }
 
+a {
+  color: $osulink; 
+  }
+  
+a:hover, a:focus {
+  text-decoration: underline;
+    }
+    
 #main {
   padding-top: 50px;
   min-height: 360px;
@@ -194,6 +198,15 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     }
   .navbar-inner .btn-navbar {
     margin-right: 30px;
+    }
+  #contact-bar {
+    margin: 50px 0 0 0;
+    }
+  #trio-bar {
+  	display: none;
+  	}
+  #trio-text {
+    display: none;
     }
 }
 

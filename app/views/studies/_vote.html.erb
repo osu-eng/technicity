@@ -1,0 +1,34 @@
+<%
+pair = @study.randomLocationPair
+image1 = image_tag(pair[0].image_url, :size => "570x370")
+image2 = image_tag(pair[1].image_url, :size => "570x370")
+%>
+<div class="row" id="display-question">
+  <div class="span12 text-center">
+    <h3><%= h @study.question %>?</h3>
+  </div>
+</div>
+<div class="row text-center">
+  <div class="span6">
+    <div class="vote-image">
+      <%= link_to image1, comparisons_path(:comparison => {:chosen_location_id => pair[0].id, :rejected_location_id => pair[1].id, :study_id => @study.id}) , :method => :post %>
+    </div>
+    <div class="vote-button">
+      <%= link_to '1', comparisons_path(:comparison => {:chosen_location_id => pair[0].id, :rejected_location_id => pair[1].id, :study_id => @study.id}) , :method => :post, :class => 'vote-button-text' %>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="vote-image">
+      <%= link_to image2, comparisons_path(:comparison => {:chosen_location_id => pair[0].id, :rejected_location_id => pair[1].id, :study_id => @study.id}) , :method => :post %>
+    </div>
+    <div class="vote-button">
+      <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => pair[1].id, :rejected_location_id => pair[0].id, :study_id => @study.id}) , :method => :post, :class => 'vote-button-text' %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12 skip-vote-row text-center">
+    <%= link_to 'Can\'t decide, let\'s skip this one.', :home %>
+  </div>
+</div>
