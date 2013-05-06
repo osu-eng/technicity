@@ -23,20 +23,52 @@ $black: #000000;
 @import "bootstrap";
 @import "bootstrap-responsive";
 
-
+/* sitewide */
 body {
   padding-top: 40px;
   background: $white;
   font-family: 'Noto Sans', sans-serif;
  }
+ 
+a:hover, a:focus {
+  text-decoration: none;
+  color: $gray;
+  }
 
+#main {
+  padding-top: 50px;
+  min-height: 360px;
+  }
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  height: 30px;
+  color: $black;
+  }
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+  color: $darkgray;
+  }
+
+/* nav bar */
 .navbar .nav {
   float: right;
   font-size: 16px;
   margin: 30px 10px 0 0;
   }
 
+.navbar .brand {
+  padding: 5px;
+  }
+  
+.navbar-fixed-top, .navbar-fixed-bottom {
+  position: absolute;
+  }
 
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+  padding: 0;
+}
+
+/* footer */
 #contact-bar {
   width: 100%;
   background-color: $darkgray;
@@ -50,7 +82,7 @@ body {
     position: relative;
     float: right;
   	img {
-  	  padding: 10px;
+  	  padding: 10px 7px;
   	  }
   	}
   a:hover {
@@ -78,7 +110,7 @@ body {
     img {
       position: relative;
       float: left;
-      padding: 5px 5px 0 0;
+      padding: 5px 15px 0 0;
       }
     a {
       color: $darkred;
@@ -86,6 +118,31 @@ body {
     }
   }
 
+#COE img {
+  padding: 5px 20px 0 0;
+  }
+
+#license-images {
+  width: 101px;
+  }
+
+#end-text {
+  margin: 20px 0 0 0;
+  border-top: 1px solid $gray;
+  p {
+    padding: 5px 0 0 0;
+    }
+  }
+
+/* studies */
+/**
+ * We were getting squished markers on maps
+ * http://stackoverflow.com/questions/10821304/google-maps-marker-strangely-stretched-issue
+ */
+.map label { width: auto; display:inline; }
+.map img { max-height: none; max-width: none; }
+
+/* vote */
 .vote-button {
   background: url('SS-vote-btn.png') no-repeat center;
   height: 100px;
@@ -99,11 +156,6 @@ body {
   font-size: 48px;
   position: relative;
   top: 36px;
-  }
-
-a:hover, a:focus {
-  text-decoration: none;
-  color: $gray;
   }
 
 #display-question {
@@ -122,46 +174,13 @@ a:hover, a:focus {
     }
   }
 
-.overlay-corner {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1500;
-  border: 0 none;
+/* curate */
+.curate a.thumbnail {
+  width:220px;
+  float:left;
 }
 
-/* Bootstrap overrides */
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-  height: 30px;
-  color: $black;
-  }
-
-.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
-  color: $darkgray;
-  }
-
-#main {
-  padding-top: 50px;
-  }
-
-.overlay-logo {
-  .span3 {
-    position: absolute;
-    top: 0;
-    z-index: 1400;
-    @include tab-corners;
-    @include element-shadow;
-    border: 0 1px 1px 1px;
-    border-color: $white;
-    background-color: $gray;
-    margin-left: 0;
-    }
-}
-
-.navbar .brand {
-  padding: 5px;
-  }
-
+/* responsive */
 @media (max-width: 767px) {
   .navbar .brand{
     width: 150px;
@@ -178,22 +197,26 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     }
 }
 
-.navbar-fixed-top, .navbar-fixed-bottom {
+/* overlay - remove in production */
+.overlay-corner {
   position: absolute;
-  }
-
-.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
-  padding: 0;
+  top: 0;
+  right: 0;
+  z-index: 1500;
+  border: 0 none;
 }
 
-.curate a.thumbnail {
-  width:220px;
-  float:left;
+.overlay-logo {
+  .span3 {
+    position: absolute;
+    top: 0;
+    z-index: 1400;
+    @include tab-corners;
+    @include element-shadow;
+    border: 0 1px 1px 1px;
+    border-color: $white;
+    background-color: $gray;
+    margin-left: 0;
+    }
 }
 
-/**
- * We were getting squished markers on maps
- * http://stackoverflow.com/questions/10821304/google-maps-marker-strangely-stretched-issue
- */
-.map label { width: auto; display:inline; }
-.map img { max-height: none; max-width: none; }
