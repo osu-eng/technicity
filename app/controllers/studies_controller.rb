@@ -61,7 +61,7 @@ class StudiesController < ApplicationController
   # GET /studies/1/region_results
   def region_results
     @study = Study.find(params[:id])
-    @region_results = @study.region_results
+    @region_results = @study.region_results.to_a
 
     page = params[:page].nil? ? 1 : params[:page]
     per_page = 10

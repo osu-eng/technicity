@@ -102,7 +102,7 @@ class Study < ActiveRecord::Base
   end
 
   def region_results
-    result_set = ActiveRecord::Base.connection.execute("
+    result_set = ActiveRecord::Base.connection.exec_query("
       SELECT 
         r.id,
         r.name,
