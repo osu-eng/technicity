@@ -15,6 +15,7 @@ Technicity::Application.routes.draw do
   get "about", to: 'static_pages#about'
   get "denied", to: 'static_pages#denied'
   get "notify", to: 'notifications#new'
+  get "policies", to: 'static_pages#policies'
 
   resources :comparisons do
     member do
