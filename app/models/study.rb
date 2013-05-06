@@ -72,16 +72,16 @@ class Study < ActiveRecord::Base
       s.question
     FROM locations l
     LEFT JOIN (
-      SELECT  
-        chosen_location_id as id, 
+      SELECT
+        chosen_location_id as id,
         count(*) as chosen
       FROM comparisons
       WHERE study_id = #{self.id}
       GROUP BY chosen_location_id
     ) cl on cl.id = l.id
     LEFT JOIN (
-      SELECT  
-        rejected_location_id as id, 
+      SELECT
+        rejected_location_id as id,
         count(*) as rejected
       FROM comparisons
       WHERE study_id = #{self.id}
@@ -89,7 +89,7 @@ class Study < ActiveRecord::Base
     ) rl on rl.id = l.id
     LEFT JOIN regions r ON r.id = l.region_id
     LEFT JOIN studies s ON s.id = #{self.id}
-    WHERE 
+    WHERE
       l.region_id IN (
         SELECT r.id
         FROM regions r
@@ -103,20 +103,37 @@ class Study < ActiveRecord::Base
 
   def region_results
     result_set = ActiveRecord::Base.connection.exec_query("
-      SELECT 
+      SELECT
         r.id,
         r.name,
         r.latitude,
         r.longitude,
         r.zoom,
+        lc.locations,
         cl.chosen,
-        rl.rejected
+        rl.rejected,
+        rl.cl.chosen + rl.rejected as total,
+        CASE
+          WHEN cl.chosen + rl.rejected > 0 THEN cl.chosen / (cl.chosen + rl.rejected)
+          ELSE 0
+          END as percent_favored
+
       FROM regions r
       JOIN region_set_memberships rsm ON rsm.region_id = r.id
       JOIN region_sets rs on rs.id = rsm.region_set_id
       JOIN studies s on s.region_set_id = rs.id
+      JOIN (
+        SELECT r.id, COUNT(*) as locations
+        FROM regions r
+        JOIN locations l on l.region_id = r.id
+        JOIN region_set_memberships rsm ON rsm.region_id = r.id
+        JOIN region_sets rs on rs.id = rsm.region_set_id
+        JOIN studies s on s.region_set_id = rs.id
+        WHERE s.id=#{self.id}
+        GROUP BY r.id
+        ) lc on lc.id = r.id
       LEFT JOIN (
-        SELECT  
+        SELECT
           cl.region_id,
           count(*) as chosen
         FROM comparisons c
@@ -126,7 +143,7 @@ class Study < ActiveRecord::Base
         GROUP BY cl.region_id
       ) cl ON cl.region_id = r.id
       LEFT JOIN (
-        SELECT  
+        SELECT
           rl.region_id,
           count(*) as rejected
         FROM comparisons c
