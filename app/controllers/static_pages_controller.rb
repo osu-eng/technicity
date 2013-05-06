@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    @study = Study.randomActive
   end
 
   def help
