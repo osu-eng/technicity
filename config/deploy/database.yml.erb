@@ -12,7 +12,7 @@ test:
 staging:
   adapter: mysql2
   database: <%= application %>_staging
-  username: <%= database_user %>
+  username: <%= application %>_s
   password: <%= Capistrano::CLI.password_prompt("Enter the staging database password: ") %>
   encoding: utf8
   timeout: 5000
@@ -21,7 +21,7 @@ staging:
 production:
   adapter: mysql2
   database: <%= application %>_production
-  username: <%= database_user %>
+  username: <%= application %>
   password: <%= Capistrano::CLI.password_prompt("Enter the production database password: ") %>
   encoding: utf8
   timeout: 5000
