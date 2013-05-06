@@ -46,6 +46,32 @@ class Study < ActiveRecord::Base
   has_many :regions, :through => :region_set
   has_many :locations, :through => :regions
 
+  def randomLocation
+    region = self.region_set.regions.offset(rand( self.region_set.regions.count)).first
+    region.locations.offset(rand(region.locations.count)).first
+  end
+
+  def randomLocationPair
+    location1 = self.randomLocation
+    location2 = self.randomLocation
+
+    # Some checks to make sure we get different locations
+    # and a hedge against infinite loops which should not be possible
+    # due to pre-launch study validation.
+    i = 0
+    while (location1.id == location2.id) && i < 1000
+      location2 = self.randomLocation
+      i += 1
+    end
+
+    [location1, location2]
+  end
+
+  def self.randomActive
+    offset = rand(Study.where(:active => true).count)
+    rand_record = Study.where(:active => true).first(:offset => offset)
+  end
+
   def heatmaps
     heatmap_collection = Hash.new
     heatmap_collection['regions'] = Hash.new
