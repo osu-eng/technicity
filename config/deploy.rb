@@ -40,5 +40,5 @@ namespace :deploy do
   end
 end
 
-require "rvm/capistrano"     
 require "bundler/capistrano"
+require "rvm/capistrano"
