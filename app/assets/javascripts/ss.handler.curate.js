@@ -28,7 +28,7 @@ ss.handler.Curate = function(regionId) {
 ss.handler.Curate.prototype.initialize = function (mapId, center, zoom, path) {
 
   polygon = new ss.Polygon(path);
-  this.polygonMap = new ss.PolygonMap(polygon, this.mapId, center, zoom, false);
+  this.polygonMap = new ss.PolygonMap(polygon, mapId, center, zoom, false);
 
   var $this = this;
 

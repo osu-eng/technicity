@@ -1,7 +1,5 @@
 <%= render 'header', :study => @study %>
 
-
-
 <div style="float:left;width:400px;margin-right:40px;">
   <h2><span id="region_name_plain">Area: <%= @region.name %></span></h2>
 
@@ -16,7 +14,7 @@
   <span id="save-notice" class="alert success fade" data-alert="alert"></span>
   </div>
   <div style="float:left;width:500px;">
-    <div id="map" class="map" style="float:right; width:500; height:350;"></div>
+    <div id="map" class="map" style="float:right; width:500px; height:350px;"></div>
     <button type="button" class="btn btn-primary" onclick="curate.addPoints();">
       <i class="icon-search icon-white"></i> Find
     </button>

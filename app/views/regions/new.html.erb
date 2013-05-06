@@ -6,4 +6,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', regions_path %>
+<% if @study.nil? -%>
+  <%= link_to 'Back', regions_path %>
+<% else -%>
+  <%= link_to 'Back', edit_study_path(@study) %> 
+<% end -%>
