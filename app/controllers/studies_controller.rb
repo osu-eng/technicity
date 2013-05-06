@@ -11,7 +11,7 @@ class StudiesController < ApplicationController
   # GET /studies
   # GET /studies.json
   def index
-    @studies = Study.order(order).paginate(:page => params[:page])
+    @studies = Study.where('region_set_id IS NOT NULL').order(order).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,7 +20,7 @@ class StudiesController < ApplicationController
   end
 
   def mine
-    @studies = Study.where("user_id = ?", params[:user_id]).order(order).paginate(:page => params[:page])
+    @studies = Study.where("user_id = ? AND region_set_id IS NOT NULL", params[:user_id]).order(order).paginate(:page => params[:page])
     @mine = true
     respond_to do |format|
       if @studies.nil?
