@@ -2,7 +2,15 @@
 <p class="text-center">
   Export the results of your survey to a Comma Separated Value (CSV) file or to a Microsoft Excel workbook (XLS).
 </p>
-<p class="study-download-buttons text-center">
-  <a class="btn btn-large btn-primary" href="<%= url_for :controller => "studies", :action => "results", :format => "csv", :id => @study %>">Download CSV</a>
-  <a class="btn btn-large" href="<%= url_for :controller => "studies", :action => "results", :format => "xls", :id => @study %>">Download XLS</a>
-</p>
+<div class="row">
+  <div class="span5 offset1 study-download-buttons text-center">
+    <h3>Location Summary</h3>
+    <a class="btn btn-large btn-primary study-download-button" href="<%= url_for :controller => "studies", :action => "results", :format => "csv", :id => @study %>">Download CSV</a>
+    <a class="btn btn-large study-download-button" href="<%= url_for :controller => "studies", :action => "results", :format => "xls", :id => @study %>">Download XLS</a>
+  </div>
+  <div class="span5 study-download-buttons text-center">
+    <h3>Full Results</h3>
+    <a class="btn btn-large btn-primary study-download-button" href="<%= url_for :controller => "studies", :action => "full_results", :format => "csv", :id => @study %>">Download CSV</a>
+    <a class="btn btn-large study-download-button" href="<%= url_for :controller => "studies", :action => "full_results", :format => "xls", :id => @study %>">Download XLS</a>
+  </div>
+</div>

@@ -139,6 +139,10 @@ class Study < ActiveRecord::Base
     ")
   end
 
+  def full_results
+    Comparison.includes(:chosen_location, {:chosen_location => :region}, :rejected_location, {:rejected_location => :region}).joins(:chosen_location, {:chosen_location => :region}, :rejected_location, {:rejected_location => :region}).where(:study_id => self.id)
+  end
+
   def to_csv(options = {})
     study_results = self.results
     CSV.generate(options) do |csv|
@@ -146,6 +150,60 @@ class Study < ActiveRecord::Base
       study_results.each do |location|
         location['image_url'] = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=#{location['latitude']}%2C%20#{location['longitude']}&heading=#{location['heading']}&pitch=#{location['pitch']}&sensor=false"
         csv << location.values
+      end
+    end
+  end
+
+  def full_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << [
+        'comparison_id',
+        'date',
+        'voter_ip',
+        'voter_latitude',
+        'voter_longitude',
+        'study',
+        'question',
+        'chosen_id',
+        'chosen_latitude',
+        'chosen_longitude',
+        'chosen_pitch',
+        'chosen_heading',
+        'chosen_region_name',
+        'chosen_image_url',
+        'rejected_id',
+        'rejected_latitude',
+        'rejected_longitude',
+        'rejected_pitch',
+        'rejected_heading',
+        'rejected_region_name',
+        'rejected_image_url',
+      ]
+      self.full_results.each do |comparison|
+        #abort(comparison.to_yaml)
+        csv << [
+          comparison.id,
+          comparison.created_at,
+          comparison.voter_remote_ip,
+          comparison.voter_latitude,
+          comparison.voter_longitude,
+          self.slug,
+          self.question,
+          comparison.chosen_location.id,
+          comparison.chosen_location.latitude,
+          comparison.chosen_location.longitude,
+          comparison.chosen_location.pitch,
+          comparison.chosen_location.heading,
+          comparison.chosen_location.region.name,
+          comparison.chosen_location.image_url,
+          comparison.rejected_location.id,
+          comparison.rejected_location.latitude,
+          comparison.rejected_location.longitude,
+          comparison.rejected_location.pitch,
+          comparison.rejected_location.heading,
+          comparison.rejected_location.region.name,
+          comparison.rejected_location.image_url,
+        ]
       end
     end
   end

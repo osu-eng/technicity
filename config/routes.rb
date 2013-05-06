@@ -32,6 +32,7 @@ Technicity::Application.routes.draw do
     get :vote,           :on => :member
     get :curate,         :on => :member
     get :results,        :on => :member
+    get :full_results,   :on => :member
     get :region_results, :on => :member
     get :heatmap,        :on => :member
     get :download,       :on => :member

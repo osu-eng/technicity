@@ -45,16 +45,33 @@ class StudiesController < ApplicationController
     end
   end
 
-  # GET /studies/1/summary
-  # GET /studies/1/summary.json
+  # GET /studies/1/results
+  # GET /studies/1/results.json
+  # GET /studies/1/results.csv
+  # GET /studies/1/results.xls
   def results
     @study = Study.find(params[:id])
 
     respond_to do |format|
-      format.html # analyze.html.erb
-      format.json { render json: @study }
+      format.html # results.html.erb
+      format.json { render json: @study.results }
       format.csv { send_data @study.to_csv }
       format.xls { send_data @study.to_csv(col_sep: "\t") }
+    end
+  end
+
+  # GET /studies/1/full_results
+  # GET /studies/1/full_results.json
+  # GET /studies/1/full_results.csv
+  # GET /studies/1/full_results.xls
+  def full_results
+    @study = Study.find(params[:id])
+
+    respond_to do |format|
+      format.html # full_results.html.erb
+      format.json { render json: @study.full_results }
+      format.csv { send_data @study.full_csv }
+      format.xls { send_data @study.full_csv(col_sep: "\t") }
     end
   end
 
@@ -87,7 +104,7 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
 
     respond_to do |format|
-      format.html # heatmap.html.erb
+      format.html # download.html.erb
     end
   end
 
