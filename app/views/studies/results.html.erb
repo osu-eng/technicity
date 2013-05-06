@@ -13,7 +13,7 @@
   <% @study.results.each do |location|
     total = location['chosen'].to_i + location['rejected'].to_i -%>
   <tr>
-    <td width="150"><a href="/locations/<%= location['id'] %>"><img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&location=<%= location['latitude'] %>,%20<%= location['longitude'] %>&heading=<%= location['heading'] %>&pitch=<%= location['pitch'] %>&sensor=false" /></a></td>
+    <td width="150"><a href="/locations/<%= location['location_id'] %>"><img src="http://maps.googleapis.com/maps/api/streetview?size=150x80&location=<%= location['latitude'] %>,%20<%= location['longitude'] %>&heading=<%= location['heading'] %>&pitch=<%= location['pitch'] %>&sensor=false" /></a></td>
     <td><%= location['latitude'].to_f.round(5) %></td>
     <td><%= location['longitude'].to_f.round(5) %></td>
     <td><%= location['region_name'] %></td>
