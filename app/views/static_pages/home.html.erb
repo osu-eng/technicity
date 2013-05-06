@@ -1,3 +1,6 @@
 <!-- select a random study -->
+<% if @study.nil? %>
+<p>There are no open studies at this time.</p>
+<% else %>
 <%= render 'studies/vote', :study => @study %>
-
+<% end %>
