@@ -40,5 +40,8 @@ namespace :deploy do
   end
 end
 
+# Clean up old releases
+after "deploy:update", "deploy:cleanup"
+
 require "bundler/capistrano"
 require "rvm/capistrano"
