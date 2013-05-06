@@ -30,9 +30,11 @@
     </div>
 
     <!-- MF - remove in production -->
+    <% if Rails.env.production? -%>
     <div class="overlay-corner">
-    <%= link_to image_tag("SS-corner.png", :alt => "Email Us"), :notify %>
+      <%= link_to image_tag("SS-corner.png", :alt => "Email Us"), :notify %>
     </div>
+    <% end -%>
     <div id="main" role="main">
 
       <div class="container">
