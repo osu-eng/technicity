@@ -169,6 +169,8 @@ ss.handler.Curate.prototype.deleteLocationConfirm = function() {
   this.workingLocation.delete(function (location, status, xhr) {
     // delete the image
     $('#' + $this.locationIdPrefix + location.id).remove();
+
+    $this.polygonMap.removeMarker(location.id);
   });
 }
 
