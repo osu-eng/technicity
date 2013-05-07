@@ -67,6 +67,12 @@ class Study < ActiveRecord::Base
     [location1, location2]
   end
 
+  def self.search(term)
+    q = "%#{term}%"
+    Study.joins(:user).where("studies.name like ? or users.username like ?", q, q)
+    # Study.where("name like ? or description like ?", q, q)
+  end
+
   def self.randomActive
     offset = rand(Study.where(:active => true).count)
     rand_record = Study.where(:active => true).first(:offset => offset)
