@@ -16,6 +16,7 @@
       <% end %>
       <th># Areas</th>
       <th># Votes</th>
+      <th><%= sortable_column "Public", :column => "public" %></th>
       <th><%= sortable_column "Status", :column => "active" %></th>
   </tr>
   <% @studies.each do |study| %>
@@ -23,10 +24,11 @@
       <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
       <td><%= link_to study.question, url_for(:controller => "studies", :action => "vote", :id => study) %>?</td>
       <% if @mine.nil? %>
-        <td><%= study.user.name %></td>
+        <td><%= study.user.username %></td>
       <% end %>
       <td><%= study.region_set.regions.count %></td>
       <td><%= study.comparisons.count %></td>
+      <td><% if study.public %> Yes <% else%> No <% end%></td>
       <td>
         <% if study.active.nil? %>
           <span class="label label-warning">Not Launched</span>

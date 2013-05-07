@@ -314,7 +314,7 @@ class StudiesController < ApplicationController
       case column
       when "name"
         "LOWER(name) #{direction}"
-      when "active"
+      when "active", "public"
         "#{column} #{direction}"
       else
         'LOWER(name) ASC'
