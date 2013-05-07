@@ -68,7 +68,7 @@ class Study < ActiveRecord::Base
   end
 
   def self.search(term)
-    where{formal_descr =~ "%#{term}%"}
+    where{name =~ "%#{term}%"}
   end
 
   def self.randomActive
