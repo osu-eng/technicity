@@ -2,7 +2,7 @@ class StudiesController < ApplicationController
 
   require 'will_paginate/array'
 
-  before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close ]
+  before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close, :mine ]
   before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
   before_filter :require_can_view_results, only: [ :results, :region_results, :heatmap, :download ]
 
@@ -11,7 +11,7 @@ class StudiesController < ApplicationController
   # GET /studies
   # GET /studies.json
   def index
-    @studies = Study.where('region_set_id IS NOT NULL AND active IS NOT NULL').order(order).paginate(:page => params[:page])
+    @studies = Study.search(params[:q]).where('region_set_id IS NOT NULL AND active IS NOT NULL').order(order).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,16 +20,21 @@ class StudiesController < ApplicationController
   end
 
   def mine
-    @studies = Study.where("user_id = ? AND region_set_id IS NOT NULL", params[:user_id]).order(order).paginate(:page => params[:page])
-    @mine = true
-    respond_to do |format|
-      if @studies.nil?
-        format.html { redirect_to studies_url, notice: 'You have not yet created any studies.' }
-        # MF - not sure what json should be here
-        format.json { head :no_content }
-      else
-        format.html # mine.html.erb
-        format.json { render json: @studies }
+    # You should only be able to see your own study listings unless you are an admin
+    if !(!current_user.nil? and (current_user.admin or (params[:user_id] == current_user.id.to_s)))
+      trigger_403('You do not have permission to access the studies of that user.')
+    else
+      @studies = Study.where("user_id = ? AND region_set_id IS NOT NULL", params[:user_id]).order(order).paginate(:page => params[:page])
+      @mine = true
+      respond_to do |format|
+        if @studies.nil?
+          format.html { redirect_to studies_url, notice: 'You have not yet created any studies.' }
+          # MF - not sure what json should be here
+          format.json { head :no_content }
+        else
+          format.html # mine.html.erb
+          format.json { render json: @studies }
+        end
       end
     end
   end
@@ -313,11 +318,11 @@ class StudiesController < ApplicationController
     order = sortable_column_order do |column, direction|
       case column
       when "name"
-        "LOWER(name) #{direction}"
+        "LOWER(studies.name) #{direction}"
       when "active", "public"
-        "#{column} #{direction}"
+        "studies.#{column} #{direction}"
       else
-        'LOWER(name) ASC'
+        'LOWER(studies.name) ASC'
       end
     end
   end

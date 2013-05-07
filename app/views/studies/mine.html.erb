@@ -1,7 +1,9 @@
 <h1>My Research</h1>
-
-<%= render 'studies/list', :studies => @studies, :show_user => true  %>
-
+<% if @studies.empty? %>
+  <p>You currently have no studies. To create your first study, click on the button below.</p>
+<% else %>
+  <%= render 'studies/list', :studies => @studies, :show_user => true  %>
+<% end %>
 <br />
 
 <button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">

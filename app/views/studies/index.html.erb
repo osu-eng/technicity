@@ -1,11 +1,29 @@
-<h1>Public Studies</h1>
+<h1>Search Studies</h1>
 
-<%= render 'studies/list', :studies => @studies, :show_user => true  %>
+<%= form_tag studies_path, :method => 'get' do %>
+  <%= text_field_tag :q, params[:q], :placeholder => 'Search for a study', :autocomplete => 'off'%>
+  <button type="submit" class="btn btn-primary" >
+    <i class="icon-search icon-white"></i> Search
+  </button>
+<% end %>
+<% if @studies.empty? and params[:q].nil? %>
+  <p><span class="no-studies">There are no studies created yet.  To create a study, </span>
+  <% if !user_signed_in? %>
+    <span>log in or create an account by clicking on Login at the top right.  </span>
+  <% else %>
+    <span>click on Create a New Study below.  </span></p>
+  <% end %>
+<% elsif @studies.empty? %>
+  <p><span class="no-studies">No studies match your current search.</span></p>
+<% else %>
+  <div id="search-results">
+  <%= render 'studies/list', :studies => @studies, :show_user => true  %>
+  </div>
+  <br />
 
-<br />
-
-<% if user_signed_in? %>
-<button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
-  <i class="icon-plus-sign icon-white"></i> Create a New Study
-</button>
+  <% if user_signed_in? %>
+    <button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
+      <i class="icon-plus-sign icon-white"></i> Create a New Study
+    </button>
+  <% end %>
 <% end %>
