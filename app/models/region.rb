@@ -26,6 +26,14 @@ class Region < ActiveRecord::Base
   has_many :rejected, :through => :locations
   belongs_to :user
 
+  def locked?
+    locked = false
+    self.region_sets.each do |rs|
+      locked = locked || rs.locked?
+    end
+    locked
+  end
+
   def show
     @locations = self.locations
   end
@@ -71,22 +79,22 @@ class Region < ActiveRecord::Base
     SELECT l.id, l.latitude, l.longitude, cl.chosen, rl.rejected
     FROM locations l
     LEFT JOIN (
-      SELECT  
-        chosen_location_id as id, 
+      SELECT
+        chosen_location_id as id,
         count(*) as chosen
       FROM comparisons
       WHERE study_id = #{study_id}
       GROUP BY chosen_location_id
     ) cl on cl.id = l.id
     LEFT JOIN (
-      SELECT  
-        rejected_location_id as id, 
+      SELECT
+        rejected_location_id as id,
         count(*) as rejected
       FROM comparisons
       WHERE study_id = #{study_id}
       GROUP BY rejected_location_id
     ) rl on rl.id = l.id
-    WHERE 
+    WHERE
       l.region_id = #{self.id}
     ")
 

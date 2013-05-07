@@ -8,13 +8,17 @@
   <button type="button" class="btn btn-primary" onclick="saveRegion();">
     <i class="icon-ok icon-white"></i> Save
   </button>
-  <button type="button" class="btn btn-primary" onclick="$('#delete-region-modal').modal('toggle')">
-    <i class="icon-trash icon-white"></i> Delete
-  </button>
+  <% if !@region.locked? %>
+    <button type="button" class="btn btn-primary" onclick="$('#delete-region-modal').modal('toggle')">
+      <i class="icon-trash icon-white"></i> Delete
+    </button>
+  <% end %>
   <span id="save-notice" class="alert success fade" data-alert="alert"></span>
   </div>
   <div style="float:left;width:500px;">
     <div id="map" class="map" style="float:right; width:500px; height:350px;"></div>
+
+    <% if !@region.locked? %>
     <button type="button" class="btn btn-primary" onclick="curate.addPoints();">
       <i class="icon-search icon-white"></i> Find
     </button>
@@ -23,6 +27,7 @@
     points at least
     <input id="proximity" type="textfield" style="width:50px;" value="50" />
     meters apart.
+    <% end %>
     <div style="font-size:larger;">Found <strong><span id="location-count"><%= @region.locations.length %></span></strong> images.</div>
 
   </div>
@@ -67,14 +72,20 @@
   </div>
 </div>
 <fieldset class="clearfix" style="clear:both;margin-top:30px;">
+  <% if @region.locked? %>
+  <legend>Images</legend>
+  <p>Since the study has launched, these can no longer be changed.</p>
+  <% else %>
   <legend>Click on an image to rotate or remove it.</legend>
+  <% end %>
+
   <div id="images" class="curate thumbs">
-    <% @locations.order('id desc').each do |location| %>
-      <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
-         onclick="curate.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)">
-        <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
-      </a>
-    <% end %>
+  <% @locations.order('id desc').each do |location| %>
+    <a id="location-<%= location.id %>" class="thumbnail cursor" data-toggle="modal"
+       <% if !@region.locked? %>onclick="curate.editLocation('<%= location.id %>', <%= location.latitude %> , <%= location.longitude %>, <%= location.heading %>, <%= location.pitch %>)"<% end %>>
+      <img class="img-polaroid" src="http://maps.googleapis.com/maps/api/streetview?size=200x150&location=<%= location.latitude %>,<%= location.longitude %>&heading=<%= location.heading %>&pitch=<%= location.pitch %>&sensor=false" />
+    </a>
+  <% end %>
   </div>
 
 </fieldset>
@@ -113,6 +124,9 @@
 
     // Create and initialize a curate handler
     curate = new ss.handler.Curate(<%= @region.id %>);
+    <% if @region.locked? %>
+    curate.locked = true;
+    <% end %>
     curate.initialize('map', center, <%= @region.zoom %>, path);
 
     // Create existing markers for our map

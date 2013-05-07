@@ -88,6 +88,8 @@ ss.PolygonMap.prototype.addMarker = function(id, point, data) {
   return marker;
 }
 
+
+
 /**
  * Removals are done using zIndex as long as id is an integer.
  * @param  {[type]} id [description]
@@ -96,6 +98,7 @@ ss.PolygonMap.prototype.addMarker = function(id, point, data) {
 ss.PolygonMap.prototype.removeMarker = function (id) {
   for (i=0; i<this.markers.getLength(); i++) {
     if (this.markers.getAt(i).getZIndex() == id) {
+      this.markers.getAt(i).setMap(null);
       this.markers.removeAt(i);
     }
   }
