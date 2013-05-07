@@ -11,7 +11,7 @@ class StudiesController < ApplicationController
   # GET /studies
   # GET /studies.json
   def index
-    @studies = Study.where('region_set_id IS NOT NULL').order(order).paginate(:page => params[:page])
+    @studies = Study.where('region_set_id IS NOT NULL AND active IS NOT NULL').order(order).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
