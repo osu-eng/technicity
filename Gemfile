@@ -35,6 +35,7 @@ gem 'jquery-rails'
 gem 'simple_form', '~> 2.1.0'
 gem 'friendly_id'
 gem 'geocoder'
+gem 'figaro'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
