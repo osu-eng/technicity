@@ -24,7 +24,7 @@
         <%= link_to image_tag("by-nc-100.png", :alt => "Creative Commons License"), "http://creativecommons.org/licenses/by-nc/3.0/deed.en_US" %>
         <%= link_to image_tag("GitHub_Logo-100.png", :alt => "StreetSeen on GitHub"), "https://github.com/osu-eng/technicity" %>
         </div>
-        <p>Materials on this site is licensed under a Creative Commons BY-NC-SA license. The code is licensed under an Apache 2.0 license & available on GitHub.</p>
+        <p>Materials on this site are licensed under a <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US">Creative Commons BY-NC-SA license</a>. The code is licensed under an Apache 2.0 license & available on <a href="https://github.com/osu-eng/technicity">GitHub</a>.</p>
       
       </div>  
 
@@ -33,7 +33,7 @@
          <%= link_to image_tag("BlockO-Gray-70px.png", :alt => "The Ohio State University"), "http://www.osu.edu" %>
         <p><strong><a href="http://knowlton.osu.edu/programs/city-and-regional-planning">City and Regional Planning</a></strong><br/>
         <strong><a href="http://knowlton.osu.edu">Knowlton School of Architecture</a></strong><br/>
-        <strong><a href="http://engineering.osu.edu/">College of Engineering</a></strong><br/>
+        <strong><a href="http://engineering.osu.edu">College of Engineering</a></strong><br/>
         122 Hitchcock Hall, 2070 Neil Avenue<br/>Columbus, Ohio 43210</p>
       </div>
     </div>
@@ -42,7 +42,7 @@
 
 <div class="row text-center" id="end-text">
         <div class="container">
-        <p>&#169; <%= Time.now.year %> The Ohio State University | <%= link_to 'Privacy Policy', policies_path %> | <%= link_to t('.help'), help_path %></p>
+        <p><small>&#169; <%= Time.now.year %> <a href="http://www.osu.edu">The Ohio State University</a> | <%= link_to 'Privacy Policy', policies_path(:anchor => 'privacy') %> | <%= link_to 'Terms of Use', policies_path(:anchor => 'terms') %> | <%= link_to t('.help'), help_path %></small></p>
         </div>
     </div>
         

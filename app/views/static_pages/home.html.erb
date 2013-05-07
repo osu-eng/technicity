@@ -1,6 +1,9 @@
 <!-- select a random study -->
 <% if @study.nil? %>
-<p>There are no open studies at this time.</p>
+<p id="no-study" class="lead text-center">
+  There are no open studies at this time.<br>
+  Perhaps you would like to <%= link_to "create one", new_study_path %>?
+</p>
 <% else %>
 <%= render 'studies/vote', :study => @study %>
 <% end %>
