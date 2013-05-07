@@ -13,7 +13,7 @@
 <% @studies.each do |study| %>
   <tr>
     <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
-    <td><%= link_to study.question, url_for(:controller => "studies", :action => "vote", :id => study) %>?</td>
+    <td><%= link_to study.question, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
     <% if @mine.nil? %>
       <td><%= study.user.username %></td>
     <% end %>
