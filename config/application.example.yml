@@ -1,3 +1,5 @@
+# Add application configuration variables here, as shown below.
+
 TWITTER_CONSUMER_KEY: "your-key-here"
 TWITTER_CONSUMER_SECRET: "your-secret-here"
 
@@ -6,4 +8,5 @@ FB_APP_SECRET: "your-secret-here"
 
 COURSERA_APP_ID: "your-id-here"
 COURSERA_APP_SECRET: "you-secret-here"
-#2013-04-01 Eventually will want to move other things in here, ie secret token
+
+SECRET_TOKEN: "0da0e8865c4d3b9208f8f97afc3b40ac930508135ea2058b1e573727418405c25fd9ac67e34716171a1423a4e2f40dd9544f0afec06c4e352febd8bef2df24d5"
