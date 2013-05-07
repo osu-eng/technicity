@@ -8,4 +8,12 @@ class RegionSet < ActiveRecord::Base
 
   belongs_to :user
 
+  def locked?
+    locked = false
+    self.studies.each do |study|
+      locked = locked || !study.active.nil?
+    end
+    locked
+  end
+
 end

@@ -19,7 +19,9 @@ function changeActiveStatus(id, status) {
   // Do the update
   update(id,
     function(data, status, xhr) {
-      $('.study-info').load('/studies/' + id + '/status');
+      // $('.study-info').load('/studies/' + id + '/status');
+      // To many things need reloaded (curate, add new region link, vote, etc)
+      location.reload();
     },
     function(xhr, status, error) {
       errors = JSON.parse(xhr.responseText);
@@ -80,10 +82,12 @@ function changeActiveStatus(id, status) {
               <%= region.name %></a>
             </li>
           <% end %>
+          <% if @study.active.nil? %>
           <li>
             <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @study.region_set.id.to_s %>">
               Add New Area</a>
             </li>
+          <% end %>
         </ul>
       </li>
     <% end %>
