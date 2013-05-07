@@ -18,6 +18,7 @@ ss.handler.Curate = function(regionId) {
   this.panoramaId = 'panorama';
   this.editModalId = 'edit-location-modal';
   this.deleteModalId = 'delete-location-modal';
+  this.deleteRegionModalId = 'delete-region-modal';
   this.locationIdPrefix = 'location-';
   this.countId = 'location-count'
   this.quantityId = 'quantity';
@@ -171,6 +172,18 @@ ss.handler.Curate.prototype.deleteLocationConfirm = function() {
     $('#' + $this.locationIdPrefix + location.id).remove();
 
     $this.polygonMap.removeMarker(location.id);
+  });
+}
+
+/**
+ * Actually deletes the location.
+ */
+ss.handler.Curate.prototype.deleteRegion = function(id) {
+  $('#' + this.deleteRegionModalId).modal('toggle');
+  $this = this;
+  region = new ss.Region(id);
+  region.delete(function (region, status, xhr) {
+    location = 'vote'
   });
 }
 
