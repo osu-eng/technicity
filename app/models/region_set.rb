@@ -1,6 +1,9 @@
 class RegionSet < ActiveRecord::Base
   attr_accessible :name, :public, :slug, :user_id, :description
 
+  include ActiveModel::Validations
+  validates_presence_of :name, :description, :user_id
+
   has_many :studies
 
   has_many :regions, :through => :region_set_memberships, :dependent => :destroy
