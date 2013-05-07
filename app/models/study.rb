@@ -67,6 +67,10 @@ class Study < ActiveRecord::Base
     [location1, location2]
   end
 
+  def self.search(term)
+    where{formal_descr =~ "%#{term}%"}
+  end
+
   def self.randomActive
     offset = rand(Study.where(:active => true).count)
     rand_record = Study.where(:active => true).first(:offset => offset)
