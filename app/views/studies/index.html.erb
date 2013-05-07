@@ -7,12 +7,11 @@
   </button>
 <% end %>
 <% if @studies.empty? and params[:q].nil? %>
-  <p><span class="no-studies">There are no studies created yet.  To create a study, </span>
+  <p class="empty-text">There are no active studies.
   <% if !user_signed_in? %>
-    <span>log in or create an account by clicking on Login at the top right.  </span>
-  <% else %>
-    <span>click on Create a New Study below.  </span></p>
+    To create a study, please <%= link_to 'log in', new_user_session_path %>.
   <% end %>
+  </p>
 <% elsif @studies.empty? %>
   <p><span class="no-studies">No studies match your current search.</span></p>
 <% else %>
@@ -20,10 +19,9 @@
   <%= render 'studies/list', :studies => @studies, :show_user => true  %>
   </div>
   <br />
-
-  <% if user_signed_in? %>
-    <button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
-      <i class="icon-plus-sign icon-white"></i> Create a New Study
-    </button>
-  <% end %>
+<% end %>
+<% if user_signed_in? %>
+  <button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
+    <i class="icon-plus-sign icon-white"></i> Create a New Study
+  </button>
 <% end %>

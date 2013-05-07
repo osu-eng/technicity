@@ -115,6 +115,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   font-size: 28px;
   }
 
+.empty-text {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
 #trio-bar {
   width: 100%;
   /* not sure about this, dealing with offset */
