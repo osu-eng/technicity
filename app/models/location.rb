@@ -1,4 +1,23 @@
+
+class LocationChangeValidator < ActiveModel::Validator
+
+  def validate(proposed)
+
+    if !proposed.id.nil?
+      original = Location.find(proposed.id)
+      if original.region != proposed.region
+        proposed.errors[:region] << 'You cannot change the region of a location'
+      end
+
+      if original.region.locked?
+        proposed.errors[:base] << 'You cannot change a location that is part of a study that has already been launched as this would invalidate results.'
+      end
+    end
+  end
+end
+
 class Location < ActiveRecord::Base
+  validates_with LocationChangeValidator
   attr_accessible :heading, :latitude, :longitude, :pitch, :region_id
   belongs_to :region
 
