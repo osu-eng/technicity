@@ -20,6 +20,9 @@ function changeActiveStatus(id, status) {
   update(id,
     function(data, status, xhr) {
       $('.study-info').load('/studies/' + id + '/status');
+      if (location.href.match( /studies.*vote/ ))  {
+        location.reload();
+      }
     },
     function(xhr, status, error) {
       errors = JSON.parse(xhr.responseText);
