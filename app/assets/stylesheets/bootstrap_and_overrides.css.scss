@@ -2,6 +2,8 @@ $gray: #D8D8D8;
 $darkgray: #606060;
 $white: #ffffff;
 $darkred: #990033;
+$midred: #d31145;
+$pink: #dc525e;
 $black: #000000;
 $osulink: #0E4E8E;
 
@@ -52,6 +54,15 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
   color: $darkgray;
   }
+
+.label-important {
+    background-color: $darkred;
+}
+
+.btn-danger {
+    background-color: $darkred;
+    background-image: linear-gradient(to bottom, $midred, $darkred);
+    }
 
 /* nav bar */
 .navbar .nav {
@@ -182,6 +193,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .curate a.thumbnail {
   width:220px;
   float:left;
+}
+
+/* analyze */
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    color: $darkgray;
 }
 
 /* responsive */

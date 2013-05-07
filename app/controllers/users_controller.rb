@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!, only: [ :edit, :update, :destroy, :index, :show]
+  before_filter :require_admin, only: [ :index ]
+  
+  
   # GET /users
   # GET /users.json
   def index
@@ -81,4 +85,21 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+ 
+  private
+
+  #authorization
+  def require_ownership
+    @user = require_model_ownership(User)
+  end
+
+  def require_admin
+    if current_user.nil? || !current_user.admin
+      respond_to do |format|
+        format.html { redirect_to :home, alert: "Only admins can complete that action." }
+      end
+    end
+  end
+  
 end
