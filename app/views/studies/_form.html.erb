@@ -10,14 +10,19 @@
               :input_html => { :rows => 4, :style => 'width:400px;height:200px'},
               :hint => 'A sentence or two describing your study.' %>
   <% if @study.active.nil? %>
-  <%= f.input :question, label: 'Which image...?',
+  <%= f.input :question, label: 'Question for Voter',
               :input_html => { :style => 'width:400px;' },
-              :hint => 'Finish the question (looks better, feels safer, etc). Cannot be changed after launching study.' %>
+              :hint => 'Ask study participants to make a choice between two Google StreetView scenes. <br />Which place looks safer? <br />Which street looks more bike friendly?<br />Note: This cannot be changed after launching study.',
+              :value => 'Which place looks' %>
   <% else # only changeable if study never launched %>
-  <%= f.input :question, label: 'Which image...?',
+  <%= f.input :question, label: 'Question for Voter',
               :input_html => { :disabled=> 'disabled', :style => 'width:400px;' },
               :hint => 'This field can only be changed before launching your study.' %>
   <% end %>
+  <%= f.input :public, label: 'Share your research.',
+              as: :radio_buttons,
+              :hint => 'If you say no here, only you and site administrators will be able to see the results of your study.' %>
+
 
   <% if @study.id %>
   <button type="submit" class="btn btn-primary" >
@@ -28,7 +33,7 @@
   </button>
   <% else %>
   <button type="submit" class="btn btn-primary" >
-    <i class="icon-ok icon-white"></i> Add
+    <i class="icon-ok icon-white"></i> Create Study
   </button>
   <% end %>
 <% end %>
