@@ -1,7 +1,9 @@
 <% if @study.active.nil? # it's never been open %>
+  <% if controller.can_edit? %>
   <button type="button" class="btn btn-success study-launch" onclick="$('#study-active-modal').modal();">
    Launch
   </button>
+  <% end %>
 
   <div id="study-active-modal" class="modal hide fade">
     <div class="modal-header">
@@ -43,19 +45,23 @@
   </div>
 
 <% elsif @study.active # it's open %>
+  <% if controller.can_edit? %>
   <button type="button" class="btn btn-danger study-close" onclick="changeActiveStatus(<%= @study.id %>, false)">
     <i class="icon-off icon-white"></i> Close
   </button>
   <br />
+  <% end %>
   <span class="votes"><%= @study.comparisons.length %> Votes</span>
   <br />
   <span class="opened">Opened <%= @study.opened_at.strftime('%b %e, %Y') %></span>
 
 <% else # it's closed %>
+  <% if controller.can_edit? %>
   <button type="button" class="btn btn-primary study-open" onclick="changeActiveStatus(<%= @study.id %>, true)">
     <i class="icon-share icon-white"></i> Open
   </button>
   <br />
+  <% end %>
   <span class="votes"><%= @study.comparisons.length %> Votes</span>
   <br />
   <span class="closed">Closed <%= @study.opened_at.strftime('%b %e, %Y') %></span>

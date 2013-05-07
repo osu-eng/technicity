@@ -2,9 +2,9 @@ class StudiesController < ApplicationController
 
   require 'will_paginate/array'
 
+  before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close ]
   before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
-  before_filter :require_ownership_or_launched, only: [ :vote, :results, :region_results, :heatmap, :download ]
-  before_filter :authenticate_user!, only: [ :new ]
+  before_filter :require_can_view_results, only: [ :results, :region_results, :heatmap, :download ]
 
   handles_sortable_columns
 
@@ -282,19 +282,33 @@ class StudiesController < ApplicationController
     end
   end
 
+  # Users can view results if
+  # - they are an admin
+  # - they own the study
+  # - or it has been launched (!active.nil?) and it is public
+  def can_view_results?
+    @study = Study.find(params[:id])
+    can_edit? ||  (!@study.active.nil? && @study.public)
+  end
+
+  def can_edit?
+    !current_user.nil? && (current_user.admin || (@study.user == current_user))
+  end
+
   private
+
   #authorization
   def require_ownership
     @study = require_model_ownership(Study)
   end
 
-  def require_ownership_or_launched
-    @study = Study.find(params[:id])
-    if !(!@study.nil? || (@study.user == current_user))
+  def require_can_view_results
+    if !can_view_results?
       trigger_403('You are trying to access a study that has not yet been launched and you are not the owner.')
     end
   end
 
+  # Sorting behavior for studies
   def order
     order = sortable_column_order do |column, direction|
       case column

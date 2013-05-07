@@ -1,7 +1,12 @@
-<!-- security - should only be available to editor -->
+
+<% if controller.can_edit? || controller.can_view_results? %>
 <div class="study-info">
   <%= render 'status', :study => @study %>
 </div>
+<% end %>
+<h1><%= @study.name %></h1>
+
+<% if controller.can_edit? || controller.can_view_results? %>
 
 <script type="text/javascript">
 /**
@@ -32,7 +37,6 @@ function changeActiveStatus(id, status) {
 }
 </script>
 
-<h1><%= @study.name %></h1>
 <!-- active li needs class active -->
 <!-- security - tabs should only show if there is a choice -->
 <ul class="nav nav-tabs" >
@@ -41,10 +45,13 @@ function changeActiveStatus(id, status) {
       <i class="icon-ok" style=""></i> Vote</a>
     </li>
   <!-- security - analyze should only show if study is public -->
+
+  <% if controller.can_view_results? %>
   <li class=<%= "active" if [url_for(:controller => "studies", :action => "results", :id => @study), url_for(:controller => "studies", :action => "region_results", :id => @study), url_for(:controller => "studies", :action => "heatmap", :id => @study), url_for(:controller => "studies", :action => "download", :id => @study)].include?(url_for()) %>>
     <a href="<%= url_for :controller => "studies", :action => "results", :id => @study %>">
       <i class="icon-signal" style=""></i> Analyze</a>
     </li>
+  <% end %>
   <!-- security - edit should only show if study is public -->
   <!-- MF - added check for owner -->
   <% if user_signed_in? && @study.user_id == current_user.id %>
@@ -82,3 +89,4 @@ function changeActiveStatus(id, status) {
     <% end %>
   <% end %>
 </ul>
+<% end %>
