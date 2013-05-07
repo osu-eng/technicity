@@ -1,6 +1,6 @@
 <h1>My Research</h1>
 <% if @studies.empty? %>
-  <p>You currently have no studies. To create your first study, click on the button below.</p>
+  <p class="empty-text">You have not created any studies.</p>
 <% else %>
   <%= render 'studies/list', :studies => @studies, :show_user => true  %>
 <% end %>
