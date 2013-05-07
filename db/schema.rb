@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507113642) do
+ActiveRecord::Schema.define(:version => 20130507233914) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20130507113642) do
     t.string   "slug"
     t.string   "question"
     t.boolean  "public",        :default => true
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "region_set_id"
     t.string   "name"
     t.integer  "user_id"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20130507113642) do
     t.boolean  "active"
     t.datetime "opened_at"
     t.datetime "closed_at"
+    t.boolean  "promoted",      :default => false
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true
