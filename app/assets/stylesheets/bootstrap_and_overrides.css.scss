@@ -81,7 +81,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   border-top: solid 2px $darkred;
   border-bottom: solid 2px $darkred;
   /* not sure about this, dealing with offset */
-  margin: 50px 0 0 30px;
+  margin: 50px 0 0 0;
   text-align: center;
   height: 70px;
   .container a {
@@ -107,7 +107,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 #trio-bar {
   width: 100%;
   /* not sure about this, dealing with offset */
-  margin-left: 20px;
+  padding-left: 20px;
   margin-top: 10px;
   }
   
@@ -219,6 +219,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   .navbar .nav {
     float: left;
     margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  #contact-text {
+    display: none;
   }
 }
 
