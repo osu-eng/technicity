@@ -68,7 +68,9 @@ class Study < ActiveRecord::Base
   end
 
   def self.search(term)
-    where{name =~ "%#{term}%"}
+    q = "%#{term}%"
+    Study.joins(:user).where("studies.name like ? or users.username like ?", q, q)
+    # Study.where("name like ? or description like ?", q, q)
   end
 
   def self.randomActive
