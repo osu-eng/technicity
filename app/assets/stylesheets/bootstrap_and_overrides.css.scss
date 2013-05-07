@@ -4,6 +4,7 @@ $white: #ffffff;
 $darkred: #990033;
 $black: #000000;
 $osulink: #0E4E8E;
+$navbarCollapseWidth: 767px;
 
 @mixin rounded-corners {
   border-radius: 5px;
@@ -57,7 +58,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .navbar .nav {
   float: right;
   font-size: 16px;
-  margin: 30px 10px 0 0;
+  margin: 30px 0 0 0;
   }
 
 .navbar .brand {
@@ -68,9 +69,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   position: absolute;
   }
 
-.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
-  padding: 0;
+.btn.btn-navbar {
+  margin-top: 12px;
 }
+
 
 /* footer */
 #contact-bar {
@@ -185,29 +187,39 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 /* responsive */
-@media (max-width: 767px) {
+@media (max-width: 979px) {
   .navbar .brand{
     width: 150px;
-    margin-left: 20px;
-    }
+  }
+  .navbar .nav {
+    margin: 7px 0 0 0;
+  }
+}
+
+@media (max-width: 767px) {
   .overlay-corner{
     width: 200px;
-    }
+  }
   #main {
     padding-top: 20px;;
-    }
-  .navbar-inner .btn-navbar {
-    margin-right: 30px;
-    }
+  }
   #contact-bar {
     margin: 50px 0 0 0;
-    }
+  }
   #trio-bar {
   	display: none;
-  	}
+  }
   #trio-text {
     display: none;
-    }
+  }
+  .navbar-fixed-top {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .navbar .nav {
+    float: left;
+    margin: 0;
+  }
 }
 
 /* overlay - remove in production */
