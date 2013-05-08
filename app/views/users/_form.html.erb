@@ -9,6 +9,9 @@
   <%= f.input :admin,
               :input_html => { :style => 'width:400px;'},
               :hint => 'Is this person an admin or not' %>
+  <%= f.input :blocked,
+              :input_html => { :style => 'width:400px;'},
+              :hint => 'Is this account blocked or not' %>
   <% end %>
   <% if @user.id %>
     <button type="submit" class="btn btn-primary" >
