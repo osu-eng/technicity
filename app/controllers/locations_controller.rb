@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
 
   before_filter :authenticate_user!, only: [ :create, :update, :destroy, :show]
-  before_filter :require_can_edit, only: [ :create, :update, :destroy, :show]
+  before_filter :require_can_edit, only: [ :update, :destroy, :show]
 
   # GET /locations
   # GET /locations.json
