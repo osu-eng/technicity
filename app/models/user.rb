@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :coursera_id, :name
 
   validates_presence_of :username
+  validates_uniqueness_of :username
 
   has_many :studies
   has_many :region_sets
