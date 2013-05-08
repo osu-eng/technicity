@@ -89,13 +89,15 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
     editModal = $('#' + this.editModalId);
     editModal.modal();
 
+    // Set the working location to be this location.
+    this.workingLocation = new ss.Location(id, latitude, longitude, heading, pitch);
+
     var $this = this;
 
     // Add some handlers for position and pov
     editModal.on('shown', function () {
 
-      // Set the working location to be this location.
-      $this.workingLocation = new ss.Location(id, latitude, longitude, heading, pitch);
+
 
       // Create a panorama and google map (required for panorama?)
       var position = new google.maps.LatLng(latitude,longitude);
@@ -201,8 +203,10 @@ ss.handler.Curate.prototype.deleteLocationCancel = function() {
 
 ss.handler.Curate.prototype.updateLocation = function() {
   var $this = this;
-
+  console.log('updating location');
+  console.log (this.workingLocation);
   this.workingLocation.update(function(location, status, xhr) {
+    console.log(status);
     if (status == "success") {
       // update the onclick
       $('#' + $this.locationIdPrefix + location.id).click(function(){
