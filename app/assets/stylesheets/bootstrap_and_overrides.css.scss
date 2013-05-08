@@ -58,6 +58,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
   color: $darkgray;
+  background-color: inherit;
   }
   
 .navbar .nav li.dropdown > a:hover .caret, .navbar .nav li.dropdown > a:focus .caret {
