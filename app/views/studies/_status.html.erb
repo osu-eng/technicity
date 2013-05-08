@@ -46,10 +46,10 @@
 
 <% elsif @study.active # it's open %>
   <% if controller.can_edit? %>
-  <button type="button" class="btn btn-danger study-close" onclick="changeActiveStatus(<%= @study.id %>, false)">
-    <i class="icon-off icon-white"></i> Close
-  </button>
-  <br />
+    <button type="button" class="btn btn-danger study-close" onclick="changeActiveStatus(<%= @study.id %>, false)">
+      <i class="icon-off icon-white"></i> Close
+    </button>
+    <br />
   <% end %>
   <span class="votes"><%= @study.comparisons.length %> Votes</span>
   <br />
@@ -66,6 +66,7 @@
   <br />
   <span class="closed">Closed <%= @study.opened_at.strftime('%b %e, %Y') %></span>
 <% end %>
+
 
 
 

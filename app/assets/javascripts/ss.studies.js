@@ -93,6 +93,54 @@ ss.Study.prototype.close = function(id, successHandler, errorHandler) {
     });
 }
 
+
+/**
+ * Updates a region.
+ *
+ * Used example here:
+ * http://blog.project-sierra.de/archives/1788
+ *
+ * @param  {function} successHandler function to be called upon success.
+ */
+ss.Study.prototype.promote = function(id, successHandler, errorHandler) {
+  $.ajax({
+    url:'/studies/' + id + '/promote',
+    // Expect JSON to be returned. This is also enforced on the server via mimetype.
+    dataType: 'json',
+    type: 'post',
+    processData: false,
+    contentType: "application/json",
+    data: JSON.stringify({
+      id: id,
+      "_method":"promote"
+    }),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("X-Http-Method-Override", "PUT");
+    },
+    success: successHandler,
+    error: errorHandler
+    });
+}
+ss.Study.prototype.demote = function(id, successHandler, errorHandler) {
+  $.ajax({
+    url:'/studies/' + id + '/demote',
+    // Expect JSON to be returned. This is also enforced on the server via mimetype.
+    dataType: 'json',
+    type: 'post',
+    processData: false,
+    contentType: "application/json",
+    data: JSON.stringify({
+      id: id,
+      "_method":"demote"
+    }),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("X-Http-Method-Override", "PUT");
+    },
+    success: successHandler,
+    error: errorHandler
+    });
+}
+
 /**
  * Deletes a region
  *

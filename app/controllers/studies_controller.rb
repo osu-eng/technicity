@@ -220,6 +220,33 @@ class StudiesController < ApplicationController
     end
   end
 
+  def promote
+    if current_user.admin
+      @study = Study.find(params[:id])
+      @study.promoted = true
+      if @study.save
+        respond_to do |format|
+          format.html { redirect_to @study, notice: 'Study was successfully promoted to home page.' }
+          format.json { head :no_content }
+        end
+      end
+    end
+  end
+
+  def demote
+    if current_user.admin
+      @study = Study.find(params[:id])
+      @study.promoted = false
+      if @study.save
+        respond_to do |format|
+          format.html { redirect_to @study, notice: 'Study was successfully demoted from home page.' }
+          format.json { head :no_content }
+        end
+      end
+    end
+  end
+
+
   def open
     @study = Study.find(params[:id])
 

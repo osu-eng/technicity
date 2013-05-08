@@ -1,8 +1,23 @@
 
 <% if controller.can_edit? || controller.can_view_results? %>
-<div class="study-info">
-  <%= render 'status', :study => @study %>
-</div>
+
+  <div class="study-info">
+    <%= render 'status', :study => @study %>
+  </div>
+
+  <% if current_user.admin %>
+    <div class="study-info" style="margin-right:10px;">
+    <% if @study.promoted %>
+      <button type="button" class="btn btn-inverse study-close" onclick="changePromoteStatus(<%= @study.id %>, false)">
+        <i class="icon-stop icon-white"></i> Demote
+      </button>
+    <% else %>
+      <button type="button" class="btn btn-primary study-close" onclick="changePromoteStatus(<%= @study.id %>, true)">
+        <i class="icon-ok icon-white"></i> Promote
+      </button>
+    <% end %>
+    </div>
+  <% end %>
 <% end %>
 <h1><%= @study.name %></h1>
 
@@ -21,6 +36,29 @@ function changeActiveStatus(id, status) {
     function(data, status, xhr) {
       // $('.study-info').load('/studies/' + id + '/status');
       // To many things need reloaded (curate, add new region link, vote, etc)
+      location.reload();
+    },
+    function(xhr, status, error) {
+      errors = JSON.parse(xhr.responseText);
+      messages = '<ul>';
+      for (key in errors) {
+        for (i=0; i<errors[key].length; i++) {
+          messages += '<li>' + errors[key][i] + '</li>';
+        }
+      }
+      messages += '</ul>';
+
+      $("#study-active-error-list").html(messages);
+      $('#study-active-errors-modal').modal('toggle');
+    });
+}
+function changePromoteStatus(id, status) {
+  // which function do we call
+  update = status ? ss.Study.prototype.promote : ss.Study.prototype.demote;
+
+  // Do the update
+  update(id,
+    function(data, status, xhr) {
       location.reload();
     },
     function(xhr, status, error) {

@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @study = Study.randomActive
+    @study = Study.randomPromotedActive
   end
 
   def help
