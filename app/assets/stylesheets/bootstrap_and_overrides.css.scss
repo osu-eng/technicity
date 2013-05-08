@@ -3,9 +3,9 @@ $darkgray: #606060;
 $white: #ffffff;
 $darkred: #990033;
 $midred: #d31145;
-$pink: #dc525e;
 $black: #000000;
 $osulink: #0E4E8E;
+$lightblue: #0088CC;
 $navbarCollapseWidth: 767px;
 
 @mixin rounded-corners {
@@ -71,6 +71,19 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .btn-danger {
     background-color: $darkred;
     background-image: linear-gradient(to bottom, $midred, $darkred);
+    }
+
+.btn-danger:hover{
+    background-color: $darkred;
+    }
+
+.btn-primary {
+    background-color: $osulink;
+    background-image: linear-gradient(to bottom, $lightblue, $osulink);
+    }
+
+.btn-primary:hover{
+    background-color: $osulink;
     }
 
 /* nav bar */
@@ -249,6 +262,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     float: left;
     margin: 0;
   }
+  .studyfull {
+    display: none;
+    }
 }
 
 @media (max-width: 480px) {

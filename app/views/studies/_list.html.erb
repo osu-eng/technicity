@@ -3,14 +3,14 @@
     <th><%= sortable_column "Name", :column => "name" %></th>
     <th>Question</th>
     <% if @mine.nil? %>
-    <th>User</th>
+    <th class="studyfull">User</th>
     <% end %>
-    <th># Areas</th>
-    <th># Votes</th>
+    <th class="studyfull"># Areas</th>
+    <th> # Votes</th>
     <% if !current_user.nil? && current_user.admin %>
-    <th><%= sortable_column "Promoted", :column => "promoted" %></th>
+    <th class="studyfull"><%= sortable_column "Promoted", :column => "promoted" %></th>
     <% end %>
-    <th><%= sortable_column "Public", :column => "public" %></th>
+    <th class="studyfull"><%= sortable_column "Public", :column => "public" %></th>
     <th><%= sortable_column "Status", :column => "active" %></th>
 </tr>
 <% @studies.each do |study| %>
@@ -18,14 +18,14 @@
     <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
     <td><%= link_to study.question, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
     <% if @mine.nil? %>
-      <td><%= study.user.username %></td>
+      <td class="studyfull"><%= study.user.username %></td>
     <% end %>
-    <td><%= study.region_set.regions.count %></td>
+    <td class="studyfull"><%= study.region_set.regions.count %></td>
     <td><%= study.comparisons.count %></td>
     <% if !current_user.nil? && current_user.admin %>
-    <td><% if study.promoted %> Yes <% else%> No <% end%></td>
+    <td class="studyfull"><% if study.promoted %> Yes <% else%> No <% end%></td>
     <% end %>
-    <td><% if study.public %> Yes <% else%> No <% end%></td>
+    <td class="studyfull"><% if study.public %> Yes <% else%> No <% end%></td>
     <td>
       <% if study.active.nil? %>
         <span class="label label-warning">Not Launched</span>
