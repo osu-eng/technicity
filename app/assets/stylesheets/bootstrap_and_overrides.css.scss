@@ -79,7 +79,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-image: linear-gradient(to bottom, $midred, $darkred);
     }
 
-.btn-danger:hover{
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
     background-color: $darkred;
     }
 
@@ -88,7 +88,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-image: linear-gradient(to bottom, $lightblue, $osulink);
     }
 
-.btn-primary:hover{
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
     background-color: $osulink;
     }
 
