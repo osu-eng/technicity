@@ -44,6 +44,9 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     @location = Location.new(params[:location])
+    if current_user.admin || (@location.region.user != current_user)
+      trigger_403('You can not add a location to this region')
+    end
 
     respond_to do |format|
       if @location.save
