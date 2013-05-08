@@ -1,5 +1,5 @@
 <h2>Sign up</h2>
-<p> After reviewing our <%= link_to 'User Policy', policies_path %>, you can sign up using an account from 
+<p> After reviewing our <%= link_to 'User Policy', policies_path %>, you can sign up using an account from
 one of the following providers:</p>
 
 <%- if devise_mapping.omniauthable? %>
@@ -13,7 +13,8 @@ one of the following providers:</p>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :username, :required => true, :autofocus => true %>
+    <%= f.input :name, :required => true, :autofocus => true %>
+    <%= f.input :username, :required => true %>
     <%= f.input :email, :required => true %>
     <% if f.object.password_required? %>
       <%= f.input :password, :required => true %>
