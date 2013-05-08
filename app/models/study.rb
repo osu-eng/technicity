@@ -218,7 +218,6 @@ class Study < ActiveRecord::Base
       csv << [
         'comparison_id',
         'date',
-        'voter_ip',
         'voter_latitude',
         'voter_longitude',
         'study',
@@ -243,7 +242,6 @@ class Study < ActiveRecord::Base
         csv << [
           comparison.id,
           comparison.created_at,
-          comparison.voter_remote_ip,
           comparison.voter_latitude,
           comparison.voter_longitude,
           self.slug,
