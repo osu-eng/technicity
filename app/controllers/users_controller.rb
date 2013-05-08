@@ -46,8 +46,10 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
-
+    if current_user.admin
+      @user = User.new(params[:user])
+      @user.assign_attributes(params[:user], :without_protection => true)
+    end
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -63,9 +65,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    if current_user.admin
+      @user.assign_attributes(params[:user], :without_protection => true)
+    else
+      @user.assign_attributes(params[:user])
+    end
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.save()
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
