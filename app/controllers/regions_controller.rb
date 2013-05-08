@@ -1,14 +1,14 @@
 class RegionsController < ApplicationController
   # GET /regions
   # GET /regions.json
-  def index
-    @regions = Region.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @regions }
-    end
-  end
+  #def index
+  #  @regions = Region.all
+  #
+  #  respond_to do |format|
+  #    format.html # index.html.erb
+  #    format.json { render json: @regions }
+  #  end
+  #end
 
   # GET /regions/new
   # GET /regions/new.json
@@ -33,9 +33,9 @@ class RegionsController < ApplicationController
   end
 
   # GET /regions/1/edit
-  def edit
-    @region = Region.find(params[:id])
-  end
+  #def edit
+  #  @region = Region.find(params[:id])
+  #end
 
   # POST /regions
   # POST /regions.json
