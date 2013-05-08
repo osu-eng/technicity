@@ -1,4 +1,8 @@
 class RegionsController < ApplicationController
+
+  before_filter :authenticate_user!, only: [ :new, :update, :destroy, :create]
+  before_filter :require_can_edit, only: [ :update, :destroy ]
+
   # GET /regions
   # GET /regions.json
   #def index
@@ -46,11 +50,17 @@ class RegionsController < ApplicationController
     # security - load a study if one has been passed in
     if params[:study_id]
       @study = Study.find(params[:study_id])
+      if @study.user != current_user
+        trigger_403('You cannot add a region to this study')
+      end
     end
 
     # security - load a region_set if one has been passed in
     if params[:region_set_id]
       @region_set = RegionSet.find(params[:region_set_id])
+      if @region_set.user != current_user
+        trigger_403('You cannot add a region to this region_set')
+      end
     end
 
     # attempt to save the region
@@ -171,6 +181,20 @@ class RegionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to regions_url }
       format.json { render json: @region}
+    end
+  end
+
+  def can_edit?
+    @region = Region.find(params[:id])
+    !current_user.nil? && (current_user.admin || (@region.user == current_user))
+  end
+
+  private
+
+  #authorization
+  def require_can_edit
+    if !can_edit?
+      trigger_403('You do not have permission to modify this resourse')
     end
   end
 end
