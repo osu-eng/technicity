@@ -324,6 +324,7 @@ class StudiesController < ApplicationController
   end
 
   def can_edit?
+    @study = Study.find(params[:id])
     !current_user.nil? && (current_user.admin || (@study.user == current_user))
   end
 
