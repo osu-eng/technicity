@@ -1,15 +1,21 @@
 <p id="notice"><%= notice %></p>
-
+<h1>User: <%= @user.id %></h1>
 <p>
   <b>Name:</b>
   <%= @user.name %>
 </p>
 
 <p>
+  <b>User:</b>
+  <%= @user.username %>
+</p>
+
+<p>
   <b>Email:</b>
   <%= @user.email %>
 </p>
-
+<h2>Studies</h2>
+<%= render 'studies/list', :studies => @studies, :mine => true %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

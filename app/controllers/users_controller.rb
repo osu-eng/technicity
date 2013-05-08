@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, only: [ :edit, :update, :destroy, :index, :show]
-  before_filter :require_admin, only: [ :index ]
+  before_filter :authenticate_user!, only: [ :edit, :update, :index, :show, :destroy]
+  before_filter :require_admin, only: [ :index, :destroy ]
 
   handles_sortable_columns
 
@@ -19,11 +19,16 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+    if current_user.admin || (current_user.id == params[:id])
+      @user = User.find(params[:id])
+      @studies = @user.studies.order(studies_order).paginate(:page => params[:page])
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @user }
+      end
+    else
+      trigger_403('You can only access your own profile.')
     end
   end
 
@@ -103,9 +108,7 @@ class UsersController < ApplicationController
 
   def require_admin
     if current_user.nil? || !current_user.admin
-      respond_to do |format|
-        format.html { redirect_to :home, alert: "Only admins can complete that action." }
-      end
+      trigger_403('You need admin access to do that.')
     end
   end
 
@@ -119,6 +122,21 @@ class UsersController < ApplicationController
         "#{column} #{direction}"
       else
         'LOWER(username) ASC'
+      end
+    end
+  end
+
+
+  # Sorting behavior for studies
+  def studies_order
+    order = sortable_column_order do |column, direction|
+      case column
+      when "name"
+        "LOWER(studies.name) #{direction}"
+      when "active", "public", "promoted"
+        "studies.#{column} #{direction}"
+      else
+        'LOWER(studies.name) ASC'
       end
     end
   end
