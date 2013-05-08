@@ -81,6 +81,10 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
     alert('After launching a study, images can no longer be curated.');
   }
   else {
+    // Clean up any old maps in modal before enabling
+    $('#' + this.panoramaId).html('');
+    $('#' + this.panoramaMapId).html('');
+
     // Enable modal
     editModal = $('#' + this.editModalId);
     editModal.modal();
