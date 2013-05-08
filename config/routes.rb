@@ -40,6 +40,8 @@ Technicity::Application.routes.draw do
     get :status,         :on => :member
     put :open,           :on => :member
     put :close,          :on => :member
+    put :promote,        :on => :member
+    put :demote,         :on => :member
   end
 
   resources :users
