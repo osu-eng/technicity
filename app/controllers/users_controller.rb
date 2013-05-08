@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, only: [ :edit, :update, :destroy, :index, :show]
   before_filter :require_admin, only: [ :index ]
-  
-  
+
+  handles_sortable_columns
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.search(params[:q]).order(order).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -85,8 +86,8 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
- 
+
+
   private
 
   #authorization
@@ -101,5 +102,18 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
+  # Sorting behavior for studies
+  def order
+    order = sortable_column_order do |column, direction|
+      case column
+      when "name", "username", "email"
+        "LOWER(#{column}) #{direction}"
+      when "admin"
+        "#{column} #{direction}"
+      else
+        'LOWER(username) ASC'
+      end
+    end
+  end
 end

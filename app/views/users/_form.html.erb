@@ -1,25 +1,20 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :name,
+              :input_html => { :style => 'width:400px;'},
+              :hint => 'Your name' %>
+  <%= f.input :email,
+              :input_html => { :style => 'width:400px;'},
+              :hint => 'Your email address' %>
+  <% if current_user.admin %>
+  <%= f.input :admin,
+              :input_html => { :style => 'width:400px;'},
+              :hint => 'Is this person an admin or not' %>
+  <% end %>
+  <% if @user.id %>
+    <button type="submit" class="btn btn-primary" >
+      <i class="icon-ok icon-white"></i> Save
+    </button>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
+

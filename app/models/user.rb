@@ -45,10 +45,11 @@ class User < ActiveRecord::Base
       super
     end
   end
-  # This needs to be here until the rest of the code is
-  # fixed to remove references to it.
-  def self.current_id
-    505
+
+  def self.search(term)
+    q = "%#{term}%"
+    User.where("name like ? or username like ? or email like ?", q, q, q)
+    # Study.where("name like ? or description like ?", q, q)
   end
 
 end
