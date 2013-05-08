@@ -5,7 +5,7 @@
     <%= render 'status', :study => @study %>
   </div>
 
-  <% if current_user.admin %>
+  <% if !current_user.nil? && current_user.admin %>
     <div class="study-info" style="margin-right:10px;">
     <% if @study.promoted %>
       <button type="button" class="btn btn-inverse study-close" onclick="changePromoteStatus(<%= @study.id %>, false)">
