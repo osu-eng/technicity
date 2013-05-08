@@ -85,29 +85,23 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
     $('#' + this.panoramaId).html('');
     $('#' + this.panoramaMapId).html('');
 
-    // Enable modal
-    editModal = $('#' + this.editModalId);
-    editModal.modal();
-
     // Set the working location to be this location.
     this.workingLocation = new ss.Location(id, latitude, longitude, heading, pitch);
-
     var $this = this;
 
+    editModal = $('#' + this.editModalId);
     // Add some handlers for position and pov
     editModal.on('shown', function () {
 
-
-
       // Create a panorama and google map (required for panorama?)
-      var position = new google.maps.LatLng(latitude,longitude);
+      var position = new google.maps.LatLng($this.workingLocation.latitude, $this.workingLocation.longitude);
 
       // Create panorama options
       var panoramaOptions = {
         position: position,
         pov: {
-          heading: heading,
-          pitch: pitch,
+          heading: $this.workingLocation.heading,
+          pitch: $this.workingLocation.pitch,
         },
 
         addressControl: false,
@@ -124,38 +118,41 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
-    // Create a map
-    var mapOptions = {
-      center: position,
-      zoom: 12,
-      disableDefaultUI: true,
-      disableDoubleClickZoom: true,
-      draggable: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    var map = new google.maps.Map(document.getElementById($this.panoramaMapId), mapOptions);
+      // Create a map
+      var mapOptions = {
+        center: position,
+        zoom: 12,
+        disableDefaultUI: true,
+        disableDoubleClickZoom: true,
+        draggable: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      var map = new google.maps.Map(document.getElementById($this.panoramaMapId), mapOptions);
 
+      // Associate the panorama
+      var panorama = new google.maps.StreetViewPanorama(document.getElementById($this.panoramaId), panoramaOptions);
+      map.setStreetView(panorama);
 
-    // Associate the panorama
-    var panorama = new google.maps.StreetViewPanorama(document.getElementById($this.panoramaId), panoramaOptions);
-    map.setStreetView(panorama);
+      marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: 'Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng(),
 
-    marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: 'Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng(),
+        });
 
-      });
+        var $that = $this;
 
-      var $that = $this;
+        google.maps.event.trigger(panorama, 'resize');
+        google.maps.event.addListener(panorama, 'pov_changed', function() {
+          $that.workingLocation.heading = panorama.getPov().heading % 360;
+          $that.workingLocation.pitch = panorama.getPov().pitch;
+        });
+      }); // end editModal.on('shown')
 
-      google.maps.event.trigger(panorama, 'resize');
-      google.maps.event.addListener(panorama, 'pov_changed', function() {
-        $that.workingLocation.heading = panorama.getPov().heading;
-        $that.workingLocation.pitch = panorama.getPov().pitch;
-      });
-    });
+    // Enable modal
+    editModal.modal();
   }
+
 }
 
 
