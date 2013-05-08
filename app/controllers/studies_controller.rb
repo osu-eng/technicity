@@ -3,7 +3,7 @@ class StudiesController < ApplicationController
   require 'will_paginate/array'
 
   before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close, :mine ]
-  before_filter :require_ownership, only: [ :edit, :update, :destroy, :curate, :open, :close ]
+  before_filter :require_can_edit, only: [ :edit, :update, :destroy, :curate, :open, :close ]
   before_filter :require_can_view_results, only: [ :results, :region_results, :heatmap, :download ]
 
   handles_sortable_columns
@@ -330,8 +330,10 @@ class StudiesController < ApplicationController
   private
 
   #authorization
-  def require_ownership
-    @study = require_model_ownership(Study)
+  def require_can_edit
+    if !can_edit?
+      trigger_403('You do not have permission to modify this resourse')
+    end
   end
 
   def require_can_view_results
