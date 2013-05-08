@@ -7,6 +7,9 @@
     <% end %>
     <th># Areas</th>
     <th># Votes</th>
+    <% if !current_user.nil? && current_user.admin %>
+    <th><%= sortable_column "Promoted", :column => "promoted" %></th>
+    <% end %>
     <th><%= sortable_column "Public", :column => "public" %></th>
     <th><%= sortable_column "Status", :column => "active" %></th>
 </tr>
@@ -19,6 +22,9 @@
     <% end %>
     <td><%= study.region_set.regions.count %></td>
     <td><%= study.comparisons.count %></td>
+    <% if !current_user.nil? && current_user.admin %>
+    <td><% if study.promoted %> Yes <% else%> No <% end%></td>
+    <% end %>
     <td><% if study.public %> Yes <% else%> No <% end%></td>
     <td>
       <% if study.active.nil? %>

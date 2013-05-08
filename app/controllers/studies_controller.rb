@@ -346,7 +346,7 @@ class StudiesController < ApplicationController
       case column
       when "name"
         "LOWER(studies.name) #{direction}"
-      when "active", "public"
+      when "active", "public", "promoted"
         "studies.#{column} #{direction}"
       else
         'LOWER(studies.name) ASC'
