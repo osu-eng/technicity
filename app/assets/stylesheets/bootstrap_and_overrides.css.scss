@@ -35,13 +35,13 @@ body {
  }
 
 a {
-  color: $osulink; 
+  color: $osulink;
   }
-  
+
 a:hover, a:focus {
   text-decoration: underline;
     }
-    
+
 #main {
   padding-top: 50px;
   min-height: 360px;
@@ -59,7 +59,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
   color: $darkgray;
   }
-  
+
 .navbar .nav li.dropdown > a:hover .caret, .navbar .nav li.dropdown > a:focus .caret {
   color: $darkgray;
   }
@@ -83,7 +83,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .navbar .brand {
   padding: 5px;
   }
-  
+
 .navbar-fixed-top, .navbar-fixed-bottom {
   position: absolute;
   }
@@ -114,7 +114,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     opacity: .8;
     }
   }
-  
+
 #contact-text {
   position: relative;
   float: right;
@@ -134,7 +134,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   padding-left: 20px;
   margin-top: 10px;
   }
-  
+
 .trio-text {
   .span4 {
     img {
@@ -278,5 +278,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-color: $gray;
     margin-left: 0;
     }
+}
+
+/* Fix firefox and panoramas */
+#streetViewContainer img, #panorama img {
+    border: none !important;
+    max-width: none !important;
 }
 

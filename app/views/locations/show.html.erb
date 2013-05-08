@@ -26,26 +26,25 @@
 </p>
 
 <div id="streetViewContainer" style="width:100%; height:400px"></div>
-<%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize' %>
 <script type="text/javascript">
-function initialize() {
-pos = new google.maps.LatLng( <%= @location.latitude %>, <%=  @location.longitude %> );
+window.onload = function() {
+  pos = new google.maps.LatLng( <%= @location.latitude %>, <%=  @location.longitude %> );
 
-var div = document.getElementById('streetViewContainer');
-var sv = new google.maps.StreetViewPanorama(div);
-sv.setPosition( pos );
-sv.setVisible( true );
+  var div = document.getElementById('streetViewContainer');
+  var sv = new google.maps.StreetViewPanorama(div);
+  sv.setPosition( pos );
+  sv.setVisible( true );
 
-// find the heading by looking from the google car pos to the venue pos
-var service = new google.maps.StreetViewService();
-service.getPanoramaByLocation( pos, 50, function(result, status) {
-    if (status == google.maps.StreetViewStatus.OK)
-    {
-        carPos = result.location.latLng;
-        heading = google.maps.geometry.spherical.computeHeading( carPos, pos );
-        sv.setPov( { heading: heading, pitch: 0, zoom: 1 } );
-    }
-} );
+  // find the heading by looking from the google car pos to the venue pos
+  var service = new google.maps.StreetViewService();
+  service.getPanoramaByLocation( pos, 50, function(result, status) {
+      if (status == google.maps.StreetViewStatus.OK)
+      {
+          carPos = result.location.latLng;
+          heading = google.maps.geometry.spherical.computeHeading( carPos, pos );
+          sv.setPov( { heading: heading, pitch: 0, zoom: 1 } );
+      }
+  } );
 }
 </script>
 <%= link_to 'Edit', edit_location_path(@location) %> |
