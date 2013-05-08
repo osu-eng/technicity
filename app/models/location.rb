@@ -13,8 +13,8 @@ class LocationChangeValidator < ActiveModel::Validator
         proposed.errors[:base] << 'You cannot change a location that is part of a study that has already been launched as this would invalidate results.'
       end
 
-      if (proposed.pitch > 90) or proposed.pitch < 0
-        proposed.errors[:pitch] << 'Pitch must be between 0 and 90 degrees'
+      if (proposed.pitch > 90) or proposed.pitch < -90
+        proposed.errors[:pitch] << 'Pitch must be between -90 and 90 degrees'
       end
 
       if (proposed.heading > 360) or proposed.heading < 0
