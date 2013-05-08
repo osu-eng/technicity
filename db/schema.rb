@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507233914) do
+ActiveRecord::Schema.define(:version => 20130508150435) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20130507233914) do
     t.string   "username"
     t.string   "coursera_id"
     t.boolean  "admin",                  :default => false
+    t.boolean  "blocked",                :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
