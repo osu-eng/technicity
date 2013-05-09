@@ -24,6 +24,10 @@ ss.handler.Curate = function(regionId) {
   this.quantityId = 'quantity';
   this.proximityId = 'proximity';
 
+  this.panoramaMap = null;
+  this.panorama = null;
+  this.marker = null;
+
   this.locked = false;
 
 }
@@ -82,8 +86,8 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
   }
   else {
     // Clean up any old maps in modal before enabling
-    $('#' + this.panoramaId).html('');
-    $('#' + this.panoramaMapId).html('');
+    // $('#' + this.panoramaId).html('');
+    // $('#' + this.panoramaMapId).html('');
 
     // Set the working location to be this location.
     this.workingLocation = new ss.Location(id, latitude, longitude, heading, pitch);
@@ -96,61 +100,77 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
       // Create a panorama and google map (required for panorama?)
       var position = new google.maps.LatLng($this.workingLocation.latitude, $this.workingLocation.longitude);
 
-      // Create panorama options
-      var panoramaOptions = {
-        position: position,
-        pov: {
-          heading: $this.workingLocation.heading,
-          pitch: $this.workingLocation.pitch,
-        },
+      if ($this.panorama) {
+        // Update things, preserving memory
+        $this.marker.setPosition(position);
+        $this.marker.setTitle('Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng());
+        $this.map.setCenter(position);
 
-        addressControl: false,
-        linksControl: false,
-        disableDoubleClickZoom: true,
-        zoomControl: false,
-        navigationControl: false,
-        enableCloseButton: false,
-        disableDefaultUI: true,
-        scrollwheel: false,
-        scaleControl: false,
-        draggable: false,
-        mapTypeControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-
-      // Create a map
-      var mapOptions = {
-        center: position,
-        zoom: 12,
-        disableDefaultUI: true,
-        disableDoubleClickZoom: true,
-        draggable: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        $this.panorama.setPosition(position);
+        $this.panorama.setPov({ heading: $this.workingLocation.heading, pitch: $this.workingLocation.pitch });
       }
-      var map = new google.maps.Map(document.getElementById($this.panoramaMapId), mapOptions);
+      else {
+        // Create things from scratch
 
-      // Associate the panorama
-      var panorama = new google.maps.StreetViewPanorama(document.getElementById($this.panoramaId), panoramaOptions);
-      map.setStreetView(panorama);
+        // Create panorama options
+        var panoramaOptions = {
+          position: position,
+          pov: {
+            heading: $this.workingLocation.heading,
+            pitch: $this.workingLocation.pitch,
+          },
 
-      marker = new google.maps.Marker({
-        position: position,
-        map: map,
-        title: 'Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng(),
+          addressControl: false,
+          linksControl: false,
+          disableDoubleClickZoom: true,
+          zoomControl: false,
+          navigationControl: false,
+          enableCloseButton: false,
+          disableDefaultUI: true,
+          scrollwheel: false,
+          scaleControl: false,
+          draggable: false,
+          mapTypeControl: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-        });
+        // Create a map
+        var mapOptions = {
+          center: position,
+          zoom: 12,
+          disableDefaultUI: true,
+          disableDoubleClickZoom: true,
+          draggable: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        $this.map = new google.maps.Map(document.getElementById($this.panoramaMapId), mapOptions);
 
-        var $that = $this;
+        // Associate the panorama
+        $this.panorama = new google.maps.StreetViewPanorama(document.getElementById($this.panoramaId), panoramaOptions);
+        $this.map.setStreetView($this.panorama);
 
-        google.maps.event.trigger(panorama, 'resize');
-        google.maps.event.addListener(panorama, 'pov_changed', function() {
-          heading = panorama.getPov().heading;
-          while (heading < 0) {
-            heading = heading + 360;
-          }
-          $that.workingLocation.heading = heading;
-          $that.workingLocation.pitch = panorama.getPov().pitch;
-        });
+        $this.marker = new google.maps.Marker({
+          position: position,
+          map: $this.map,
+          title: 'Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng(),
+
+          });
+
+          var $that = $this;
+
+          google.maps.event.trigger($this.panorama, 'resize');
+          google.maps.event.addListener($this.panorama, 'pov_changed', function() {
+            heading = $that.panorama.getPov().heading;
+            while (heading < 0) {
+              heading = heading + 360;
+            }
+            while (heading > 360) {
+              heading = heading - 360;
+            }
+            $that.workingLocation.heading = heading;
+            $that.workingLocation.pitch = $that.panorama.getPov().pitch;
+          });
+        }
       }); // end editModal.on('shown')
 
     // Enable modal
