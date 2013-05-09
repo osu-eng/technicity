@@ -41,6 +41,8 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'handles_sortable_columns'
 
+gem 'recaptcha', :require => 'recaptcha/rails'
+
 # This doesn't seem to do what we need
 # gem 'gmaps4rails'
 
