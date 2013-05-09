@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def create
-    if verify_recaptcha
+    if verify_recaptcha || (!session['devise.user_attributes'].nil? && !session['devise.user_attributes']['provider'].nil?)
       flash.delete :recaptcha_error
       super
     else
