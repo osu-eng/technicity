@@ -58,6 +58,6 @@ class Location < ActiveRecord::Base
   end
 
   def image_url(width=470, height=306)
-    "http://maps.googleapis.com/maps/api/streetview?size=" + width.to_s + "x" + height.to_s + "&location=#{self.latitude}%2C%20#{self.longitude}&heading=#{self.heading}&pitch=#{self.pitch}&sensor=false"
+    "http://maps.googleapis.com/maps/api/streetview?size=" + width.to_s + "x" + height.to_s + "&location=#{self.latitude}%2C#{self.longitude}&heading=#{self.heading}&pitch=#{self.pitch}&sensor=false"
   end
 end

@@ -207,7 +207,7 @@ class Study < ActiveRecord::Base
     CSV.generate(options) do |csv|
       csv << study_results.first.keys.push('image_url')
       study_results.each do |location|
-        location['image_url'] = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=#{location['latitude']}%2C%20#{location['longitude']}&heading=#{location['heading']}&pitch=#{location['pitch']}&sensor=false"
+        location['image_url'] = "http://maps.googleapis.com/maps/api/streetview?size=470x306&location=#{location['latitude']}%2C#{location['longitude']}&heading=#{location['heading']}&pitch=#{location['pitch']}&sensor=false"
         csv << location.values
       end
     end
