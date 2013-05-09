@@ -125,14 +125,15 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   border-top: solid 2px $darkred;
   border-bottom: solid 2px $darkred;
   /* not sure about this, dealing with offset */
-  margin: 50px 0 0 20px;
+  margin-left: 0;
+  margin-top: 50px;
   text-align: center;
   height: 70px;
   .container a {
     position: relative;
     float: right;
   	img {
-  	  padding: 10px 7px;
+  	  padding: 10px 6px;
   	  }
   	}
   a:hover {
@@ -156,7 +157,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 #trio-bar {
   width: 100%;
   /* not sure about this, dealing with offset */
-  padding-left: 40px;
+  margin-left: 0;
   margin-top: 10px;
   }
 
@@ -182,7 +183,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   }
 
 #end-text {
-  margin: 20px 0 0 0;
+  margin-top: 20px;
   border-top: 1px solid $gray;
   p {
     padding: 5px 0 0 0;
