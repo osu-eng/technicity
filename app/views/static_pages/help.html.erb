@@ -20,31 +20,31 @@
 
 <div class="help-steps">
 <a id="accounts"></a><h3>Create a User Account</h3>
-<p>Go to the <a href="<%= new_user_registration_path %>">Sign Up</a> page.  User accounts can be created
+<p>Go to the <a href="<%= new_user_registration_path %>">Sign Up</a> page.  User accounts can be created 
 using existing accounts on Coursera, Facebook or Twitter.
 
-<h4>Twitter</h4><p>You will be directed to your Twitter account to authorize StreetSeen.  You will then be redirected back
-to StreetSeen, where you will be prompted to enter a valid email address.  StreetSeen usernames
-will be displayed throughout the site associated with user-generated content, so if you would like to change your user name,
+<h4>Twitter</h4><p>You will be directed to your Twitter account to authorize StreetSeen.  You will then be redirected back 
+to StreetSeen, where you will be prompted to enter a valid email address.  StreetSeen usernames 
+will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
 you can also do so on this screen.  Click on Sign Up to finish the process.</p>
 
-<h4>Facebook</h4><p>You will be directed to your Facebook account to authorize StreetSeen.  You will then be redirected back
-to StreetSeen, where you will be prompted to enter a valid email address.  StreetSeen usernames
-will be displayed throughout the site associated with user-generated content, so if you would like to change your user name,
+<h4>Facebook</h4><p>You will be directed to your Facebook account to authorize StreetSeen.  You will then be redirected back 
+to StreetSeen, where you will be prompted to enter a valid email address.  StreetSeen usernames 
+will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
 you can also do so on this screen.  Click on Sign Up to finish the process.</p>
 
-<h4>Coursera</h4><p>You will be directed to Coursera to login with your Coursera credentials.  You will then be redirected back
-to StreetSeen, where you will be prompted to enter a valid username and email address.  StreetSeen usernames
-will be displayed throughout the site associated with user-generated content, so if you would like to change your user name,
+<h4>Coursera</h4><p>You will be directed to Coursera to login with your Coursera credentials.  You will then be redirected back 
+to StreetSeen, where you will be prompted to enter a valid username and email address.  StreetSeen usernames 
+will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
 you can also do so on this screen.  Click on Sign Up to finish the process  </p>
 
-<h4>StreetSeen Only</h4><p>If you do not have an account with any of these providers, you can create a new account by filling in a
-username, email address and password.  StreetSeen usernames will be displayed throughout the site associated with
+<h4>StreetSeen Only</h4><p>If you do not have an account with any of these providers, you can create a new account by filling in a 
+username, email address and password.  StreetSeen usernames will be displayed throughout the site associated with 
 user-generated content. Then, click on Sign Up.</p>
 
 <a id="createstudy"></a><h3>Create a Study</h3>
 <p>To create a study, you need to have an account and be logged in.  If you're not, <%= link_to "go set one up or log in", new_user_session_path %> and then come back.  We'll wait.</p>
-<p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.
+<p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.  
 <ol>
 <li>Click on Public Studies or My Research</li>
 <li>At the bottom of the list of studies, click the Create a New Study button.</li>
@@ -52,23 +52,25 @@ user-generated content. Then, click on Sign Up.</p>
 <li>Fill in the Question for Voter.  This is the question you would like study participants to answer, choosing between two photos.</li>
 <li>Select whether or not you would like to Share your Research.  This cannot be changed once the study is created.</li>
 <li>Click on Create Study.</li>
+<li>A confirmation message will pop up indicating that your study has been successfully created and the Add Area 
+form is now visible.  Your study has been created, but isn't much use without images.  So, next, we need 
+to add some areas.</li>
 </ol>
-<p>Your study has been created, but isn't much use without images.  So, next, we need to add some areas.</p>
+<p></p>
 <a id="areas"></a><h3>Adding and Editing Areas</h3>
 <p>Areas are essential to studies.  An Area defines the geographic boundaries within which the application will pull images for a study.</p>
 <p>Users will be directed to add an area immediately after creating a study, but can also access this function through the Curate tab once a study has been created.</p>
 <ol>
-<li>The controls on the Google Map on the right side of the window will allow you to zoom in and out and move around the map (click and drag to move).
-* However, don't single click in the map until you've navigated to the desired area. *  </li>
-<li>The controls on the Google Map on the right side of the window will allow you to zoom in and out and move around the map (click and drag to move).
-<strong>However, do not single click in the map until you've navigated to the desired area.</strong></li>
+<li>The controls on the Google Map on the right side of the window will allow you to zoom in and out and move around the map (click and drag to move).  
+However, do not single click in the map until you've navigated to the desired area.  (If you accidentally create 
+a point before you are ready, you can click the Back link at the bottom of the page, and then click on Add Area 
+in the top tabs).</li>
 <li>Once you have located the desired area, we want to draw a polygon.  The study will pull images from inside that space.  Click once in the map to place the first point.</li>
-<li>Click at least two more times to make points for the corners of your polygon.  Keep clicking until the space has been defined.</li>
+<li>Click at least two more times to make points for the corners of your polygon.  Keep clicking until the space has been defined.</li>  
 <li>Fill in a name and a description for the area.</li>
 <li>Fill in how many images you would like and how far apart they should be.</li>
 <li>At this point, you can click on Save and Return to Study, which will bring you to your study's home page. Or, you can opt to add another area, if you want the study to pull images from multiple areas.</li>
 </ol>
-<p>Before launching your study, you can add, delete, and modify images within each area under your study's curate tab.</p>
 <a id="launch"></a><h3>Launching a Study</h3>
 <a id="voting"></a><h3>Voting</h3>
 <a id="analyze"></a><h3>Analyze Results</h3>
