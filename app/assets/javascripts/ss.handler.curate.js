@@ -144,7 +144,11 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
 
         google.maps.event.trigger(panorama, 'resize');
         google.maps.event.addListener(panorama, 'pov_changed', function() {
-          $that.workingLocation.heading = panorama.getPov().heading % 360;
+          heading = panorama.getPov().heading;
+          while (heading < 0) {
+            heading = heading + 360;
+          }
+          $that.workingLocation.heading = heading;
           $that.workingLocation.pitch = panorama.getPov().pitch;
         });
       }); // end editModal.on('shown')
