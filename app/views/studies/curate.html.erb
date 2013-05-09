@@ -90,7 +90,16 @@
 
 </fieldset>
 <%= will_paginate(@locations) %>
-
+<% if @locations.length < 5 %>
+<p>It appears that you don't have very many images. If StreetSeen is having
+   trouble finding images for you, it's possible there aren't enough
+   <a href="http://maps.google.com/intl/en/help/maps/streetview/#utm_campaign=en&utm_medium=van&utm_source=en-van-na-us-gns-svn">Google StreetView</a>
+   points within the chosen area. This can easily happen
+   in rural settings or areas without full StreetView coverage.
+   Check out
+   <a href="http://maps.google.com/help/maps/streetview/learn/where-is-street-view.html">StreetView's
+   coverage map</a> for more information.
+<% end %>
 <div class="modal hide fade" id="delete-location-modal" align="left">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
