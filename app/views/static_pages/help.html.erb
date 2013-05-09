@@ -1,6 +1,25 @@
 <h1>Help</h1>
+<div class="help-links">
+<div class="span3">
+<h4>Help Contents</h4>
+<ul>
+<li><a href="#video">Video Introduction</a></li>
+<li><a href="#accounts">Create a User Account</a></li>
+<li><a href="#createstudy">Create a Study</a></li>
+<li><a href="#areas">Adding and Editing Areas</a></li>
+<li><a href="#launch">Launching a Study</a></li>
+<li><a href="#voting">Voting</a></li>
+<li><a href="#analyze">Analyze Results</a></li>
+</ul>
+</div>
+</div>
 
-<h3>Create a User Account</h3>
+<a id="video"></a><h3>Video Introduction</h3>
+<p>This YouTube video walks through the process of creating a study and some of the things you can do with the results.</p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/NH63AjR83rg" frameborder="0" allowfullscreen></iframe>
+
+<div class="help-steps">
+<a id="accounts"></a><h3>Create a User Account</h3>
 <p>Go to the <a href="<%= new_user_registration_path %>">Sign Up</a> page.  User accounts can be created 
 using existing accounts on Coursera, Facebook or Twitter.
 
@@ -23,18 +42,21 @@ you can also do so on this screen.  Click on Sign Up to finish the process  </p>
 username, email address and password.  StreetSeen usernames will be displayed throughout the site associated with 
 user-generated content. Then, click on Sign Up.</p>
 
-<h3>Create a Study</h3>
+<a id="createstudy"></a><h3>Create a Study</h3>
 <p>To create a study, you need to have an account and be logged in.  If you're not, <%= link_to "go set one up or log in", new_user_session_path %> and then come back.  We'll wait.</p>
-<p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.  To get started, click on 
-Public Studies above and follow these steps:
+<p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.  
 <ol>
+<li>Click on Public Studies or My Research</li>
 <li>At the bottom of the list of studies, click the Create a New Study button.</li>
 <li>Fill in a name and a description for your study.</li>
 <li>Fill in the Question for Voter.  This is the question you would like study participants to answer, choosing between two photos.</li>
 <li>Select whether or not you would like to Share your Research.  This cannot be changed once the study is created.</li>
 <li>Click on Create Study.</li>
 </ol>
-<p>Your study has been created, but isn't much use without images.  So, next we head to "Add Area to Study."
+<p>Your study has been created, but isn't much use without images.  So, next, we need to add some areas.</p>
+<a id="areas"></a><h3>Adding and Editing Areas</h3>
+<p>Areas are essential to studies.  An Area defines the geographic boundaries within which the application will pull images for a study.</p>
+<p>Users will be directed to add an area immediately after creating a study, but can also access this function through the Curate tab once a study has been created.</p>
 <ol>
 <li>The controls on the Google Map on the right side of the window will allow you to zoom in and out and move around the map (click and drag to move).  
 * However, don't single click in the map until you've navigated to the desired area. *  </li>
@@ -44,5 +66,7 @@ Public Studies above and follow these steps:
 <li>Fill in how many images you would like and how far apart they should be.</li>
 <li>At this point, you can click on Save and Return to Study, which will bring you to your study's home page. Or, you can opt to add another area, if you want the study to pull images from multiple areas.</li>
 </ol>
-<h3>Edit a Study</h3>
-<h3>View Results</h3>
+<a id="launch"></a><h3>Launching a Study</h3>
+<a id="voting"></a><h3>Voting</h3>
+<a id="analyze"></a><h3>Analyze Results</h3>
+</div>
