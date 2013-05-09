@@ -18,7 +18,7 @@ set :user, "deployer"
 set :use_sudo, false
 set :ssh_options, { :forward_agent => true }
 
-set :database_server, "db.web.engineering.osu.edu"
+set :database_server, "prod-db.web.engadmin.ohio-state.edu"
 
 # RVM configuration
 set :rvm_type, :system
