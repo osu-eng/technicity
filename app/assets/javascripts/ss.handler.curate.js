@@ -94,22 +94,23 @@ ss.handler.Curate.prototype.editLocation = function(id, latitude, longitude, hea
     var $this = this;
 
     editModal = $('#' + this.editModalId);
-    // Add some handlers for position and pov
+
+    // Create a panorama and google map (required for panorama?)
+    var position = new google.maps.LatLng($this.workingLocation.latitude, $this.workingLocation.longitude);
+
+    if ($this.panorama) {
+      // Update things, preserving memory
+      $this.marker.setPosition(position);
+      $this.marker.setTitle('Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng());
+      $this.map.setCenter(position);
+
+      $this.panorama.setPosition(position);
+      $this.panorama.setPov({ heading: $this.workingLocation.heading, pitch: $this.workingLocation.pitch });
+    }
+
     editModal.on('shown', function () {
 
-      // Create a panorama and google map (required for panorama?)
-      var position = new google.maps.LatLng($this.workingLocation.latitude, $this.workingLocation.longitude);
-
-      if ($this.panorama) {
-        // Update things, preserving memory
-        $this.marker.setPosition(position);
-        $this.marker.setTitle('Location Id:\n  '+ id + '\n\nCoordinates:\n  ' + position.lat() + ', ' + position.lng());
-        $this.map.setCenter(position);
-
-        $this.panorama.setPosition(position);
-        $this.panorama.setPov({ heading: $this.workingLocation.heading, pitch: $this.workingLocation.pitch });
-      }
-      else {
+      if (!$this.panorama) {
         // Create things from scratch
 
         // Create panorama options
