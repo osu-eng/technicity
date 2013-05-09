@@ -93,6 +93,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-color: $osulink;
     }
 
+.form-actions {
+	background-color: inherit;
+	border-top: none;
+	}
+
 /* nav bar */
 .navbar .nav {
   float: right;
