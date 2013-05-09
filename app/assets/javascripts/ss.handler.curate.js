@@ -200,10 +200,7 @@ ss.handler.Curate.prototype.deleteLocationCancel = function() {
 
 ss.handler.Curate.prototype.updateLocation = function() {
   var $this = this;
-  console.log('updating location');
-  console.log (this.workingLocation);
   this.workingLocation.update(function(location, status, xhr) {
-    console.log(status);
     if (status == "success") {
       // update the onclick
       $('#' + $this.locationIdPrefix + location.id).click(function(){
