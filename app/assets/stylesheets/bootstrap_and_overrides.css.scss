@@ -235,6 +235,18 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     color: $darkgray;
 }
 
+/* help */
+.help-links {
+  position: relative;
+  float: right;
+  background-color: $gray;
+  @include rounded-corners;
+  ul {
+   list-style: none;
+   } 
+}
+
+
 /* responsive */
 @media (max-width: 979px) {
   .navbar .brand{
