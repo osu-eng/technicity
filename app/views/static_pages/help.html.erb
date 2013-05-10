@@ -1,7 +1,6 @@
-<h1>Help</h1>
 <div class="help-links">
 <div class="span3">
-<h4>Help Contents</h4>
+<h4>Contents</h4>
 <ul>
 <li><a href="#video">Video Introduction</a></li>
 <li><a href="#accounts">Create a User Account</a></li>
@@ -9,6 +8,7 @@
 <li><a href="#areas">Adding Areas</a></li>
 <li><a href="#images">Editing Images</a></li>
 <li><a href="#launch">Launching a Study</a></li>
+<li><a href="#search">Search Existing Studies</a></li>
 <li><a href="#voting">Voting</a></li>
 <li><a href="#analyze">Analyze Results</a></li>
 <li><a href="#limits">Limits</a></li>
@@ -16,9 +16,10 @@
 </div>
 </div>
 
+<h1>Help</h1>
 <a id="video"></a><h3>Video Introduction</h3>
 <p>This YouTube video walks through the process of creating a study and some of the things you can do with the results.</p>
-<iframe width="560" height="315" src="http://www.youtube.com/embed/NH63AjR83rg" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="360" src="http://www.youtube.com/embed/NH63AjR83rg" frameborder="0" allowfullscreen></iframe>
 
 <div class="help-steps">
 <a id="accounts"></a><h3>Create a User Account</h3>
@@ -26,19 +27,18 @@
 using existing accounts on Coursera, Facebook or Twitter.
 
 <h4>Twitter</h4><p>You will be directed to your Twitter account to authorize StreetSeen.  You will then be redirected back 
-to StreetSeen, where you will be prompted to enter a valid email address.  StreetSeen usernames 
+to StreetSeen, where you will be prompted to enter a valid name and email address.  StreetSeen usernames 
 will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
 you can also do so on this screen.  Click on Sign Up to finish the process.</p>
 
 <h4>Facebook</h4><p>You will be directed to your Facebook account to authorize StreetSeen.  You will then be redirected back 
-to StreetSeen, where you will be prompted to enter a valid email address.  StreetSeen usernames 
+to StreetSeen, where you will be prompted to enter a valid name and email address.  StreetSeen usernames 
 will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
 you can also do so on this screen.  Click on Sign Up to finish the process.</p>
 
 <h4>Coursera</h4><p>You will be directed to Coursera to login with your Coursera credentials.  You will then be redirected back 
-to StreetSeen, where you will be prompted to enter a valid username and email address.  StreetSeen usernames 
-will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
-you can also do so on this screen.  Click on Sign Up to finish the process  </p>
+to StreetSeen, where you will be prompted to enter a valid name, username and email address.  StreetSeen usernames 
+will be displayed throughout the site associated with user-generated content.  Click on Sign Up to finish the process  </p>
 
 <h4>StreetSeen Only</h4><p>If you do not have an account with any of these providers, you can create a new account by filling in a 
 username, email address and password.  StreetSeen usernames will be displayed throughout the site associated with 
@@ -48,7 +48,7 @@ user-generated content. Then, click on Sign Up.</p>
 <p>To create a study, you need to have an account and be logged in.  If you're not, <%= link_to "go set one up or log in", new_user_session_path %> and then come back.  We'll wait.</p>
 <p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.  
 <ol>
-<li>Click on Public Studies or My Research</li>
+<li>Click on <%= link_to t('.public_studies'), studies_path %> or My Research</li>
 <li>At the bottom of the list of studies, click the Create a New Study button.</li>
 <li>Fill in a Name and a Description for your study.</li>
 <li>Fill in the Question for Voter.  This is the question you would like study participants to answer while choosing between two photos.</li>
@@ -100,11 +100,13 @@ studies will be marked with a yellow label.</p>
 <p>Once a study has been launched, it is open for voting and you will no longer be able to change the question, add new 
 areas or add, remove, or modify images.  It can be closed and it can be opened again, by clicking on the 
 Close and Open buttons in the top right of the study view tab. </p>
-
+<a id="search"></a><h3>Search Existing Studies</h3>
+<p>If you know the title or author of a study, you can search for it using the search box at the top of the Public Studies page.</p>
+<p>To clear the search filter, just clear the text and click on Search again.</p>
 <a id="voting"></a><h3>Voting</h3>
 <p>To vote on a study:</p>
 <ol>
-<li>Click on <a href="">Public Studies</a> and the name of the study you want to open. The study will open on the vote page.</li>
+<li>Click on <%= link_to t('.public_studies'), studies_path %> and the name of the study you want to open. The study will open on the vote page.</li>
 <li>Click on the image which best answers the question, or you can click on the "Skip" link to skip an image pair.</li>
 <li>Your vote will be recorded as soon as you click and cannot be changed once it is recorded.</li>
 </ol>
@@ -113,7 +115,8 @@ Close and Open buttons in the top right of the study view tab. </p>
 <p>There are a variety of ways you can view study results, for your own studies and for those studies with results 
 made public by the authors.  To access the results:</p>
 <ol>
-<li>Go to Public Studies or to My Research.</li>
+<li>Go to <%= link_to t('.public_studies'), studies_path %> or to My Research and click on the study you would 
+like to view.</li>
 <li>Click on the Analyze tab.</li>
 <li>There are four tabs of results*
 <ul><li><strong>Summary</strong> displays each location and how many times it was chosen and the number of times 

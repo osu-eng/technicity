@@ -254,10 +254,14 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .help-links {
   position: relative;
   float: right;
-  background-color: $gray;
+  background-color: $white;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid $gray;
+  margin-top: 10px;
   @include rounded-corners;
   ul {
    list-style: none;
+   margin: 0 0 10px 0;
    } 
 }
 
