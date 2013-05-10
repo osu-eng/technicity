@@ -10,3 +10,6 @@ COURSERA_APP_ID: "<%= Capistrano::CLI.ui.ask("Enter the Coursera App ID: ") %>"
 COURSERA_APP_SECRET: "<%= Capistrano::CLI.password_prompt("Enter the Cousera App secret: ") %>"
 
 SECRET_TOKEN: "<%= Capistrano::CLI.password_prompt("Enter the application secret token (rake secret): ") %>"
+
+RECAPTCHA_PUBLIC: "<%= Capistrano::CLI.ui.ask("Enter the RECPATCHA public key: ") %>"
+RECAPTCHA_PRIVATE: "<%= Capistrano::CLI.password_prompt("Enter the RECAPTCHA private key: ") %>"
