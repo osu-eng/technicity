@@ -13,3 +13,5 @@ SECRET_TOKEN: "<%= Capistrano::CLI.password_prompt("Enter the application secret
 
 RECAPTCHA_PUBLIC: "<%= Capistrano::CLI.ui.ask("Enter the RECPATCHA public key: ") %>"
 RECAPTCHA_PRIVATE: "<%= Capistrano::CLI.password_prompt("Enter the RECAPTCHA private key: ") %>"
+
+GOOGLE_TRACKING_ID: "<%= Capistrano::CLI.ui.ask("Enter the Google Analytics Tracking ID: ") %>"
