@@ -210,10 +210,22 @@ class StudiesController < ApplicationController
     @study = Study.new(params[:study])
     @study.user_id = current_user.id
 
+    # create and save the region set
+    @region_set = RegionSet.new()
+    if @study
+      # name the imageset after the study if possible
+      @region_set.name = @study.name + ' Image Set'
+      @region_set.description = 'This is image set was created specifically for the study "' + @study.name + '"'
+    end
+    @region_set.user_id = current_user.id
+    @region_set.save()
+
+    @study.region_set_id = @region_set.id
+
     respond_to do |format|
       if @study.save
 
-        format.html { redirect_to url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true', notice: 'Study was successfully created.' }
+        format.html { redirect_to url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @region_set.id.to_s(), notice: 'Study was successfully created.' }
         format.json { render json: @study, status: :created, location: @study }
       else
         format.html { render action: "new" }
