@@ -50,16 +50,16 @@ class RegionsController < ApplicationController
     # security - load a study if one has been passed in
     if params[:study_id]
       @study = Study.find(params[:study_id])
-      if @study.user != current_user
-        trigger_403('You cannot add a region to this study')
+      unless current_user.admin || (@study.user == current_user)
+        return trigger_403('You cannot add a region to this study')
       end
     end
 
     # security - load a region_set if one has been passed in
     if params[:region_set_id]
       @region_set = RegionSet.find(params[:region_set_id])
-      if @region_set.user != current_user
-        trigger_403('You cannot add a region to this region_set')
+      unless current_user.admin || (@region_set.user == current_user)
+        return trigger_403('You cannot add a region to this region_set')
       end
     end
 

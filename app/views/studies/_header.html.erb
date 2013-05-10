@@ -94,7 +94,7 @@ function changePromoteStatus(id, status) {
   <% end %>
   <!-- security - edit should only show if study is public -->
   <!-- MF - added check for owner -->
-  <% if user_signed_in? && @study.user_id == current_user.id %>
+  <% if controller.can_edit? %>
     <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "edit", :id => @study) %>">
       <a href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
         <i class="icon-edit" style=""></i> Edit</a>
@@ -102,7 +102,7 @@ function changePromoteStatus(id, status) {
   <% end %>
   <!-- security - curate should only show if study is public -->
   <!-- MF - added check for owner -->
-  <% if user_signed_in? && @study.user_id == current_user.id %>
+  <% if controller.can_edit? %>
     <% if @study.region_set.nil? %>
       <li>
         <a href="<%= url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&create_set=true' %>">
