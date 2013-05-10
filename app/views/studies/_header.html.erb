@@ -109,7 +109,7 @@ function changePromoteStatus(id, status) {
         <i class="icon-plus-sign" style=""></i> Add Area</a>
       </li>
     <% end %>
-    <% if !@study.region_set.nil? && @study.region_set.regions.count > 0 %>
+    <% if !@study.region_set.nil? %>
       <li class="dropdown <%= 'active' if url_for() == url_for(:controller => "studies", :action => "curate", :id => @study) %>">
         <a class="dropdown-toggle" data-toggle="dropdown" href="<%= url_for :controller => "studies", :action => "edit", :id => @study %>">
         <i class="icon-th" style=""></i> Curate<b class="caret"></b></a>

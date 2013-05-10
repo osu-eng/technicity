@@ -1,41 +1,45 @@
-<table class="table table-striped table-hover">
-  <tr>
-    <th><%= sortable_column "Name", :column => "name" %></th>
-    <th>Question</th>
-    <% if @mine.nil? %>
-    <th class="studyfull">User</th>
-    <% end %>
-    <th class="studyfull"># Areas</th>
-    <th> # Votes</th>
-    <% if !current_user.nil? && current_user.admin %>
-    <th class="studyfull"><%= sortable_column "Promoted", :column => "promoted" %></th>
-    <% end %>
-    <th class="studyfull"><%= sortable_column "Public", :column => "public" %></th>
-    <th><%= sortable_column "Status", :column => "active" %></th>
-</tr>
-<% @studies.each do |study| %>
-  <tr>
-    <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
-    <td><%= link_to study.question, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
-    <% if @mine.nil? %>
-      <td class="studyfull"><%= study.user.username %></td>
-    <% end %>
-    <td class="studyfull"><%= study.region_set.regions.count %></td>
-    <td><%= study.comparisons.count %></td>
-    <% if !current_user.nil? && current_user.admin %>
-    <td class="studyfull"><% if study.promoted %> Yes <% else%> No <% end%></td>
-    <% end %>
-    <td class="studyfull"><% if study.public %> Yes <% else%> No <% end%></td>
-    <td>
-      <% if study.active.nil? %>
-        <span class="label label-warning">Not Launched</span>
-      <% elsif study.active %>
-        <span class="label label-success">Open</span>
-      <% else %>
-        <span class="label label-important">Closed</span>
+<% unless @studies.empty? %>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th><%= sortable_column "Name", :column => "name" %></th>
+      <th>Question</th>
+      <% if @mine.nil? %>
+      <th class="studyfull">User</th>
       <% end %>
-    </td>
+      <th class="studyfull"># Areas</th>
+      <th> # Votes</th>
+      <% if !current_user.nil? && current_user.admin %>
+      <th class="studyfull"><%= sortable_column "Promoted", :column => "promoted" %></th>
+      <% end %>
+      <th class="studyfull"><%= sortable_column "Public", :column => "public" %></th>
+      <th><%= sortable_column "Status", :column => "active" %></th>
   </tr>
+  <% @studies.each do |study| %>
+    <tr>
+      <td><%= link_to study.name, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
+      <td><%= link_to study.question, url_for(:controller => "studies", :action => "vote", :id => study) %></td>
+      <% if @mine.nil? %>
+        <td class="studyfull"><%= study.user.username %></td>
+      <% end %>
+      <td class="studyfull"><%= study.region_set.regions.count %></td>
+      <td><%= study.comparisons.count %></td>
+      <% if !current_user.nil? && current_user.admin %>
+      <td class="studyfull"><% if study.promoted %> Yes <% else%> No <% end%></td>
+      <% end %>
+      <td class="studyfull"><% if study.public %> Yes <% else%> No <% end%></td>
+      <td>
+        <% if study.active.nil? %>
+          <span class="label label-warning">Not Launched</span>
+        <% elsif study.active %>
+          <span class="label label-success">Open</span>
+        <% else %>
+          <span class="label label-important">Closed</span>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <%= will_paginate(@studies) %>
+<% else %>
+  <p>No studies have been created.</p>
 <% end %>
-</table>
-<%= will_paginate(@studies) %>
