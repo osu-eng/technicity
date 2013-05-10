@@ -198,6 +198,15 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .map label { width: auto; display:inline; }
 .map img { max-height: none; max-width: none; }
 
+/* search */
+.search-button {
+  height: 40px;
+  }
+
+.search input[type="text"]  {
+  margin-bottom: 0;
+}
+
 /* vote */
 .vote-button {
   background: url('SS-vote-btn.png') no-repeat center;
