@@ -53,6 +53,11 @@ class RegionsController < ApplicationController
       unless current_user.admin || (@study.user == current_user)
         return trigger_403('You cannot add a region to this study')
       end
+
+      # If someone is an admin, create with the owner of the study
+      if current_user.admin
+        @region.user_id = @study.user_id
+      end
     end
 
     # security - load a region_set if one has been passed in
@@ -111,6 +116,7 @@ class RegionsController < ApplicationController
         @rsm.region_id = @region.id
         @rsm.save()
       end
+
     end
 
 
