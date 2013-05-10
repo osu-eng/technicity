@@ -41,14 +41,11 @@ class StudiesController < ApplicationController
 
   # GET /studies/1
   # GET /studies/1.json
-  # def show
-  #  @study = Study.find(params[:id])
+  def show
+    @study = Study.find(params[:id])
 
-  #  respond_to do |format|
-  #    format.html # show.html.erb
-  #    format.json { render json: @study }
-  #  end
-  # end
+    redirect_to :action => :vote, :id => @study, status: :moved_permanently
+  end
 
   # GET /studies/1/results
   # GET /studies/1/results.json
@@ -56,6 +53,10 @@ class StudiesController < ApplicationController
   # GET /studies/1/results.xls
   def results
     @study = Study.find(params[:id])
+    if url_for() != url_for(:id => @study)
+      return redirect_to :id => @study, status: :moved_permanently
+    end
+
     @results = @study.results.to_a
     logger.debug(@results)
     sortable_column_order do |column, direction|
@@ -83,7 +84,6 @@ class StudiesController < ApplicationController
     end
   end
 
-  # GET /studies/1/full_results
   # GET /studies/1/full_results.json
   # GET /studies/1/full_results.csv
   # GET /studies/1/full_results.xls
@@ -91,7 +91,6 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
 
     respond_to do |format|
-      format.html # full_results.html.erb
       format.json { render json: @study.full_results }
       format.csv { send_data @study.full_csv }
       format.xls { send_data @study.full_csv(col_sep: "\t") }
@@ -101,8 +100,11 @@ class StudiesController < ApplicationController
   # GET /studies/1/region_results
   def region_results
     @study = Study.find(params[:id])
-    @region_results = @study.region_results.to_a
+    if url_for() != url_for(:id => @study)
+      return redirect_to :id => @study, status: :moved_permanently
+    end
 
+    @region_results = @study.region_results.to_a
     sortable_column_order do |column, direction|
       case column
       when 'name', 'percent_favored', 'chosen', 'rejected', 'locations', 'total'
@@ -129,6 +131,9 @@ class StudiesController < ApplicationController
   # GET /studies/1/heatmap
   def heatmap
     @study = Study.find(params[:id])
+    if url_for() != url_for(:id => @study)
+      return redirect_to :id => @study, status: :moved_permanently
+    end
 
     respond_to do |format|
       format.html # heatmap.html.erb
@@ -138,6 +143,9 @@ class StudiesController < ApplicationController
   # GET /studies/1/download
   def download
     @study = Study.find(params[:id])
+    if url_for() != url_for(:id => @study)
+      return redirect_to :id => @study, status: :moved_permanently
+    end
 
     respond_to do |format|
       format.html # download.html.erb
@@ -147,6 +155,9 @@ class StudiesController < ApplicationController
   # GET /studies/1/vote
   def vote
     @study = Study.find(params[:id])
+    if url_for() != url_for(:id => @study)
+      return redirect_to :id => @study, status: :moved_permanently
+    end
 
     respond_to do |format|
       format.html # vote.html.erb
@@ -162,6 +173,10 @@ class StudiesController < ApplicationController
   def curate
     # security - users should only be able to curate regions they own
     @study = Study.find(params[:id])
+    if url_for() != url_for(:id => @study)
+      return redirect_to url_for(:action => :curate, :id => @study) + "?region_id=" + params[:region_id], :status => :moved_permanently
+    end
+
     @region = Region.find(params[:region_id])
     @locations = @region.locations.paginate(:page => params[:page], :per_page => 25)
 
@@ -184,6 +199,9 @@ class StudiesController < ApplicationController
   # GET /studies/1/edit
   def edit
     @study = Study.find(params[:id])
+    if url_for() != url_for(:id => @study)
+      return redirect_to :id => @study, status: :moved_permanently
+    end
   end
 
   # POST /studies

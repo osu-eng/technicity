@@ -35,7 +35,7 @@ class Study < ActiveRecord::Base
   validates_with StudyLaunchValidator
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :history]
   validates_presence_of :name, :slug, :question, :description, :user_id
 
   attr_accessible :name, :public, :question, :description, :slug, :user_id, :active
