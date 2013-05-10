@@ -332,6 +332,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   display: inline;
   width: 100%
   }
+    .resultsfull {
+    display: none;
+    }
 }
 
 @media (max-width: 480px) {
