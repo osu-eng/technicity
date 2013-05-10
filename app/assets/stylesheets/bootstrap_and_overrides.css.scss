@@ -265,6 +265,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
    } 
 }
 
+.mobile-divider { 
+  display: none;
+  }
 
 /* responsive */
 @media (max-width: 979px) {
@@ -306,6 +309,20 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   .skip-vote-row {
     margin-top: 2.5em;
   }
+  .help-links {
+    margin-bottom: 10px;
+    ul li {
+      position: relative;
+      float: left;
+      margin: 5px;
+      }
+    h4 {
+      padding-left: 5px;
+      }
+    .mobile-divider {
+      display: inline;
+      }
+      }
 }
 
 @media (max-width: 480px) {
