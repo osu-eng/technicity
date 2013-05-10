@@ -298,7 +298,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   }
   .studyfull {
     display: none;
-    }
+  }
+  .skip-vote-row {
+    margin-top: 2.5em;
+  }
 }
 
 @media (max-width: 480px) {
