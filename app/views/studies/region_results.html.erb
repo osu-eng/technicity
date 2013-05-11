@@ -22,8 +22,8 @@
       total = region['chosen'].to_i + region['rejected'].to_i -%>
       <tr>
         <td>
-          <a href="<%= url_for(:controller => "studies", :action => "curate", :id => @study) %>?region_id=<%= region['id'] %>"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region['latitude'] %>,<%= region['longitude'] %>&zoom=<%= region['zoom'] %>&size=150x100&sensor=false"></a></td>
-        <td><a href="<%= url_for(:controller => "studies", :action => "curate", :id => @study) %>?region_id=<%= region['id'] %>"><%= region['name'] %></a></td>
+          <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= region['latitude'] %>,<%= region['longitude'] %>&zoom=<%= region['zoom'] %>&size=150x100&sensor=false"></td>
+        <td><%= region['name'] %></td>
         <td><%= Region.find(region['id']).locations.count %></td>
         <td><%= region['chosen'].to_i %></td>
         <td><%= total %></td>
