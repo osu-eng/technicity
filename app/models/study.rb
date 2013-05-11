@@ -47,8 +47,20 @@ class Study < ActiveRecord::Base
   has_many :locations, :through => :regions
 
   def randomLocation
-    region = self.region_set.regions.offset(rand( self.region_set.regions.count)).first
-    region.locations.offset(rand(region.locations.count)).first
+
+    logger.debug(self)
+    # Note, we could use rand() / random() to make this faster
+    # but that would be SQL engine specific
+    ids = Location.where('id IN (
+      SELECT l.id
+      FROM locations l
+      JOIN regions r on l.region_id = r.id
+      JOIN region_set_memberships rsm on r.id = rsm.region_id
+      WHERE rsm.region_set_id = ?)', self.region_set_id).pluck(:id)
+
+    logger.debug(ids)
+    Location.find(ids.sample)
+
   end
 
   def randomLocationPair
