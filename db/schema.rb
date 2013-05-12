@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(:version => 20130510164849) do
     t.decimal  "longitude",  :precision => 15, :scale => 12
   end
 
+  create_table "notifications", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "region_set_memberships", :force => true do |t|
     t.integer  "region_set_id"
     t.integer  "region_id"
@@ -120,8 +127,5 @@ ActiveRecord::Schema.define(:version => 20130510164849) do
     t.boolean  "admin",                  :default => false
     t.boolean  "blocked",                :default => false
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
