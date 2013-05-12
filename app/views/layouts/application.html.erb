@@ -26,7 +26,11 @@
     </script>
     <% end -%>
   </head>
-  <body >
+  <% if url_for(:controller => :static_pages, :action => :help) %>
+  <body data-spy="scroll" data-target=".help-nav">
+  <% else -%>
+  <body>
+  <% end -%>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -56,8 +60,8 @@
     </div> <!--! end of #main -->
 
     <div class="row" id="footer">
-          <%= render "layouts/footer" %>
-        </div>
+      <%= render "layouts/footer" %>
+    </div>
 
     <%= yield :scripts %>
     <script type="text/javascript">

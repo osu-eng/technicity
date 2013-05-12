@@ -1,139 +1,142 @@
-<div class="help-links">
-<div class="span3">
-<h4>Contents</h4>
-<ul>
-<li><a href="#video">Video Introduction</a><span class="mobile-divider"> | </span></li>
-<li><a href="#accounts">Create a User Account</a><span class="mobile-divider"> | </span></li>
-<li><a href="#createstudy">Create a Study</a><span class="mobile-divider"> | </span></li>
-<li><a href="#areas">Adding Areas</a><span class="mobile-divider"> | </span></li>
-<li><a href="#images">Editing Images</a><span class="mobile-divider"> | </span></li>
-<li><a href="#launch">Launching a Study</a><span class="mobile-divider"> | </span></li>
-<li><a href="#search">Search Existing Studies</a><span class="mobile-divider"> | </span></li>
-<li><a href="#voting">Voting</a><span class="mobile-divider"> | </span></li>
-<li><a href="#analyze">Analyze Results</a><span class="mobile-divider"> | </span></li>
-<li><a href="#limits">Limits</a></li>
-</ul>
-</div>
-</div>
+<div class="row">
+  <div class="span3 help-nav">
+    <ul data-spy="affix" data-offset-top="40" class="nav nav-list help-links">
+    <li><a href="#video"><i class="icon-chevron-right"></i>Video Introduction</a></li>
+    <li><a href="#accounts"><i class="icon-chevron-right"></i>Create a User Account</a></li>
+    <li><a href="#createstudy"><i class="icon-chevron-right"></i>Create a Study</a></li>
+    <li><a href="#areas"><i class="icon-chevron-right"></i>Adding Areas</a></li>
+    <li><a href="#images"><i class="icon-chevron-right"></i>Editing Images</a></li>
+    <li><a href="#launch"><i class="icon-chevron-right"></i>Launching a Study</a></li>
+    <li><a href="#search"><i class="icon-chevron-right"></i>Search Existing Studies</a></li>
+    <li><a href="#voting"><i class="icon-chevron-right"></i>Voting</a></li>
+    <li><a href="#analyze"><i class="icon-chevron-right"></i>Analyze Results</a></li>
+    <li><a href="#limits"><i class="icon-chevron-right"></i>Limits</a></li>
+    </ul>
+  </div>
 
-<h1>Help</h1>
-<a id="video"></a><h3>Video Introduction</h3>
-<p>This YouTube video walks through the process of creating a study and some of the things you can do with the results.</p>
-<iframe width="640" height="360" src="http://www.youtube.com/embed/NH63AjR83rg" frameborder="0" allowfullscreen></iframe>
+  <div class="span9 help-steps">
+    <h1>Help</h1>
 
-<div class="help-steps">
-<a id="accounts"></a><h3>Create a User Account</h3>
-<p>Go to the <a href="<%= new_user_registration_path %>">Sign Up</a> page.  User accounts can be created 
-using existing accounts on Coursera, Facebook or Twitter.
+    <h3 id="video">Video Introduction</h3>
+    <p>This YouTube video walks through the process of creating a study and some of the things you can do with the results.</p>
+    <iframe class="help-video" src="http://www.youtube.com/embed/NH63AjR83rg" frameborder="0" allowfullscreen></iframe>   
 
-<h4>Twitter</h4><p>You will be directed to your Twitter account to authorize StreetSeen.  You will then be redirected back 
-to StreetSeen, where you will be prompted to enter a valid name and email address.  StreetSeen usernames 
-will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
-you can also do so on this screen.  Click on Sign Up to finish the process.</p>
+    <h3 id="accounts">Create a User Account</h3>
+    <p>Go to the <a href="<%= new_user_registration_path %>">Sign Up</a> page.  User accounts can be created 
+    using existing accounts on Coursera, Facebook or Twitter.   
 
-<h4>Facebook</h4><p>You will be directed to your Facebook account to authorize StreetSeen.  You will then be redirected back 
-to StreetSeen, where you will be prompted to enter a valid name and email address.  StreetSeen usernames 
-will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
-you can also do so on this screen.  Click on Sign Up to finish the process.</p>
+    <h4>Twitter</h4><p>You will be directed to your Twitter account to authorize StreetSeen.  You will then be redirected back 
+    to StreetSeen, where you will be prompted to enter a valid name and email address.  StreetSeen usernames 
+    will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
+    you can also do so on this screen.  Click on Sign Up to finish the process.</p>   
 
-<h4>Coursera</h4><p>You will be directed to Coursera to login with your Coursera credentials.  You will then be redirected back 
-to StreetSeen, where you will be prompted to enter a valid name, username and email address.  StreetSeen usernames 
-will be displayed throughout the site associated with user-generated content.  Click on Sign Up to finish the process  </p>
+    <h4>Facebook</h4><p>You will be directed to your Facebook account to authorize StreetSeen.  You will then be redirected back 
+    to StreetSeen, where you will be prompted to enter a valid name and email address.  StreetSeen usernames 
+    will be displayed throughout the site associated with user-generated content, so if you would like to change your user name, 
+    you can also do so on this screen.  Click on Sign Up to finish the process.</p>   
 
-<h4>StreetSeen Only</h4><p>If you do not have an account with any of these providers, you can create a new account by filling in a 
-username, email address and password.  StreetSeen usernames will be displayed throughout the site associated with 
-user-generated content. Then, click on Sign Up.</p>
+    <h4>Coursera</h4><p>You will be directed to Coursera to login with your Coursera credentials.  You will then be redirected back 
+    to StreetSeen, where you will be prompted to enter a valid name, username and email address.  StreetSeen usernames 
+    will be displayed throughout the site associated with user-generated content.  Click on Sign Up to finish the process  </p>   
 
-<a id="createstudy"></a><h3>Create a Study</h3>
-<p>To create a study, you need to have an account and be logged in.  If you're not, <%= link_to "go set one up or log in", new_user_session_path %> and then come back.  We'll wait.</p>
-<p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.  
-<ol>
-<li>Click on <%= link_to t('.public_studies'), studies_path %> or My Research</li>
-<li>At the bottom of the list of studies, click the Create a New Study button.</li>
-<li>Fill in a Name and a Description for your study.</li>
-<li>Fill in the Question for Voter.  This is the question you would like study participants to answer while choosing between two photos.</li>
-<li>Select whether or not you would like to Share your Research.  This cannot be changed once the study is created.</li>
-<li>Click on Create Study.</li>
-<li>A confirmation message will pop up indicating that your study has been successfully created and the Add Area 
-form is now visible.  Your study has been created, but isn't much use without images.  So, next, we need 
-to add some areas.</li>
-</ol>
-<p></p>
-<a id="areas"></a><h3>Adding Areas</h3>
-<p>Areas are essential to studies.  An Area defines the geographic boundaries within which the application will pull images for a study.</p>
-<p>Areas can only be added if there is <a href="http://maps.google.com/help/maps/streetview/learn/where-is-street-view.html">Google StreetView coverage for that area</a>.  
-Users will be directed to add an area immediately after creating a study, but can also access this function through the Curate tab once a study has been created.</p>
-<ol>
-<li>Fill in a Name and Description for the Area. You can come back and do this after you've drawn the polygon, but *be sure* to do it 
-before you click Save, or you will lose your Area.</li>
-<li>Find the geographic location on the map, using the controls on the Google Map to zoom in and out and move around the map (click and drag to move).  
-Single clicking in the map will begin marking your polygon.  (If you accidentally create 
-a point before you are ready, you can click the Back link at the bottom of the page, and then click on Add Area 
-in the top tabs).</li>
-<li>Once you have located the desired area, we want to draw a polygon.  The study will pull images from inside that space.  Click once in the map to place the first point.</li>
-<li>You should see a red flag in the map.  Click at least two more times to make points for the corners of your polygon.  Lines will be drawn between the points and the inside of the polygon will be shaded. 
-Keep clicking until the area you want is completely shaded.</li>  
-<li>Fill in how many images you would like and how far apart they should be.</li>
-<li>If you would like to add more than one area, click on Save and Add Another, and repeat the above steps.</li>
-<li>When you have added your last area, click on Save and Return to Study, where you can curate the sets of images.</li>
-</ol>
-<a id="images"></a><h3>Editing Images</h3>
-<p>When you add an Area to a study, it is added to the Curate tab of your study.  Clicking on Curate will give you a dropdown menu 
-of your existing areas, plus a link to Create a New One.</p>
-<ol>
-<li>To edit the images within a study, click on the Study from the My Research page.</li>
-<li>Click the Curate tab, and select the Area you'd like to modify. (Study authors are directed immediately 
-here after adding all the areas to a Study.)</li>
-<li>Click on the image you would like to edit or delete.</li>
-<li>Click and drag in the image to rotate it to the desired view, then click on Save Changes.</li>
-<li>Or, delete the image by clicking on Delete Image and confirming the delete in the pop-up.</li>
-</ol>
-<a id="launch"></a><h3>Launching a Study</h3>
-<p>To view your studies that are not yet launched, first log in, then click on My Research.  The unlaunched 
-studies will be marked with a yellow label.</p>
-<ol>
-<li>Click on the Study Name.</li>
-<li>Make sure everything is set for the study.</li>
-<li>Click the green launch button in the top right corner of the screen.</li>
-<li>Click on Yes, launch my study.</li>
-</ol>
-<p>Once a study has been launched, it is open for voting and you will no longer be able to change the question, add new 
-areas or add, remove, or modify images.  It can be closed and it can be opened again, by clicking on the 
-Close and Open buttons in the top right of the study view tab. </p>
-<a id="search"></a><h3>Search Existing Studies</h3>
-<p>If you know the title or author of a study, you can search for it using the search box at the top of the Public Studies page.</p>
-<p>To clear the search filter, just clear the text and click on Search again.</p>
-<a id="voting"></a><h3>Voting</h3>
-<p>To vote on a study:</p>
-<ol>
-<li>Click on <%= link_to t('.public_studies'), studies_path %> and the name of the study you want to open. The study will open on the vote page.</li>
-<li>Click on the image which best answers the question, or you can click on the "Skip" link to skip an image pair.</li>
-<li>Your vote will be recorded as soon as you click and cannot be changed once it is recorded.</li>
-</ol>
-<p>There is also a study featured on the home page and voting works the same way.</p>
-<a id="analyze"></a><h3>Analyze Results</h3>
-<p>There are a variety of ways you can view study results, for your own studies and for those studies with results 
-made public by the authors.  To access the results:</p>
-<ol>
-<li>Go to <%= link_to t('.public_studies'), studies_path %> or to My Research and click on the study you would 
-like to view.</li>
-<li>Click on the Analyze tab.</li>
-<li>There are four tabs of results*
-<ul><li><strong>Summary</strong> displays each location and how many times it was chosen and the number of times 
-it was offered as a choice.</li>
-<li><strong>Areas</strong> displays each area and how many times an image from that area was chosen over an 
-image from another area. (Note: this is only valid in studies with multiple areas.)</li>
-<li><strong>Heatmap</strong> displays on a map the location of images frequently chosen.</li>
-<li><strong>Download</strong> allows the user to download csv and xls files with the study results.  The Location 
-Summary contains slightly more information than the Summary tab (e.g. heading and pitch of images) while the 
-Full Results include information about the geographic location of the voter and more details about the areas chosen 
-and rejected.</li></ul></li></ol>
-<p>*The Download tab is not available on most smartphones.</p>
+    <h4>StreetSeen Only</h4><p>If you do not have an account with any of these providers, you can create a new account by filling in a 
+    username, email address and password.  StreetSeen usernames will be displayed throughout the site associated with 
+    user-generated content. Then, click on Sign Up.</p>   
 
-<a id="limits"></a><h3>Limits</h3>
-<p>An individual user can only request <a href="https://developers.google.com/maps/documentation/streetview/#usage_limits">25,000 StreetView image requests</a> per 24 hours.  In the highly unlikely case that an individual voter exceeds this limit, the following image will 
-be shown instead of the street image:</p>
-<p><a href="https://developers.google.com/maps/documentation/streetview/#usage_limits">
-<img src="https://developers.google.com/maps/documentation/staticmaps/images/quota.png"></a></p>
-<p>The voter should be able to continue voting from the same computer in 24 hours.</p>
+    <h3 id="createstudy">Create a Study</h3>
+    <p>To create a study, you need to have an account and be logged in.  If you're not, <%= link_to "go set one up or log in", new_user_session_path %> and then come back.  We'll wait.</p>
+    <p>Ok, to create our study we need to first create the question we want to ask, and then select a group of images to compare with each other.  
+    <ol>
+    <li>Click on <%= link_to t('.public_studies'), studies_path %> or My Research</li>
+    <li>At the bottom of the list of studies, click the Create a New Study button.</li>
+    <li>Fill in a Name and a Description for your study.</li>
+    <li>Fill in the Question for Voter.  This is the question you would like study participants to answer while choosing between two photos.</li>
+    <li>Select whether or not you would like to Share your Research.  This cannot be changed once the study is created.</li>
+    <li>Click on Create Study.</li>
+    <li>A confirmation message will pop up indicating that your study has been successfully created and the Add Area 
+    form is now visible.  Your study has been created, but isn't much use without images.  So, next, we need 
+    to add some areas.</li>
+    </ol>
+
+    <h3 id="areas">Adding Areas</h3>
+    <p>Areas are essential to studies.  An Area defines the geographic boundaries within which the application will pull images for a study.</p>
+    <p>Areas can only be added if there is <a href="http://maps.google.com/help/maps/streetview/learn/where-is-street-view.html">Google StreetView coverage for that area</a>.  
+    Users will be directed to add an area immediately after creating a study, but can also access this function through the Curate tab once a study has been created.</p>
+    <ol>
+    <li>Fill in a Name and Description for the Area. You can come back and do this after you've drawn the polygon, but *be sure* to do it 
+    before you click Save, or you will lose your Area.</li>
+    <li>Find the geographic location on the map, using the controls on the Google Map to zoom in and out and move around the map (click and drag to move).  
+    Single clicking in the map will begin marking your polygon.  (If you accidentally create 
+    a point before you are ready, you can click the Back link at the bottom of the page, and then click on Add Area 
+    in the top tabs).</li>
+    <li>Once you have located the desired area, we want to draw a polygon.  The study will pull images from inside that space.  Click once in the map to place the first point.</li>
+    <li>You should see a red flag in the map.  Click at least two more times to make points for the corners of your polygon.  Lines will be drawn between the points and the inside of the polygon will be shaded. 
+    Keep clicking until the area you want is completely shaded.</li>  
+    <li>Fill in how many images you would like and how far apart they should be.</li>
+    <li>If you would like to add more than one area, click on Save and Add Another, and repeat the above steps.</li>
+    <li>When you have added your last area, click on Save and Return to Study, where you can curate the sets of images.</li>
+    </ol>
+
+    <h3 id="images">Editing Images</h3>
+    <p>When you add an Area to a study, it is added to the Curate tab of your study.  Clicking on Curate will give you a dropdown menu 
+    of your existing areas, plus a link to Create a New One.</p>
+    <ol>
+    <li>To edit the images within a study, click on the Study from the My Research page.</li>
+    <li>Click the Curate tab, and select the Area you'd like to modify. (Study authors are directed immediately 
+    here after adding all the areas to a Study.)</li>
+    <li>Click on the image you would like to edit or delete.</li>
+    <li>Click and drag in the image to rotate it to the desired view, then click on Save Changes.</li>
+    <li>Or, delete the image by clicking on Delete Image and confirming the delete in the pop-up.</li>
+    </ol>
+
+    <h3 id="launch">Launching a Study</h3>
+    <p>To view your studies that are not yet launched, first log in, then click on My Research.  The unlaunched 
+    studies will be marked with a yellow label.</p>
+    <ol>
+    <li>Click on the Study Name.</li>
+    <li>Make sure everything is set for the study.</li>
+    <li>Click the green launch button in the top right corner of the screen.</li>
+    <li>Click on Yes, launch my study.</li>
+    </ol>
+    <p>Once a study has been launched, it is open for voting and you will no longer be able to change the question, add new 
+    areas or add, remove, or modify images.  It can be closed and it can be opened again, by clicking on the 
+    Close and Open buttons in the top right of the study view tab. </p>
+    <a id="search"></a><h3>Search Existing Studies</h3>
+    <p>If you know the title or author of a study, you can search for it using the search box at the top of the Public Studies page.</p>
+    <p>To clear the search filter, just clear the text and click on Search again.</p>
+
+    <h3 id="voting">Voting</h3>
+    <p>To vote on a study:</p>
+    <ol>
+    <li>Click on <%= link_to t('.public_studies'), studies_path %> and the name of the study you want to open. The study will open on the vote page.</li>
+    <li>Click on the image which best answers the question, or you can click on the "Skip" link to skip an image pair.</li>
+    <li>Your vote will be recorded as soon as you click and cannot be changed once it is recorded.</li>
+    </ol>
+    <p>There is also a study featured on the home page and voting works the same way.</p>
+    <a id="analyze"></a><h3>Analyze Results</h3>
+    <p>There are a variety of ways you can view study results, for your own studies and for those studies with results 
+    made public by the authors.  To access the results:</p>
+    <ol>
+    <li>Go to <%= link_to t('.public_studies'), studies_path %> or to My Research and click on the study you would 
+    like to view.</li>
+    <li>Click on the Analyze tab.</li>
+    <li>There are four tabs of results*
+    <ul><li><strong>Summary</strong> displays each location and how many times it was chosen and the number of times 
+    it was offered as a choice.</li>
+    <li><strong>Areas</strong> displays each area and how many times an image from that area was chosen over an 
+    image from another area. (Note: this is only valid in studies with multiple areas.)</li>
+    <li><strong>Heatmap</strong> displays on a map the location of images frequently chosen.</li>
+    <li><strong>Download</strong> allows the user to download csv and xls files with the study results.  The Location 
+    Summary contains slightly more information than the Summary tab (e.g. heading and pitch of images) while the 
+    Full Results include information about the geographic location of the voter and more details about the areas chosen 
+    and rejected.</li></ul></li></ol>
+    <p>*The Download tab is not available on most smartphones.</p>    
+
+    <h3 id="limits">Limits</h3>
+    <p>An individual user can only request <a href="https://developers.google.com/maps/documentation/streetview/#usage_limits">25,000 StreetView image requests</a> per 24 hours.  In the highly unlikely case that an individual voter exceeds this limit, the following image will 
+    be shown instead of the street image:</p>
+    <p><a href="https://developers.google.com/maps/documentation/streetview/#usage_limits">
+    <img src="https://developers.google.com/maps/documentation/staticmaps/images/quota.png"></a></p>
+    <p>The voter should be able to continue voting from the same computer in 24 hours.</p>
+  </div>
 </div>
