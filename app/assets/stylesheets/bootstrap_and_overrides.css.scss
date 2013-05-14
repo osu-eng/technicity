@@ -301,6 +301,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   .help-links, .help-links.affix {
     width: 140px;
   }
+  .help-video {
+    width: 448px;
+    height: 252px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -310,10 +314,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   }
   .help-links, .help-links.affix {
     width: auto;
-  }
-  .help-video {
-    width: 448px;
-    height: 252px;
   }
   #main {
     padding-top: 20px;;
