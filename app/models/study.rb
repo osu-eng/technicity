@@ -38,7 +38,7 @@ class Study < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :history]
   validates_presence_of :name, :slug, :question, :description, :user_id
 
-  attr_accessible :name, :public, :question, :description, :slug, :user_id, :active
+  attr_accessible :name, :public, :question, :description, :slug, :user_id, :active, :comparisons_count
 
   belongs_to :region_set
   belongs_to :user

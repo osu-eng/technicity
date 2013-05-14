@@ -7,7 +7,7 @@
       <th class="studyfull">User</th>
       <% end %>
       <th class="studyfull"># Areas</th>
-      <th> # Votes</th>
+      <th><%= sortable_column "# Votes", :column => "comparisons_count" %></th>
       <% if !current_user.nil? && current_user.admin %>
       <th class="studyfull"><%= sortable_column "Promoted", :column => "promoted" %></th>
       <% end %>
@@ -22,7 +22,7 @@
         <td class="studyfull"><%= study.user.username %></td>
       <% end %>
       <td class="studyfull"><%= study.region_set.regions.count %></td>
-      <td><%= study.comparisons.count %></td>
+      <td><%= study.comparisons_count %></td>
       <% if !current_user.nil? && current_user.admin %>
       <td class="studyfull"><% if study.promoted %> Yes <% else%> No <% end%></td>
       <% end %>

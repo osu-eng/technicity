@@ -11,6 +11,7 @@ class StudiesController < ApplicationController
   # GET /studies
   # GET /studies.json
   def index
+    order = sortable_column_order
     @studies = Study.search(params[:q]).where('region_set_id IS NOT NULL AND region_set_id <> "" AND active IS NOT NULL AND active <> ""').order(order).paginate(:page => params[:page])
 
     respond_to do |format|
@@ -24,6 +25,7 @@ class StudiesController < ApplicationController
     if !(!current_user.nil? and (current_user.admin or (params[:user_id] == current_user.id.to_s)))
       trigger_403('You do not have permission to access the studies of that user.')
     else
+      order = sortable_column_order
       @studies = Study.where("user_id = ? AND region_set_id IS NOT NULL", params[:user_id]).order(order).paginate(:page => params[:page])
       @mine = true
       respond_to do |format|
