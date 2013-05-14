@@ -11,7 +11,7 @@ require 'capistrano/ext/multistage'
 
 set :repository,  "git@github.com:osu-eng/technicity.git"
 set :scm, :git
-set :branch, "master"
+set :branch, "develop"
 set :deploy_via, :remote_cache
 
 set :user, "deployer"
