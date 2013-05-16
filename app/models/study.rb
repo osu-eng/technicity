@@ -106,6 +106,14 @@ class Study < ActiveRecord::Base
     heatmap_collection
   end
 
+  def vote_fix_time
+    "16/May/2013 09:26:30 +0400".to_datetime
+  end
+
+  def comparisons_before_fix
+    Comparison.where(["study_id = ? and created_at < ?", self.id, vote_fix_time])
+  end
+
   def results
     result_set = ActiveRecord::Base.connection.exec_query("
     SELECT

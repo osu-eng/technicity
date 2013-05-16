@@ -3,7 +3,7 @@ class StudiesController < ApplicationController
   require 'will_paginate/array'
 
   before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close, :mine ]
-  before_filter :require_can_edit, only: [ :edit, :update, :destroy, :curate, :open, :close ]
+  before_filter :require_can_edit, only: [ :edit, :update, :destroy, :curate, :open, :close, :destroybadvotes ]
   before_filter :require_can_view_results, only: [ :results, :region_results, :heatmap, :download ]
 
   handles_sortable_columns
@@ -339,6 +339,20 @@ class StudiesController < ApplicationController
     end
 
     @study.destroy
+
+    respond_to do |format|
+      format.html { redirect_to studies_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # DELETE /studies/1
+  # DELETE /studies/1.json
+  def destroybadvotes
+    @study = Study.find(params[:id])
+    @study.comparisons_before_fix.each do |comparison|
+      comparison.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to studies_url }

@@ -159,3 +159,29 @@ ss.Study.prototype.delete = function(successHandler) {
     success: successHandler
   });
 }
+
+/**
+ * Deletes a region
+ *
+ * Used example here:
+ * http://humanwebdevelopment.com/rails-jquery-ajax-delete-and-put-methods/
+ *
+ * @param   {function} successHandler function to be called upon successful felete.
+ */
+ss.Study.delete_suspect_votes = function(id, successHandler, errorHandler) {
+  $.ajax({
+    url: "/studies/" + id + '/destroybadvotes',
+    dataType: 'json',
+    type: 'post',
+    processData: false,
+    contentType: "application/json",
+    data: JSON.stringify({
+      id: id,
+      "_method":"destroybadvotes"
+    }),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("X-Http-Method-Override", "PUT");
+    },
+    success: successHandler
+  });
+}

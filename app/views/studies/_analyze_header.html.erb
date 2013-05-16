@@ -7,7 +7,35 @@
   <strong>Question</strong><br />
   <%= @study.question %>
 </p>
+<% if @study.comparisons_before_fix.count > 0 %>
+  <div class="alert"><strong>Warning!</strong><br />Due to a programming error, a portion of votes cast prior to May 16 2013 @ 9:30am were recorded incorrectly.
+    <%= (100 * @study.comparisons_before_fix.count.to_f / @study.comparisons.count.to_f).round(1) %>% of the votes recorded below are in the affected range.
+    As the "Full Results" download contains a timestamp for each vote, it is possible to separate the suspect votes.
+    <% if controller.can_edit? %>
+      <br /><br />
+      <button type="button" class="btn btn-danger" onclick="deleteAffectedRecords(<%= @study.id %>)">
+        <i class="icon-trash icon-white"></i> Delete Affected Records
+      </button>
 
+      <script type="text/javascript">
+      /**
+       * This goes with the study status partial
+       */
+      function deleteAffectedRecords(id) {
+        // Do the update
+        ss.Study.delete_suspect_votes(id,
+          function(data, status, xhr) {
+            location.reload();
+          },
+          function(xhr, status, error) {
+            alert('an error occurred');
+          });
+      }
+      </script>
+
+    <% end %>
+  </div>
+<% end %>
 <h2>Results</h2>
 <div class="navbar analyze-options">
   <div class="navbar-inner">

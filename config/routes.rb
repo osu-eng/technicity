@@ -41,6 +41,7 @@ Technicity::Application.routes.draw do
     put :close,          :on => :member
     put :promote,        :on => :member
     put :demote,         :on => :member
+    put :destroybadvotes, :on => :member
   end
 
   resources :users
