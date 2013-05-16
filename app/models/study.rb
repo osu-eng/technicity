@@ -107,7 +107,7 @@ class Study < ActiveRecord::Base
   end
 
   def vote_fix_time
-    "16/May/2013 09:26:30 +0400".to_datetime
+    "16/May/2013 09:26:30 -0400".to_datetime
   end
 
   def comparisons_before_fix
