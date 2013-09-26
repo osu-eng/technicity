@@ -1,3 +1,0 @@
-class RegionSetMembershipsController < ApplicationController
-
-end
