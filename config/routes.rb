@@ -44,7 +44,6 @@ Technicity::Application.routes.draw do
   # Keep in mind you can assign values other than :controller and :action
 
   match 'studies' => 'studies#show'
-  match 'studies/:id/analyze' => 'studies#summary'
   match 'studies/mine/:user_id' => 'studies#mine'
 
   # Sample of named route:
