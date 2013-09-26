@@ -42,9 +42,7 @@ Technicity::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
-  match 'about' => 'static_pages#about'
-  match 'help' => 'static_pages#help'
-  match 'home' => 'static_pages#home'
+
   match 'studies' => 'studies#show'
   match 'studies/:id/analyze' => 'studies#summary'
   match 'studies/mine/:user_id' => 'studies#mine'
