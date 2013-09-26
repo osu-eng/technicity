@@ -1,13 +1,8 @@
 Technicity::Application.routes.draw do
 
-
-
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", :registrations => "registrations"}
 
   resources :region_set_memberships
-
-
-  resources :region_sets
 
   get "home", to: 'static_pages#home'
   get "help", to: 'static_pages#help'
@@ -24,9 +19,7 @@ Technicity::Application.routes.draw do
 
   resources :locations
 
-
   resources :regions
-
 
   resources :studies do
     get :vote,           :on => :member

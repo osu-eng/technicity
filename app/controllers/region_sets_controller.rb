@@ -1,3 +1,0 @@
-class RegionSetsController < ApplicationController
-
-end
