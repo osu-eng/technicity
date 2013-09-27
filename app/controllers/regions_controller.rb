@@ -3,17 +3,6 @@ class RegionsController < ApplicationController
   before_filter :authenticate_user!, only: [ :new, :update, :destroy, :create]
   before_filter :require_can_edit, only: [ :update, :destroy ]
 
-  # GET /regions
-  # GET /regions.json
-  #def index
-  #  @regions = Region.all
-  #
-  #  respond_to do |format|
-  #    format.html # index.html.erb
-  #    format.json { render json: @regions }
-  #  end
-  #end
-
   # GET /regions/new
   # GET /regions/new.json
   def new
@@ -35,11 +24,6 @@ class RegionsController < ApplicationController
       format.json { render json: @region }
     end
   end
-
-  # GET /regions/1/edit
-  #def edit
-  #  @region = Region.find(params[:id])
-  #end
 
   # POST /regions
   # POST /regions.json

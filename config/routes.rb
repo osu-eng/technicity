@@ -13,7 +13,7 @@ Technicity::Application.routes.draw do
 
   resources :locations, except: [:new, :edit, :index]
 
-  resources :regions
+  resources :regions, except: [:index, :edit, :show]
 
   resources :studies do
     get :vote,           :on => :member
