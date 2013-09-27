@@ -9,11 +9,7 @@ Technicity::Application.routes.draw do
   get "notify", to: 'notifications#new'
   get "policies", to: 'static_pages#policies'
 
-  resources :comparisons do
-    member do
-      post 'new'
-    end
-  end
+  resources :comparisons, only: [:create]
 
   resources :locations
 
