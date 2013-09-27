@@ -11,7 +11,7 @@ Technicity::Application.routes.draw do
 
   resources :comparisons, only: [:create]
 
-  resources :locations
+  resources :locations, except: [:new, :edit, :index]
 
   resources :regions
 

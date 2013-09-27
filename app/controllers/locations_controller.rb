@@ -3,17 +3,6 @@ class LocationsController < ApplicationController
   before_filter :authenticate_user!, only: [ :create, :update, :destroy]
   before_filter :require_can_edit, only: [ :update, :destroy]
 
-  # GET /locations
-  # GET /locations.json
-  # def index
-  #  @locations = Location.all
-
-  #  respond_to do |format|
-  #    format.html # index.html.erb
-  #    format.json { render json: @locations }
-  #  end
-  #end
-
   # GET /locations/1
   # GET /locations/1.json
   def show
@@ -23,22 +12,6 @@ class LocationsController < ApplicationController
       format.json { render json: @location }
     end
   end
-
-  # GET /locations/new
-  # GET /locations/new.json
-  #def new
-  #  @location = Location.new
-  #
-  #  respond_to do |format|
-  #    format.html # new.html.erb
-  #    format.json { render json: @location }
-  #  end
-  #end
-
-  # GET /locations/1/edit
-  # def edit
-  #  @location = Location.find(params[:id])
-  #end
 
   # POST /locations
   # POST /locations.json
