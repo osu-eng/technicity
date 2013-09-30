@@ -14,4 +14,13 @@ class RegistrationsController < Devise::RegistrationsController
       render :new
     end
   end
+
+  protected
+
+  # Overrides devise's redirect path after the user is updated. The path defined here is the same as the page the
+  # user is editing.
+  def after_update_path_for(resource)
+    edit_user_registration_path
+  end
+
 end

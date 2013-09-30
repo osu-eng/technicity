@@ -12,17 +12,20 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-
     <% if f.object.encrypted_password.present? %>
-      <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+        <fieldset>
+          <legend>Change Password:</legend>
+        <%= f.input :password, label: 'New Password', :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+        <%= f.input :password_confirmation, label: 'Confirm New Password', :required => false %>
+        </fieldset>
     <% end %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
+    <br/>
+
+    <%= f.button :submit, "Update" %> &nbsp;
+    <%= link_to "Back", :back %>
+
 <% end %>
 
-<%= link_to "Back", :back %>
+
