@@ -39,14 +39,6 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
 
-  #def update_with_password(params, *options)
-  #  if encrypted_password.blank?
-  #    update_attributes(params, *options)
-  #  else
-  #    super
-  #  end
-  #end
-
   def update_with_password(params={})
 
     # Don't save passwords if they are blank
@@ -60,7 +52,6 @@ class User < ActiveRecord::Base
 
     result
   end
-
 
   def self.search(term)
     q = "%#{term}%"
