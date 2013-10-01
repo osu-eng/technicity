@@ -5,6 +5,7 @@ FactoryGirl.define do
     survey_id 1
     name "MyString"
     description "MyText"
+    multiple_choice false
     order_by 1
   end
 end

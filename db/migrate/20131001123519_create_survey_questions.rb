@@ -4,6 +4,7 @@ class CreateSurveyQuestions < ActiveRecord::Migration
       t.integer :survey_id
       t.string :name
       t.text :description
+      t.boolean :multiple_choice
       t.integer :order_by
 
       t.timestamps
