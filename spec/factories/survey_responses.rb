@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :survey_response do
-    survey_question
+    survey_question_id 1
     survey_option_id 1
     study_id 1
     voter_session 'a6beb860ad431821cda687fc8dc6e583'
