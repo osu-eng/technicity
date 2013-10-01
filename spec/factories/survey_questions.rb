@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :survey_question do
     survey_id 1
-    name "MyString"
-    description "MyText"
+    question 'What color are your eyes?'
+    description 'Please describe the color of your eyes'
     multiple_choice false
     order_by 1
   end

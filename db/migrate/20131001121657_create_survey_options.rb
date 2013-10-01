@@ -2,7 +2,7 @@ class CreateSurveyOptions < ActiveRecord::Migration
   def change
     create_table :survey_options do |t|
       t.integer :survey_question_id
-      t.string :name
+      t.string :option
       t.integer :order_by
 
       t.timestamps

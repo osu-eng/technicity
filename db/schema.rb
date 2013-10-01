@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20131001133159) do
 
   create_table "survey_options", :force => true do |t|
     t.integer  "survey_question_id"
-    t.string   "name"
+    t.string   "option"
     t.integer  "order_by"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20131001133159) do
 
   create_table "survey_questions", :force => true do |t|
     t.integer  "survey_id"
-    t.string   "name"
+    t.string   "question"
     t.text     "description"
     t.boolean  "multiple_choice"
     t.integer  "order_by"

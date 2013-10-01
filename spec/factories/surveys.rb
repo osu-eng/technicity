@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :survey do
-    name "MyString"
-    description "MyText"
+    name 'My test survey'
+    description 'This is a description of my test survey'
   end
 end

@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :survey_option do
     survey_question_id 1
-    name "MyString"
+    option 'Blue'
     order_by 1
   end
 end
