@@ -42,9 +42,11 @@ class Study < ActiveRecord::Base
 
   belongs_to :region_set
   belongs_to :user
+  belongs_to :survey
   has_many :comparisons, :dependent => :destroy
   has_many :regions, :through => :region_set
   has_many :locations, :through => :regions
+  has_many :survey_responses
 
   def randomLocation
 
