@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514173823) do
+ActiveRecord::Schema.define(:version => 20131001133159) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -84,9 +84,9 @@ ActiveRecord::Schema.define(:version => 20130514173823) do
   create_table "studies", :force => true do |t|
     t.string   "slug"
     t.string   "question"
-    t.boolean  "public",            :default => true
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.boolean  "public",                :default => true
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "region_set_id"
     t.string   "name"
     t.integer  "user_id"
@@ -94,11 +94,56 @@ ActiveRecord::Schema.define(:version => 20130514173823) do
     t.boolean  "active"
     t.datetime "opened_at"
     t.datetime "closed_at"
-    t.boolean  "promoted",          :default => false
-    t.integer  "comparisons_count", :default => 0
+    t.boolean  "promoted",              :default => false
+    t.integer  "comparisons_count",     :default => 0
+    t.integer  "survey_id"
+    t.integer  "survey_required_votes"
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true
+  add_index "studies", ["survey_id"], :name => "index_studies_on_survey_id"
+
+  create_table "survey_options", :force => true do |t|
+    t.integer  "survey_question_id"
+    t.string   "name"
+    t.integer  "order_by"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "survey_options", ["survey_question_id"], :name => "index_survey_options_on_survey_question_id"
+
+  create_table "survey_questions", :force => true do |t|
+    t.integer  "survey_id"
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "multiple_choice"
+    t.integer  "order_by"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "survey_questions", ["survey_id"], :name => "index_survey_questions_on_survey_id"
+
+  create_table "survey_responses", :force => true do |t|
+    t.integer  "survey_question_id"
+    t.integer  "survey_option_id"
+    t.integer  "study_id"
+    t.string   "voter_session"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "survey_responses", ["study_id"], :name => "index_survey_responses_on_study_id"
+  add_index "survey_responses", ["survey_option_id"], :name => "index_survey_responses_on_survey_option_id"
+  add_index "survey_responses", ["survey_question_id"], :name => "index_survey_responses_on_survey_question_id"
+
+  create_table "surveys", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
