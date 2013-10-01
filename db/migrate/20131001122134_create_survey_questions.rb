@@ -8,5 +8,6 @@ class CreateSurveyQuestions < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :survey_questions, :survey_id
   end
 end
