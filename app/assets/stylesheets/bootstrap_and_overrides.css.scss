@@ -75,6 +75,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-color: $darkred;
 }
 
+label {
+  font-weight: bold;
+}
+
 .btn-danger {
     background-color: $darkred;
     background-image: linear-gradient(to bottom, $midred, $darkred);
