@@ -1,6 +1,6 @@
-<h1>Search Studies</h1>
+<h1>Available Studies</h1>
 
-<div class="search">
+<div class="search pull-right">
 <%= form_tag studies_path, :method => 'get' do %>
   <%= text_field_tag :q, params[:q], :placeholder => 'Search for a study', :autocomplete => 'off'%>
   <button type="submit" class="btn btn-primary search-button" >

@@ -21,13 +21,14 @@ en:
 
     navigation:
       about: About
-      public_studies: Public Studies
+      overview: Overview
       help: Help
       technicity: Technicity
-      my_research: My Research
+      available_studies: Available Studies
+      my_studies: My Studies
       edit_profile: Edit Profile
       logout: Logout
-      login: Login
+      login: Login / Signup
 
   comparisons:
     edit:
