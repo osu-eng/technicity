@@ -209,7 +209,6 @@ class StudiesController < ApplicationController
   # POST /studies
   # POST /studies.json
   def create
-    params[:study][:survey_required_votes] = 0 if params[:study_unlimited_votes]
     @study = Study.new(params[:study])
     @study.user_id = current_user.id
 
