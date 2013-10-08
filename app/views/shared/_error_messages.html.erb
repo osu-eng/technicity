@@ -1,0 +1,8 @@
+<% # see http://stackoverflow.com/questions/10911121/displaying-simple-form-error-messages-in-top-div %>
+
+<% if object.errors.any? %>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    The form contains <%= pluralize(object.errors.count, 'error') %>.
+  </div>
+<% end %>

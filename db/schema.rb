@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001133159) do
+ActiveRecord::Schema.define(:version => 20131007202735) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(:version => 20131001133159) do
     t.integer  "comparisons_count",     :default => 0
     t.integer  "survey_id"
     t.integer  "survey_required_votes"
+    t.boolean  "has_survey",            :default => true
+    t.boolean  "limit_votes",           :default => true
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true

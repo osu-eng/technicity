@@ -209,6 +209,7 @@ class StudiesController < ApplicationController
   # POST /studies
   # POST /studies.json
   def create
+    params[:study][:survey_required_votes] = 0 if params[:study_unlimited_votes]
     @study = Study.new(params[:study])
     @study.user_id = current_user.id
 
@@ -243,7 +244,7 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       if @study.update_attributes(params[:study])
-        format.html { render action: "edit", notice: 'Study was successfully updated.' }
+        format.html { redirect_to edit_study_url, notice: 'Study was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

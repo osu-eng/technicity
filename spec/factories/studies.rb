@@ -8,5 +8,8 @@ FactoryGirl.define do
     public true
     question 'prettier'
     description 'This study identifies the prettiest parts of Ohio\'s metro areas.'
+    has_survey true
+    limit_votes true
+    survey_required_votes 10
   end
 end

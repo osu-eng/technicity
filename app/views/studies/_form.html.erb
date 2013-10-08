@@ -1,55 +1,97 @@
 <%# This form handles the generic bits %>
 
 <!-- :html => {:class => "form-horizontal"} -->
-<%= simple_form_for(@study) do |f| %>
+<br/>
+<div class="well">
+  <p>
+    Ask study participants to make a choice between two Google StreetView scenes. For example:
+  <ul>
+    <li>Which place looks safer?</li>
+    <li>Which street looks more bike friendly?</li>
+  </ul>
+  </p>
+</div>
+<br/>
+
+<%= simple_form_for(@study, :html => {:class => "form-horizontal"}) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <% if @study.active.nil? %>
+    <%= f.input :question,
+                label: 'Question for Voter',
+                input_html: {:style => 'width:400px;'},
+                value: 'Which place looks',
+                hint: 'Note: This cannot be changed after launching study.' %>
+  <% else # only changeable if study never launched       %>
+    <%= f.input :question, label: 'Question for Voter',
+                input_html: {disabled: 'disabled', style: 'width:400px;'},
+                hint: 'This field can only be changed before launching your study.' %>
+  <% end %>
+
   <%= f.input :name,
-              :input_html => { :style => 'width:400px;'},
+              :input_html => {:style => 'width:400px;'},
               :hint => 'A short, friendly name by which to remember your study.' %>
+
   <%= f.input :description,
               :as => :text,
-              :input_html => { :rows => 4, :style => 'width:400px;height:200px'},
+              :input_html => {:rows => 4, :style => 'width:400px;height:200px'},
               :hint => 'A sentence or two describing your study.' %>
-  <% if @study.active.nil? %>
-  <%= f.input :question, label: 'Question for Voter',
-              :input_html => { :style => 'width:400px;' },
-              :hint => 'Ask study participants to make a choice between two Google StreetView scenes. <br />Which place looks safer? <br />Which street looks more bike friendly?<br />Note: This cannot be changed after launching study.',
-              :value => 'Which place looks' %>
-  <% else # only changeable if study never launched %>
-  <%= f.input :question, label: 'Question for Voter',
-              :input_html => { :disabled=> 'disabled', :style => 'width:400px;' },
-              :hint => 'This field can only be changed before launching your study.' %>
-  <% end %>
-  <%= f.input :public, label: 'Share your research.',
+
+  <%= f.input :has_survey,
+              label: 'Create a survey?',
               as: :radio_buttons,
-              :hint => 'If you say no here, only you and site administrators will be able to see the results of your study.' %>
+              hint: 'Do you want voter to take survey to collect additional information?',
+              item_wrapper_class: 'inline' %>
 
+  <%= f.input :limit_votes,
+             label: 'Limit votes?',
+             as: :radio_buttons,
+             hint: 'Do you want to limit the number of votes allowed?',
+             item_wrapper_class: 'inline' %>
 
-  <% if @study.id %>
-  <button type="submit" class="btn btn-primary" >
-    <i class="icon-ok icon-white"></i> Save
-  </button>
-  <button type="button" class="btn btn-primary" onclick="$('#delete-study-modal').modal('toggle')">
-    <i class="icon-trash icon-white"></i> Delete
-  </button>
-  <% else %>
-  <button type="submit" class="btn btn-primary" >
-    <i class="icon-ok icon-white"></i> Create Study
-  </button>
-  <% end %>
+  <%= f.input :survey_required_votes,
+              label: 'Total number of votes',
+              hint: 'How many votes should be allowed?',
+              input_html: { min: 1 } %>
+
+  <%= f.input :public,
+              label: 'Share your research?',
+              as: :radio_buttons,
+              :hint => 'If you say no here, only you and site administrators will be able to see the results of your study.',
+              item_wrapper_class: 'inline' %>
+
+  <div class="control-group">
+    <div class="controls">
+      <% if @study.id %>
+        <button type="submit" class="btn btn-primary">
+          <i class="icon-ok icon-white"></i> Save
+        </button>
+        <button type="button" class="btn btn-primary" onclick="$('#delete-study-modal').modal('toggle')">
+          <i class="icon-trash icon-white"></i> Delete
+        </button>
+      <% else %>
+        <button type="submit" class="btn btn-primary">
+          <i class="icon-ok icon-white"></i> Create Study
+        </button>
+      <% end %>
+    </div>
+  </div>
+
 <% end %>
+
 
 <div id="delete-study-modal" class="modal hide fade">
   <div class="modal-header">
-    <a class="close" data-dismiss="modal" >&times;</a>
+    <a class="close" data-dismiss="modal">&times;</a>
+
     <h3>Are you sure?</h3>
   </div>
   <div class="modal-body" align="left">
     <p>
       Keep in mind:
-      <ul>
-        <li>Deleting a study is irreversible.</li>
-        <li>All dependent entries will be deleted (areas, images, votes).</li>
-      </ul>
+    <ul>
+      <li>Deleting a study is irreversible.</li>
+      <li>All dependent entries will be deleted (areas, images, votes).</li>
+    </ul>
     </p>
   </div>
   <div class="modal-footer">
@@ -58,10 +100,50 @@
   </div>
 </div>
 <script type="text/javascript">
-  function deleteRegion(){
+  function deleteRegion() {
     study = new ss.Study(<%=@study.id%>);
-    study.delete(function() {
+    study.delete(function () {
       window.location.replace('/studies');
     });
   }
+
+  function toggleHasSurvey(val) {
+    if(val === 'true') {
+      $('.study_limit_votes').hide();
+      $('.study_survey_required_votes').show();
+    }
+    else {
+      $('.study_limit_votes').show();
+    }
+  }
+
+  function toggleLimitVotes(val) {
+    if(val === 'true') {
+      $('.study_survey_required_votes').show();
+    }
+    else {
+      $('.study_survey_required_votes').hide();
+    }
+  }
+
+  $( "input[name='study[has_survey]']:radio" ).change(function() {
+    if (this.value === 'true') {
+      $("#study_limit_votes_true").prop("checked", true);
+    }
+    toggleHasSurvey(this.value);
+  });
+
+  $( "input[name='study[limit_votes]']:radio" ).change(function() {
+    toggleLimitVotes(this.value);
+  });
+
+  $( document ).ready(function() {
+    var hasSurvey = $( "input[name='study[has_survey]']:checked" ).val();
+    toggleHasSurvey(hasSurvey);
+    if(hasSurvey !== 'true') {
+      var limitVotes = $( "input[name='study[limit_votes]']:checked" ).val();
+      toggleLimitVotes(limitVotes);
+    }
+  });
+
 </script>

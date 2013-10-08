@@ -33,12 +33,14 @@ class Study < ActiveRecord::Base
 
   include ActiveModel::Validations
   validates_with StudyLaunchValidator
+  validate :numeric_votes
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
   validates_presence_of :name, :slug, :question, :description, :user_id
 
-  attr_accessible :name, :public, :question, :description, :slug, :user_id, :active
+  attr_accessible :name, :public, :question, :description, :slug, :user_id, :active,
+                  :has_survey, :survey_required_votes, :limit_votes
 
   belongs_to :region_set
   belongs_to :user
@@ -47,6 +49,13 @@ class Study < ActiveRecord::Base
   has_many :regions, :through => :region_set
   has_many :locations, :through => :regions
   has_many :survey_responses
+
+  def numeric_votes
+    if has_survey || limit_votes
+      greater_than_zero = survey_required_votes.to_i > 0
+      errors.add(:survey_required_votes, 'must be greater than 0') unless greater_than_zero
+    end
+  end
 
   def randomLocation
 
