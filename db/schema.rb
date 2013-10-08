@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20131007202735) do
     t.integer  "comparisons_count",     :default => 0
     t.integer  "survey_id"
     t.integer  "survey_required_votes"
-    t.boolean  "has_survey",            :default => true
-    t.boolean  "limit_votes",           :default => true
+    t.boolean  "has_survey",            :default => false
+    t.boolean  "limit_votes",           :default => false
   end
 
   add_index "studies", ["slug"], :name => "index_studies_on_slug", :unique => true
