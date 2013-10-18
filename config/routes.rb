@@ -15,6 +15,8 @@ Technicity::Application.routes.draw do
 
   resources :regions, except: [:index, :edit, :show]
 
+  resources :surveys, except: [:index]
+
   resources :studies do
     get :vote,           :on => :member
     get :curate,         :on => :member

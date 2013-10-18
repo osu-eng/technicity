@@ -226,8 +226,7 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       if @study.save
-
-        format.html { redirect_to url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @region_set.id.to_s(), notice: 'Study was successfully created.' }
+        format.html { redirect_to_survey_or_region }
         format.json { render json: @study, status: :created, location: @study }
       else
         format.html { render action: "new" }
@@ -235,6 +234,18 @@ class StudiesController < ApplicationController
       end
     end
   end
+
+  def redirect_to_survey_or_region
+    if @study.has_survey
+      redirect_to url_for(:controller => 'surveys', :action => 'new') +
+                      '?study_id=' + @study.id.to_s(), notice: 'Study was successfully created.'
+    else
+      redirect_to url_for(:controller => 'regions', :action => 'new') +
+                      '?study_id=' + @study.id.to_s() + '&region_set_id=' +
+                      @region_set.id.to_s(), notice: 'Study was successfully created.'
+    end
+  end
+
 
   # PUT /studies/1
   # PUT /studies/1.json

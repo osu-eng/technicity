@@ -40,7 +40,7 @@ class Study < ActiveRecord::Base
   validates_presence_of :name, :slug, :question, :description, :user_id
 
   attr_accessible :name, :public, :question, :description, :slug, :user_id, :active,
-                  :has_survey, :survey_required_votes, :limit_votes
+                  :has_survey, :survey_required_votes, :limit_votes, :survey_id
 
   belongs_to :region_set
   belongs_to :user
