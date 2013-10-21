@@ -43,6 +43,7 @@ gem 'friendly_id'
 gem 'geocoder'
 gem 'figaro'
 gem 'virtus'
+gem 'nested_form'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'

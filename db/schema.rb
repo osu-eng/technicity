@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007202735) do
+ActiveRecord::Schema.define(:version => 20131021151318) do
 
   create_table "comparisons", :force => true do |t|
     t.integer  "chosen_location_id"
@@ -119,10 +119,10 @@ ActiveRecord::Schema.define(:version => 20131007202735) do
     t.integer  "survey_id"
     t.string   "question"
     t.text     "description"
-    t.boolean  "multiple_choice"
+    t.boolean  "multiple_choice", :default => false
     t.integer  "order_by"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "survey_questions", ["survey_id"], :name => "index_survey_questions_on_survey_id"

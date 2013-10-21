@@ -52,7 +52,7 @@ class SurveysController < ApplicationController
     respond_to do |format|
       if @surveyForm.save
 
-        format.html { redirect_to @surveyForm.survey, notice: 'Survey was successfully created.' }
+        format.html { redirect_to survey_questions_path(@surveyForm.survey), notice: 'Survey was successfully created.' }
         #format.json { render json: @surveyForm.survey, status: :created, location: @survey }
       else
         format.html { render action: 'new' }
@@ -91,12 +91,12 @@ class SurveysController < ApplicationController
 
   def can_edit?
     begin
-      @survey = Study.find(params[:survey][:study_id])
+      @study = Study.find(params[:survey][:study_id])
     rescue
       return false
     end
 
-    !current_user.nil? && (current_user.admin || (@survey.user == current_user))
+    !current_user.nil? && (current_user.admin || (@study.user == current_user))
   end
 
   private
