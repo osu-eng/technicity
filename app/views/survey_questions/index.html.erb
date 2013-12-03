@@ -1,8 +1,8 @@
 <h1>Survey Questions</h1>
 <br/>
-<p><%= link_to 'Add survey question', new_survey_question_path, class: 'btn' %></p>
+<p><%= link_to raw('<i class="icon-plus-sign"></i> Add survey question'), new_survey_question_path, class: 'btn' %></p>
 
-<table class="table">
+<table class="table table-striped">
   <tbody>
 
     <% @survey_questions.each do |survey_question| %>
@@ -19,4 +19,7 @@
 </table>
 
 <br />
+
+<%= link_to raw('<i class="icon-ok icon-white"></i> Continue to regions'),
+            new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %>
 

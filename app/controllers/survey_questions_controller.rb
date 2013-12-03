@@ -8,6 +8,7 @@ class SurveyQuestionsController < ApplicationController
   def index
     @survey_id = params[:survey_id]
     @survey_questions = SurveyQuestion.where(survey_id: @survey_id)
+    @study = Study.where(survey_id: params[:survey_id]).first
 
     respond_to do |format|
       format.html # index.html.erb
