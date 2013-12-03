@@ -1,7 +1,7 @@
 class SurveysController < ApplicationController
 
   before_filter :authenticate_user!, only: [ :new, :update, :create]
-  before_filter :require_can_edit, only: [ :update, :create ]
+  before_filter :require_can_edit, only: [ :create, :update ]
 
   # GET /surveys/1
   # GET /surveys/1.json
@@ -29,6 +29,8 @@ class SurveysController < ApplicationController
   # GET /surveys/1/edit
   def edit
     @survey = Survey.find(params[:id])
+    #assumes one survey per study
+    @study = Study.where(survey_id: params[:id]).first
   end
 
   # POST /surveys
@@ -56,23 +58,32 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       if @survey.update_attributes(params[:survey])
-        format.html { redirect_to @survey, notice: 'Survey was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to edit_survey_path, notice: 'Survey was successfully updated.' }
+        #format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
+        format.html { render action: 'edit' }
+        #format.json { render json: @survey.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def can_edit?
     begin
-      @study = Study.find(params[:survey][:study_id])
+      if params[:survey] && params[:survey][:study_id]
+        @study = Study.find(params[:survey][:study_id])
+      else
+        @study = Study.where(survey_id: params[:id]).first
+      end
     rescue
       return false
     end
 
     !current_user.nil? && (current_user.admin || (@study.user == current_user))
+  end
+
+  def can_view_results?
+    @study = Study.where(survey_id: params[:id]).first
+    can_edit? ||  (!@study.active.nil? && @study.public)
   end
 
   private

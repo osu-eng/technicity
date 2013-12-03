@@ -15,7 +15,7 @@ Technicity::Application.routes.draw do
 
   resources :regions, except: [:index, :edit, :show]
 
-  resources :surveys, only: [:new, :create, :show] do
+  resources :surveys, only: [:new, :create, :show, :edit, :update, :show] do
     resources :questions, controller: :survey_questions
   end
 
@@ -34,7 +34,7 @@ Technicity::Application.routes.draw do
     put :demote,         :on => :member
     put :destroybadvotes, :on => :member
 
-    resources :surveys, only: [:edit, :update]
+    #resources :surveys, only: [:edit, :update]
   end
 
   resources :users
