@@ -2,6 +2,7 @@ class SurveyQuestionsController < ApplicationController
 
   before_filter :authenticate_user!, only: [ :new, :update, :destroy, :create]
   before_filter :require_can_edit, only: [ :update, :destroy, :create ]
+  before_filter :initial_setup_check
 
   # GET /survey_questions
   # GET /survey_questions.json
@@ -9,7 +10,6 @@ class SurveyQuestionsController < ApplicationController
     @survey_id = params[:survey_id]
     @survey_questions = SurveyQuestion.where(survey_id: @survey_id)
     @study = Study.where(survey_id: params[:survey_id]).first
-    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,7 +33,6 @@ class SurveyQuestionsController < ApplicationController
   def new
     @survey_question = SurveyQuestion.new
     2.times { @survey_question.survey_options.build }
-    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -91,12 +90,16 @@ class SurveyQuestionsController < ApplicationController
   def destroy
     @survey_question = SurveyQuestion.find(params[:id])
     @survey_question.destroy
-    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
       format.html { redirect_to survey_questions_url(@initial_setup) }
      # format.json { head :no_content }
     end
+  end
+
+  # set a variable for use during the initial form wizard
+  def initial_setup_check
+    @initial_setup = params[:is].present? ? {is: 1} : {}
   end
 
   def can_edit?

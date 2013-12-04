@@ -18,8 +18,14 @@ module ApplicationHelper
       link_to title, :sort => column, :direction => direction
   end
 
-  # returns true if on one of the items in the survey tab
+  # returns true if on one of the items is selected in the survey tab
   def survey_edit_tab_active?(survey_id)
-    url_for == edit_survey_path(survey_id) || url_for == survey_questions_path(survey_id)
+    return false if survey_id.nil?
+    current_page?(edit_survey_path(survey_id)) || current_page?(survey_questions_path(survey_id))
+  end
+
+  # returns link to edit form if survey id is set, otherwise returns path for new survey form
+  def new_or_edit_survey_path(study)
+    study.survey_id ? edit_survey_path(study.survey_id) : new_survey_path(study_id: study.id)
   end
 end

@@ -29,7 +29,8 @@
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-primary">
-        <i class="icon-ok icon-white"></i> Create Question
+        <i class="icon-ok icon-white"></i>
+        <%= current_page?(new_survey_question_path) ? 'Create Question' : 'Update Question' %>
       </button>
     </div>
   </div>

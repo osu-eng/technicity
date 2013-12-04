@@ -138,8 +138,14 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="<%= edit_survey_path(@study.survey_id) %>">Survey Info</a></li>
-          <li><a href="<%= survey_questions_path(@study.survey_id) %>">Survey Questions</a></li>
+          <li>
+            <%= link_to 'Survey info', new_or_edit_survey_path(@study) %>
+          </li>
+          <% if @study.survey_id.present? %>
+          <li>
+            <%= link_to('Survey Questions', survey_questions_path(@study.survey_id)) %>
+          </li>
+          <% end %>
         </ul>
       </li>
 

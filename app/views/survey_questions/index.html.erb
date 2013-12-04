@@ -1,9 +1,10 @@
 <% if @initial_setup.blank? %>
   <%= render 'shared/header', :study => @study %>
+<% else %>
+  <h1>Survey Questions</h1>
+  <br/>
 <% end %>
 
-<h1>Survey Questions</h1>
-<br/>
 <p><%= link_to raw('<i class="icon-plus-sign"></i> Add survey question'), new_survey_question_path(@initial_setup), class: 'btn' %></p>
 
 <table class="table table-striped">
