@@ -17,4 +17,9 @@ module ApplicationHelper
       direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
       link_to title, :sort => column, :direction => direction
   end
+
+  # returns true if on one of the items in the survey tab
+  def survey_edit_tab_active?(survey_id)
+    url_for == edit_survey_path(survey_id) || url_for == survey_questions_path(survey_id)
+  end
 end

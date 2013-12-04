@@ -132,14 +132,14 @@
 
     <!-- check if survey was enabled -->
     <% if @study.has_survey? %>
-      <li class="dropdown <%= 'active' if url_for == edit_survey_path(@study.survey_id) %>">
+      <li class="dropdown <%= 'active' if survey_edit_tab_active? @study.survey_id %>">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
           <i class="icon-bullhorn"></i> Edit Survey
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
           <li><a href="<%= edit_survey_path(@study.survey_id) %>">Survey Info</a></li>
-          <li><a href="<%= survey_question_path(@study.survey_id) %>">Survey Questions</a></li>
+          <li><a href="<%= survey_questions_path(@study.survey_id) %>">Survey Questions</a></li>
         </ul>
       </li>
 

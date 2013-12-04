@@ -9,6 +9,7 @@ class SurveyQuestionsController < ApplicationController
     @survey_id = params[:survey_id]
     @survey_questions = SurveyQuestion.where(survey_id: @survey_id)
     @study = Study.where(survey_id: params[:survey_id]).first
+    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,6 +33,7 @@ class SurveyQuestionsController < ApplicationController
   def new
     @survey_question = SurveyQuestion.new
     2.times { @survey_question.survey_options.build }
+    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,12 +54,16 @@ class SurveyQuestionsController < ApplicationController
   # POST /survey_questions
   # POST /survey_questions.json
   def create
+    #if this is during initial set up pass the state var 'is' and set to one
+    path_params = params[:survey_question].extract!(:is)[:is].present? ? {is: 1} : {}
+
     params[:survey_question][:survey_id] = params[:survey_id]
     @survey_question = SurveyQuestion.new(params[:survey_question])
 
     respond_to do |format|
       if @survey_question.save
-        format.html { redirect_to survey_questions_path, notice: 'Survey question was successfully created.' }
+
+        format.html { redirect_to survey_questions_path(path_params), notice: 'Survey question was successfully created.' }
       else
         format.html { render action: "new" }
       end
@@ -85,9 +91,10 @@ class SurveyQuestionsController < ApplicationController
   def destroy
     @survey_question = SurveyQuestion.find(params[:id])
     @survey_question.destroy
+    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
-      format.html { redirect_to survey_questions_url }
+      format.html { redirect_to survey_questions_url(@initial_setup) }
      # format.json { head :no_content }
     end
   end
@@ -100,6 +107,11 @@ class SurveyQuestionsController < ApplicationController
     end
 
     !current_user.nil? && (current_user.admin || (@study.user == current_user))
+  end
+
+  def can_view_results?
+    @study = Study.where(survey_id: params[:survey_id]).first
+    can_edit? ||  (!@study.active.nil? && @study.public)
   end
 
   private

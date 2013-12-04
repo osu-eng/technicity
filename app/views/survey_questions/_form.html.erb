@@ -20,6 +20,11 @@
               as: :radio_buttons,
               hint: 'Can more than one answer be selected?',
               item_wrapper_class: 'inline' %>
+
+  <% if @initial_setup.present? %>
+    <%= f.hidden_field :is, value: @initial_setup %>
+  <% end %>
+
   <br/>
   <div class="control-group">
     <div class="controls">
