@@ -1,4 +1,4 @@
-<%= simple_form_for(@survey, html: {class: 'form-horizontal'}) do |f| %>
+<%= simple_form_for(survey, form_options) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.input :name,
@@ -12,13 +12,13 @@
 
   <% if @study_id.present? %>
     <%= f.hidden_field :study_id,
-                value: @study_id %>
+                       value: @study_id %>
   <% end %>
 
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-primary">
-        <i class="icon-ok icon-white"></i> Update Survey
+        <i class="icon-ok icon-white"></i> <%= submit_text %>
       </button>
     </div>
   </div>

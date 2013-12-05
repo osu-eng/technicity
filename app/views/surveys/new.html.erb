@@ -1,5 +1,8 @@
 <h1>Create Survey</h1>
 
-<%= render 'form_new' %>
+<%= render partial: 'form',
+           locals: {survey: @surveyForm,
+                    form_options: {url: surveys_path, method: :post, as: :survey, html: {class: 'form-horizontal'}},
+                    submit_text: 'Create Survey'} %>
 
 <%= link_to 'Back', studies_path %>
