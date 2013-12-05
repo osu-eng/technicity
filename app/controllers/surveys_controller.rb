@@ -19,6 +19,7 @@ class SurveysController < ApplicationController
   def new
     @study_id = params[:study_id]
     @surveyForm = SurveyCreationForm.new
+    @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,8 +42,8 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       if @surveyForm.save
-
-        format.html { redirect_to survey_questions_path(@surveyForm.survey, is: 1), notice: 'Survey was successfully created.' }
+        path_params = params[:is].present? ? {is: 1} : {}
+        format.html { redirect_to survey_questions_path(@surveyForm.survey, path_params), notice: 'Survey was successfully created.' }
         #format.json { render json: @surveyForm.survey, status: :created, location: @survey }
       else
         format.html { render action: 'new' }

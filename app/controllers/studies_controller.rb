@@ -237,8 +237,8 @@ class StudiesController < ApplicationController
 
   def redirect_to_survey_or_region
     if @study.has_survey
-      redirect_to url_for(:controller => 'surveys', :action => 'new') +
-                      '?study_id=' + @study.id.to_s(), notice: 'Study was successfully created.'
+      redirect_to new_survey_path(study_id: @study.id, is: 1), notice: 'Study was successfully created.'
+      #(:controller => 'surveys', :action => 'new') + '?study_id=' + @study.id.to_s()
     else
       redirect_to url_for(:controller => 'regions', :action => 'new') +
                       '?study_id=' + @study.id.to_s() + '&region_set_id=' +

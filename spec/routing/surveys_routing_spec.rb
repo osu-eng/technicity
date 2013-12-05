@@ -16,7 +16,7 @@ describe SurveysController do
     end
 
     it 'routes to #edit' do
-      get('/studies/5/surveys/1/edit').should route_to('surveys#edit', :id => '1', :study_id => '5')
+      get('surveys/1/edit').should route_to('surveys#edit', :id => '1')
     end
 
     it 'routes to #create' do
@@ -24,7 +24,7 @@ describe SurveysController do
     end
 
     it 'routes to #update' do
-      put('/studies/5/surveys/1').should route_to('surveys#update', :id => '1', :study_id => '5')
+      put('surveys/1').should route_to('surveys#update', :id => '1')
     end
 
     it 'routes to #destroy' do
