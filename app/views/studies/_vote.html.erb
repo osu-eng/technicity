@@ -25,6 +25,9 @@ image2 = image_tag(pair[1].image_url, :size => "570x370")
       <%= link_to '2', comparisons_path(:comparison => {:chosen_location_id => pair[1].id, :rejected_location_id => pair[0].id, :study_id => @study.id}) , :method => :post, :class => 'vote-button-text' %>
     </div>
   </div>
+  <div class="span12">
+    <p><%= session[@study.slug.to_sym][:current_step] %> / <%= session[@study.slug.to_sym][:total_steps] %></p>
+  </div>
 </div>
 
 <div class="row">

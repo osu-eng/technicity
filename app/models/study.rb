@@ -106,6 +106,12 @@ class Study < ActiveRecord::Base
     rand_record = Study.where(:active => true).where(:promoted => true).first(:offset => offset)
   end
 
+  def self.random
+    study = self.randomPromotedActive
+    study = self.randomActive if study.blank?
+    return study
+  end
+
   def heatmaps
     heatmap_collection = Hash.new
     heatmap_collection['regions'] = Hash.new
