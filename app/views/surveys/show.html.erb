@@ -1,5 +1,9 @@
-<p id="notice"><%= notice %></p>
+<%= simple_form_for @surveyForm, url: survey_path,
+                    method: :post, as: :survey, html: {class: 'form-horizontal'} do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= @survey.description %>
 
 
-<%= link_to 'Edit', edit_survey_path(@survey) %> |
-<%= link_to 'Back', surveys_path %>
+
+
+<% end %>
