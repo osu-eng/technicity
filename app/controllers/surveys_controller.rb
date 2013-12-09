@@ -8,7 +8,7 @@ class SurveysController < ApplicationController
   def show
     @survey = Survey.find(params[:id])
     @study = Study.where(survey_id: @survey.id).first
-    @surveyForm = SurveyTakerForm.new(@survey, @study.id)
+    @survey_form = SurveyTakerForm.new(@survey, @study.id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -20,7 +20,7 @@ class SurveysController < ApplicationController
   # GET /surveys/new.json
   def new
     @study_id = params[:study_id]
-    @surveyForm = SurveyCreationForm.new
+    @survey_form = SurveyCreationForm.new
     @initial_setup = params[:is].present? ? {is: 1} : {}
 
     respond_to do |format|
@@ -40,16 +40,16 @@ class SurveysController < ApplicationController
   # POST /surveys.json
   def create
     @study_id = params[:survey][:study_id]
-    @surveyForm = SurveyCreationForm.new(params[:survey])
+    @survey_form = SurveyCreationForm.new(params[:survey])
 
     respond_to do |format|
-      if @surveyForm.save
+      if @survey_form.save
         path_params = params[:is].present? ? {is: 1} : {}
-        format.html { redirect_to survey_questions_path(@surveyForm.survey, path_params), notice: 'Survey was successfully created.' }
-        #format.json { render json: @surveyForm.survey, status: :created, location: @survey }
+        format.html { redirect_to survey_questions_path(@survey_form.survey, path_params), notice: 'Survey was successfully created.' }
+        #format.json { render json: @survey_form.survey, status: :created, location: @survey }
       else
         format.html { render action: 'new' }
-        #format.json { render json: @surveyForm.survey.errors, status: :unprocessable_entity }
+        #format.json { render json: @survey_form.survey.errors, status: :unprocessable_entity }
       end
     end
   end

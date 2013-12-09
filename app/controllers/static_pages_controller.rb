@@ -9,12 +9,14 @@ class StaticPagesController < ApplicationController
       end
     else
       @study = Study.random
-      study_key = @study.slug.to_sym
-      session[:homepage_study] = @study.id
-      session[study_key] = {}
-      session[study_key][:study_id] = @study.id
-      session[study_key][:total_steps] = @study.limit_votes.present? ? @study.survey_required_votes : 10
-      session[study_key][:current_step] = 1
+      if @study.present?
+        study_key = @study.slug.to_sym
+        session[:homepage_study] = @study.id
+        session[study_key] = {}
+        session[study_key][:study_id] = @study.id
+        session[study_key][:total_steps] = @study.limit_votes.present? ? @study.survey_required_votes : 10
+        session[study_key][:current_step] = 1
+      end
     end
   end
 

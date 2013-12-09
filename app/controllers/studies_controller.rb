@@ -161,6 +161,16 @@ class StudiesController < ApplicationController
       return redirect_to :id => @study, status: :moved_permanently
     end
 
+    study_key = @study.slug.to_sym
+
+    if session[study_key].blank?
+      session[study_key] = {}
+      session[study_key][:current_step] = 1
+      session[study_key][:total_steps] = @study.survey_required_votes
+    else
+      session[study_key][:current_step] += 1
+    end
+
     respond_to do |format|
       format.html # vote.html.erb
     end
