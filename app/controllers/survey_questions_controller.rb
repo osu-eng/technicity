@@ -73,7 +73,8 @@ class SurveyQuestionsController < ApplicationController
 
     respond_to do |format|
       if @survey_question.update_attributes(params[:survey_question])
-        format.html { redirect_to @survey_question, notice: 'Survey question was successfully updated.' }
+        format.html { redirect_to survey_questions_path(@survey_question.survey_id),
+                                  notice: 'Survey question was successfully updated.' }
         #format.json { head :no_content }
       else
         format.html { render action: "edit" }

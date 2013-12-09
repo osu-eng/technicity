@@ -31,4 +31,28 @@ describe 'survey question' do
       expect(page).to have_content('Survey question was successfully created.')
     end
   end
+
+  describe 'editing process' do
+    it 'should update questions and redirect to survey_questions_path' do
+      @survey = FactoryGirl.create(:survey)
+
+      # we need an existing study that is associated with us to pass authorization
+      @study = FactoryGirl.create(:study, user_id: @user.id, survey_id: @survey.id)
+
+      # create some questions
+      @question = FactoryGirl.create(:survey_question_with_options, survey: @survey, option_count: 2)
+
+      # make some changes to the question
+      my_question = 'Does this pass the test?'
+
+      visit "/surveys/#{@survey.id}/questions/#{@question.id}/edit"
+      fill_in 'Survey Question', with: my_question
+
+      click_button 'Update Question'
+
+      expect(page).to have_content('Survey question was successfully updated.')
+      expect(current_path).to eq(survey_questions_path(@survey))
+
+    end
+  end
 end
