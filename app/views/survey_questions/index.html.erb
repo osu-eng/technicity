@@ -1,11 +1,11 @@
-<% if @initial_setup.blank? %>
+<% if session[:initial_setup].blank? %>
   <%= render 'shared/header', :study => @study %>
 <% else %>
   <h1>Survey Questions</h1>
   <br/>
 <% end %>
 
-<p><%= link_to raw('<i class="icon-plus-sign"></i> Add survey question'), new_survey_question_path(@initial_setup), class: 'btn' %></p>
+<p><%= link_to raw('<i class="icon-plus-sign"></i> Add survey question'), new_survey_question_path, class: 'btn' %></p>
 
 <table class="table table-striped">
   <tbody>
@@ -14,11 +14,8 @@
     <tr>
       <td><%=	survey_question.question %></td>
       <td>
-        <% path_params = {survey_id: @survey_id, id: survey_question.id} %>
-        <% path_params[:is] = 1 if @initial_setup.present? %>
-
-        <%= link_to 'Edit', edit_survey_question_path(path_params) %> |
-        <%= link_to 'Delete', survey_question_path(path_params),
+        <%= link_to 'Edit', edit_survey_question_path(survey_id: @survey_id, id: survey_question.id) %> |
+        <%= link_to 'Delete', survey_question_path(survey_id: @survey_id, id: survey_question.id),
                     method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
@@ -28,7 +25,7 @@
 
 <br />
 
-<% if @initial_setup.present? %>
+<% if session[:initial_setup].present? %>
   <%= link_to raw('<i class="icon-ok icon-white"></i> Continue to regions'),
             new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %>
 <% end %>

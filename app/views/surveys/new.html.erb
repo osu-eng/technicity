@@ -2,7 +2,7 @@
 
 <%= render partial: 'form',
            locals: {survey: @survey_form,
-                    form_options: {url: surveys_path(@initial_setup), method: :post, as: :survey, html: {class: 'form-horizontal'}},
+                    form_options: {url: surveys_path, method: :post, as: :survey, html: {class: 'form-horizontal'}},
                     submit_text: 'Create Survey'} %>
 
 <%= link_to 'Back', studies_path %>

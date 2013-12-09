@@ -246,8 +246,9 @@ class StudiesController < ApplicationController
   end
 
   def redirect_to_survey_or_region
+    session[:initial_setup] = true
     if @study.has_survey
-      redirect_to new_survey_path(study_id: @study.id, is: 1), notice: 'Study was successfully created.'
+      redirect_to new_survey_path(study_id: @study.id), notice: 'Study was successfully created.'
       #(:controller => 'surveys', :action => 'new') + '?study_id=' + @study.id.to_s()
     else
       redirect_to url_for(:controller => 'regions', :action => 'new') +
