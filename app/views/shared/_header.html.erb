@@ -130,7 +130,6 @@
       <% end %>
     <% end %>
 
-    <!-- check if survey was enabled -->
     <% if @study.has_survey? %>
       <li class="dropdown <%= 'active' if survey_edit_tab_active? @study.survey_id %>">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">

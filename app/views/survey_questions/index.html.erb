@@ -5,27 +5,29 @@
   <br/>
 <% end %>
 
-<p><%= link_to raw('<i class="icon-plus-sign"></i> Add survey question'), new_survey_question_path, class: 'btn' %></p>
+<p><%= link_to raw('<i class="icon-plus-sign"></i> Add survey question'), new_survey_question_path, class: 'btn' if @study.active.blank? %></p>
 
 <table class="table table-striped">
   <tbody>
 
   <% @survey_questions.each do |survey_question| %>
     <tr>
-      <td><%=	survey_question.question %></td>
+      <td><%= survey_question.question %></td>
       <td>
-        <%= link_to 'Edit', edit_survey_question_path(survey_id: @survey_id, id: survey_question.id) %> |
-        <%= link_to 'Delete', survey_question_path(survey_id: @survey_id, id: survey_question.id),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% if @study.active.blank? %>
+          <%= link_to 'Edit', edit_survey_question_path(survey_id: @survey_id, id: survey_question.id) %> |
+          <%= link_to 'Delete', survey_question_path(survey_id: @survey_id, id: survey_question.id),
+                      method: :delete, data: {confirm: 'Are you sure?'} %>
+        <% end %>
       </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<br />
+<br/>
 
 <% if session[:initial_setup].present? %>
   <%= link_to raw('<i class="icon-ok icon-white"></i> Continue to regions'),
-            new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %>
+              new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %>
 <% end %>
