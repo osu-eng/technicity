@@ -8,7 +8,9 @@ class SurveyResponsesController < ApplicationController
 
     respond_to do |format|
       if @survey_form.save
-        format.html { redirect_to survey_questions_path(@survey), notice: 'Thank you for completing the study!' }
+        session.delete(:homepage_study)
+        session.delete(@study.slug.to_sym)
+        format.html { redirect_to home_path, notice: 'Thank you for completing the study!' }
       else
         format.html { redirect_to survey_path(@survey), notice: 'There was an error saving your response. Please try again.' }
       end
