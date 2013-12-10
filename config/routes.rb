@@ -37,6 +37,8 @@ Technicity::Application.routes.draw do
     #resources :surveys, only: [:edit, :update]
   end
 
+  resources :survey_responses, only: [:create]
+
   resources :users
   # The priority is based upon order of creation:
   # first created -> highest priority.

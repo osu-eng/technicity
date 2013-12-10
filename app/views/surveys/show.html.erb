@@ -1,9 +1,30 @@
-<%= simple_form_for @surveyForm, url: survey_path,
+<h1>Survey</h1>
+<%= @survey.description %>
+<br/>
+
+<%= simple_form_for @survey_form, url: survey_responses_path,
                     method: :post, as: :survey, html: {class: 'form-horizontal'} do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <%= @survey.description %>
+  <%= render 'shared/error_messages', object: f.object %>
 
 
+  <% @survey.survey_questions.each do |q| %>
+    <% question_type = q.multiple_choice ? :check_boxes : :radio_buttons %>
+    <%= f.input "question#{q.id}",
+                label: q.question,
+                collection: q.survey_options,
+                label_method: :option,
+                value_method: :id,
+                as: question_type %>
+  <% end %>
 
+  <%= f.hidden_field :study_id, value: @study.id %>
+
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">
+        <i class="icon-ok icon-white"></i> Submit Survey
+      </button>
+    </div>
+  </div>
 
 <% end %>

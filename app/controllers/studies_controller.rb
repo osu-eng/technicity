@@ -169,6 +169,9 @@ class StudiesController < ApplicationController
       session[study_key][:total_steps] = @study.survey_required_votes
     else
       session[study_key][:current_step] += 1
+      if session[study_key][:current_step] > session[study_key][:total_steps]
+        redirect_to survey_path(@study.survey_id) and return
+      end
     end
 
     respond_to do |format|
