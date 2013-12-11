@@ -10,4 +10,13 @@ describe Survey do
     expect(@survey.survey_questions.count).to eq(2)
   end
 
+  it 'should return correct csv headers' do
+    header = @survey.csv_header
+    expect(header).to eq(['What color are your eyes?', 'What color are your eyes?'])
+  end
+
+  it 'should return correct csv rows' do
+
+  end
+
 end

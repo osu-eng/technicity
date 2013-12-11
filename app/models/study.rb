@@ -1,4 +1,3 @@
-
 class StudyLaunchValidator < ActiveModel::Validator
 
   def validate(study)
@@ -118,7 +117,7 @@ class Study < ActiveRecord::Base
     heatmap_collection['max_intensity'] = 0
     self.region_set.regions.each do |region|
       heatmap_collection['regions'][region.id] = region.heatmap(self.id)
-      heatmap_collection['max_intensity'] = [ heatmap_collection['max_intensity'], heatmap_collection['regions'][region.id]['max_intensity'] ].max
+      heatmap_collection['max_intensity'] = [heatmap_collection['max_intensity'], heatmap_collection['regions'][region.id]['max_intensity']].max
     end
     heatmap_collection
   end
@@ -232,7 +231,7 @@ class Study < ActiveRecord::Base
         GROUP BY rl.region_id
       ) rl ON rl.region_id = r.id
       WHERE s.id=#{self.id}
-    ")
+                                                          ")
   end
 
   def full_results
@@ -252,53 +251,48 @@ class Study < ActiveRecord::Base
 
   def full_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << [
-        'comparison_id',
-        'date',
-        'voter_latitude',
-        'voter_longitude',
-        'study',
-        'question',
-        'chosen_id',
-        'chosen_latitude',
-        'chosen_longitude',
-        'chosen_pitch',
-        'chosen_heading',
-        'chosen_region_name',
-        'chosen_image_url',
-        'rejected_id',
-        'rejected_latitude',
-        'rejected_longitude',
-        'rejected_pitch',
-        'rejected_heading',
-        'rejected_region_name',
-        'rejected_image_url',
-      ]
+      header = %w(comparison_id date ip_address voter_latitude voter_longitude study question chosen_id chosen_latitude chosen_longitude chosen_pitch chosen_heading chosen_region_name chosen_image_url rejected_id rejected_latitude rejected_longitude rejected_pitch rejected_heading rejected_region_name rejected_image_url)
+      survey = Survey.find(survey_id)
+      header += survey.csv_header if has_survey
+
+      csv << header
+
       self.full_results.each do |comparison|
         #abort(comparison.to_yaml)
-        csv << [
-          comparison.id,
-          comparison.created_at,
-          comparison.voter_latitude,
-          comparison.voter_longitude,
-          self.slug,
-          self.question,
-          comparison.chosen_location.id,
-          comparison.chosen_location.latitude,
-          comparison.chosen_location.longitude,
-          comparison.chosen_location.pitch,
-          comparison.chosen_location.heading,
-          comparison.chosen_location.region.name,
-          comparison.chosen_location.image_url,
-          comparison.rejected_location.id,
-          comparison.rejected_location.latitude,
-          comparison.rejected_location.longitude,
-          comparison.rejected_location.pitch,
-          comparison.rejected_location.heading,
-          comparison.rejected_location.region.name,
-          comparison.rejected_location.image_url,
-        ]
+        body =
+            [
+                comparison.id,
+                comparison.created_at,
+                comparison.voter_remote_ip,
+                comparison.voter_latitude,
+                comparison.voter_longitude,
+                self.slug,
+                self.question,
+                comparison.chosen_location.id,
+                comparison.chosen_location.latitude,
+                comparison.chosen_location.longitude,
+                comparison.chosen_location.pitch,
+                comparison.chosen_location.heading,
+                comparison.chosen_location.region.name,
+                comparison.chosen_location.image_url,
+                comparison.rejected_location.id,
+                comparison.rejected_location.latitude,
+                comparison.rejected_location.longitude,
+                comparison.rejected_location.pitch,
+                comparison.rejected_location.heading,
+                comparison.rejected_location.region.name,
+                comparison.rejected_location.image_url,
+            ]
+
+        body += survey_csv_body(comparison.voter_session_id) if has_survey
+
+        csv << body
       end
     end
   end
+
+  def survey_csv_body(session_id)
+    survey_responses.questions_and_answers(session_id).map(&:answer)
+  end
+
 end
