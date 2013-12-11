@@ -1,6 +1,8 @@
 StreetSeen
 ==========
 
+[![Build Status](https://travis-ci.org/[bkildow]/[technicity].png)](https://travis-ci.org/[bkildow]/[technicity])
+
 StreetSeen hopes to quantitatively understand different perceptions of streets. 
 Most of us experience our cities along its streets. We walk along the 
 sidewalks, bicycle or drive along the streets and ultimately explore our cities 
