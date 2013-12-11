@@ -86,7 +86,7 @@
     <!-- security - analyze should only show if study is public -->
 
     <% if controller.can_view_results? %>
-      <li class=<%= "active" if [url_for(:controller => "studies", :action => "results", :id => @study), url_for(:controller => "studies", :action => "region_results", :id => @study), url_for(:controller => "studies", :action => "heatmap", :id => @study), url_for(:controller => "studies", :action => "download", :id => @study)].include?(url_for()) %>>
+      <li class=<%= "active" if [url_for(:controller => "studies", :action => "results", :id => @study), url_for(:controller => "studies", :action => "region_results", :id => @study), url_for(:controller => "studies", :action => "download", :id => @study)].include?(url_for()) %>>
         <a href="<%= url_for :controller => "studies", :action => "results", :id => @study %>">
           <i class="icon-signal" style=""></i> Analyze</a>
       </li>

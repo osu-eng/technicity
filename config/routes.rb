@@ -25,7 +25,6 @@ Technicity::Application.routes.draw do
     get :results,        :on => :member
     get :full_results,   :on => :member
     get :region_results, :on => :member
-    get :heatmap,        :on => :member
     get :download,       :on => :member
     get :status,         :on => :member
     put :open,           :on => :member

@@ -4,7 +4,7 @@ class StudiesController < ApplicationController
 
   before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close, :mine ]
   before_filter :require_can_edit, only: [ :edit, :update, :destroy, :curate, :open, :close, :destroybadvotes ]
-  before_filter :require_can_view_results, only: [ :results, :region_results, :heatmap, :download ]
+  before_filter :require_can_view_results, only: [ :results, :region_results, :download ]
 
   handles_sortable_columns
 
@@ -127,18 +127,6 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       format.html # region_results.html.erb
-    end
-  end
-
-  # GET /studies/1/heatmap
-  def heatmap
-    @study = Study.find(params[:id])
-    if url_for() != url_for(:id => @study)
-      return redirect_to :id => @study, status: :moved_permanently
-    end
-
-    respond_to do |format|
-      format.html # heatmap.html.erb
     end
   end
 
