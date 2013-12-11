@@ -95,31 +95,22 @@ class Study < ActiveRecord::Base
     # Study.where("name like ? or description like ?", q, q)
   end
 
-  def self.randomActive
-    offset = rand(Study.where(:active => true).count)
-    rand_record = Study.where(:active => true).first(:offset => offset)
+  def self.random_active(excluded_ids)
+    excluded_ids = '' if excluded_ids.blank?
+    offset = rand(Study.where(active: true).where('id not in (?)', excluded_ids).count)
+    Study.where(active: true).first(offset: offset)
   end
 
-  def self.randomPromotedActive
-    offset = rand(Study.where(:active => true).where(:promoted => true).count)
-    rand_record = Study.where(:active => true).where(:promoted => true).first(:offset => offset)
+  def self.random_promoted_active(excluded_ids)
+    excluded_ids = '' if excluded_ids.blank?
+    offset = rand(Study.where(active: true).where(promoted: true).where('id not in (?)', excluded_ids).count)
+    Study.where(active: true).where(promoted: true).where('id not in (?)', excluded_ids).first(offset: offset)
   end
 
-  def self.random
-    study = self.randomPromotedActive
-    study = self.randomActive if study.blank?
+  def self.random(excluded_ids)
+    study = self.random_promoted_active(excluded_ids)
+    study = self.random_active(excluded_ids) if study.blank?
     return study
-  end
-
-  def heatmaps
-    heatmap_collection = Hash.new
-    heatmap_collection['regions'] = Hash.new
-    heatmap_collection['max_intensity'] = 0
-    self.region_set.regions.each do |region|
-      heatmap_collection['regions'][region.id] = region.heatmap(self.id)
-      heatmap_collection['max_intensity'] = [heatmap_collection['max_intensity'], heatmap_collection['regions'][region.id]['max_intensity']].max
-    end
-    heatmap_collection
   end
 
   def vote_fix_time

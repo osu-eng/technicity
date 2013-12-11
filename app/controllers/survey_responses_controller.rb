@@ -10,6 +10,7 @@ class SurveyResponsesController < ApplicationController
       if @survey_form.save
         session.delete(:homepage_study)
         session.delete(@study.slug.to_sym)
+        session[:completed_studies] << @study.id
         format.html { redirect_to home_path, notice: 'Thank you for completing the study!' }
       else
         format.html { redirect_to survey_path(@survey), notice: 'There was an error saving your response. Please try again.' }

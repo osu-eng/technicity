@@ -15,7 +15,8 @@ class StaticPagesController < ApplicationController
   private
 
   def init_survey_sessions
-    @study = Study.random
+    session[:completed_studies] = [] if session[:completed_studies].blank?
+    @study = Study.random(session[:completed_studies])
     if @study.present?
       study_key = @study.slug.to_sym
       session[:homepage_study] = @study.id
@@ -36,6 +37,7 @@ class StaticPagesController < ApplicationController
       else
         session.delete(:homepage_study)
         session.delete(study_key)
+        session[:completed_studies] << @study.id
         redirect_to home_path
       end
     end
