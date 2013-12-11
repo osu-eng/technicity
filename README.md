@@ -1,7 +1,7 @@
 StreetSeen
 ==========
 
-[![Build Status](https://travis-ci.org/bkildow/technicity.png)](https://travis-ci.org/bkildow/technicity)
+[![Build Status](https://travis-ci.org/osu-eng/technicity.png)](https://travis-ci.org/osu-eng/technicity)
 
 StreetSeen hopes to quantitatively understand different perceptions of streets. 
 Most of us experience our cities along its streets. We walk along the 
