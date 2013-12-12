@@ -19,5 +19,17 @@ FactoryGirl.define do
       end
     end
 
+    factory :survey_question_with_options_and_responses do
+
+      ignore do
+        option_count 4
+      end
+
+      after(:create) do |survey_question, evaluator|
+        s = FactoryGirl.create_list(:survey_option, evaluator.option_count, survey_question: survey_question)
+        FactoryGirl.create_list(:survey_response, 2, survey_question: survey_question, survey_option: s[0])
+      end
+    end
+
   end
 end

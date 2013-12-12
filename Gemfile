@@ -6,17 +6,19 @@ gem 'rails', '3.2.12'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development do
-  gem 'sqlite3'
   gem 'meta_request'
+  gem 'better_errors'
 end
 
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'sqlite3'
 end
 
 group :test do
   gem 'capybara'
+  gem 'rake'
 end
 
 # Gems used only for assets and not required
@@ -41,6 +43,8 @@ gem 'simple_form', '~> 2.1.0'
 gem 'friendly_id'
 gem 'geocoder'
 gem 'figaro'
+gem 'virtus'
+gem 'nested_form'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'

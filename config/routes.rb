@@ -15,13 +15,16 @@ Technicity::Application.routes.draw do
 
   resources :regions, except: [:index, :edit, :show]
 
+  resources :surveys, only: [:new, :create, :show, :edit, :update, :show] do
+    resources :questions, controller: :survey_questions
+  end
+
   resources :studies do
     get :vote,           :on => :member
     get :curate,         :on => :member
     get :results,        :on => :member
     get :full_results,   :on => :member
     get :region_results, :on => :member
-    get :heatmap,        :on => :member
     get :download,       :on => :member
     get :status,         :on => :member
     put :open,           :on => :member
@@ -29,7 +32,11 @@ Technicity::Application.routes.draw do
     put :promote,        :on => :member
     put :demote,         :on => :member
     put :destroybadvotes, :on => :member
+
+    #resources :surveys, only: [:edit, :update]
   end
+
+  resources :survey_responses, only: [:create]
 
   resources :users
   # The priority is based upon order of creation:

@@ -1,0 +1,38 @@
+<%= simple_nested_form_for(@survey_question) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.input :question,
+              label: 'Survey Question:',
+              input_html: {style: 'width:400px;'} %>
+
+  <p><strong>Answers:</strong></p>
+  <%= f.simple_fields_for :survey_options do |options_form| %>
+    <%= options_form.input_field :option %>
+    <%= options_form.link_to_remove 'Remove' %>
+  <% end %>
+
+  <p><%= f.link_to_add 'Add an answer', :survey_options, class: 'btn btn-small' %></p>
+
+  <br/>
+
+  <%= f.input :multiple_choice,
+              label: 'Multiple Selection?',
+              as: :radio_buttons,
+              hint: 'Can more than one answer be selected?',
+              item_wrapper_class: 'inline' %>
+
+  <% if @initial_setup.present? %>
+    <%= f.hidden_field :is, value: @initial_setup %>
+  <% end %>
+
+  <br/>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">
+        <i class="icon-ok icon-white"></i>
+        <%= current_page?(new_survey_question_path) ? 'Create Question' : 'Update Question' %>
+      </button>
+    </div>
+  </div>
+
+<% end %>

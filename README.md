@@ -1,6 +1,8 @@
 StreetSeen
 ==========
 
+[![Build Status](https://travis-ci.org/osu-eng/technicity.png)](https://travis-ci.org/osu-eng/technicity)
+
 StreetSeen hopes to quantitatively understand different perceptions of streets. 
 Most of us experience our cities along its streets. We walk along the 
 sidewalks, bicycle or drive along the streets and ultimately explore our cities 
@@ -42,6 +44,14 @@ Next you probably want to run some scripts to create and seed your database
     rake db:migrate
     rake db:seed
 
+For testing, you must first prepare your test database
+
+    rake db:test:prepare
+
+The you can run the test suite
+
+    bundle exec rspec
+
 ###Known Issues
 
 Problems have been observed with libv8, therubyracer, and mysql. You may need 
@@ -54,6 +64,7 @@ Contributors
   - Meghan Frazer
   - Corey Hinshaw
   - Shaun Rowland
+  - Brian Kildow
 
 Credits
 -------

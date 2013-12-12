@@ -4,7 +4,7 @@ class StudiesController < ApplicationController
 
   before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close, :mine ]
   before_filter :require_can_edit, only: [ :edit, :update, :destroy, :curate, :open, :close, :destroybadvotes ]
-  before_filter :require_can_view_results, only: [ :results, :region_results, :heatmap, :download ]
+  before_filter :require_can_view_results, only: [ :results, :region_results, :download ]
 
   handles_sortable_columns
 
@@ -130,18 +130,6 @@ class StudiesController < ApplicationController
     end
   end
 
-  # GET /studies/1/heatmap
-  def heatmap
-    @study = Study.find(params[:id])
-    if url_for() != url_for(:id => @study)
-      return redirect_to :id => @study, status: :moved_permanently
-    end
-
-    respond_to do |format|
-      format.html # heatmap.html.erb
-    end
-  end
-
   # GET /studies/1/download
   def download
     @study = Study.find(params[:id])
@@ -159,6 +147,19 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
     if url_for() != url_for(:id => @study)
       return redirect_to :id => @study, status: :moved_permanently
+    end
+
+    study_key = @study.slug.to_sym
+
+    if session[study_key].blank?
+      session[study_key] = {}
+      session[study_key][:current_step] = 1
+      session[study_key][:total_steps] = @study.survey_required_votes
+    else
+      session[study_key][:current_step] += 1
+      if session[study_key][:current_step] > session[study_key][:total_steps]
+        redirect_to survey_path(@study.survey_id) and return
+      end
     end
 
     respond_to do |format|
@@ -226,8 +227,7 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       if @study.save
-
-        format.html { redirect_to url_for(:controller => "regions", :action => "new") + '?study_id=' + @study.id.to_s() + '&region_set_id=' + @region_set.id.to_s(), notice: 'Study was successfully created.' }
+        format.html { redirect_to_survey_or_region }
         format.json { render json: @study, status: :created, location: @study }
       else
         format.html { render action: "new" }
@@ -235,6 +235,19 @@ class StudiesController < ApplicationController
       end
     end
   end
+
+  def redirect_to_survey_or_region
+    session[:initial_setup] = true
+    if @study.has_survey
+      redirect_to new_survey_path(study_id: @study.id), notice: 'Study was successfully created.'
+      #(:controller => 'surveys', :action => 'new') + '?study_id=' + @study.id.to_s()
+    else
+      redirect_to url_for(:controller => 'regions', :action => 'new') +
+                      '?study_id=' + @study.id.to_s() + '&region_set_id=' +
+                      @region_set.id.to_s(), notice: 'Study was successfully created.'
+    end
+  end
+
 
   # PUT /studies/1
   # PUT /studies/1.json

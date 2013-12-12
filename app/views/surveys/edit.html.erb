@@ -1,0 +1,6 @@
+<%= render 'shared/header', :study => @study %>
+
+
+<%= render partial: 'form', locals: {survey: @survey,
+                                     form_options: {html: {class: 'form-horizontal'}},
+                                     submit_text: 'Update Survey'} %>

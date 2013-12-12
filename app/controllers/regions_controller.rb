@@ -124,6 +124,9 @@ class RegionsController < ApplicationController
               notice: 'Area was successfully created.'
             }
           else
+
+            session.delete(:initial_setup)
+
             # should go back to study curate page?
             format.html {
               redirect_to url_for(

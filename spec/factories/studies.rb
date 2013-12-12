@@ -6,7 +6,7 @@ FactoryGirl.define do
     user_id 505
     name 'Ohio Cities Pretty'
     public true
-    question 'prettier'
+    question 'Which city is prettier?'
     description 'This study identifies the prettiest parts of Ohio\'s metro areas.'
     has_survey true
     limit_votes true

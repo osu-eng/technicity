@@ -1,4 +1,4 @@
-<%= render 'header', :study => @study %>
+<%= render 'shared/header', :study => @study %>
 <p>
   <strong>Description</strong><br />
   <%= @study.description %>
@@ -47,7 +47,6 @@
         <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "region_results", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "region_results", :id => @study %>">Areas</a></li>
         <% end -%>
 
-        <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "heatmap", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "heatmap", :id => @study %>">Heatmap</a></li>
 
         <li class="<%= 'active' if url_for() == url_for(:controller => "studies", :action => "download", :id => @study) %>"><a href="<%= url_for :controller => "studies", :action => "download", :id => @study %>">Download</a></li>
       </ul>
