@@ -2,9 +2,9 @@ class StudiesController < ApplicationController
 
   require 'will_paginate/array'
 
-  before_filter :authenticate_user!, only: [ :new, :edit, :update, :destroy, :curate, :open, :close, :mine ]
-  before_filter :require_can_edit, only: [ :edit, :update, :destroy, :curate, :open, :close, :destroybadvotes ]
-  before_filter :require_can_view_results, only: [ :results, :region_results, :download ]
+  before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :curate, :open, :close, :mine]
+  before_filter :require_can_edit, only: [:edit, :update, :destroy, :curate, :open, :close, :destroybadvotes]
+  before_filter :require_can_view_results, only: [:results, :region_results, :download]
 
   handles_sortable_columns
 
@@ -63,14 +63,14 @@ class StudiesController < ApplicationController
     logger.debug(@results)
     sortable_column_order do |column, direction|
       case column
-      when 'latitude', 'longitude', 'chosen', 'rejected', 'region_name', 'study', 'total_votes', 'percent_chosen'
-        if direction.to_s == 'asc'
-          @results.sort! {|a,b| a[column] <=> b[column]}
+        when 'latitude', 'longitude', 'chosen', 'rejected', 'region_name', 'study', 'total_votes', 'percent_chosen'
+          if direction.to_s == 'asc'
+            @results.sort! { |a, b| a[column] <=> b[column] }
+          else
+            @results.sort! { |a, b| b[column] <=> a[column] }
+          end
         else
-          @results.sort! {|a,b| b[column] <=> a[column]}
-        end
-      else
-          @results.sort! {|a,b| b['percent_chosen'] <=> a['percent_chosen']}
+          @results.sort! { |a, b| b['percent_chosen'] <=> a['percent_chosen'] }
       end
     end
 
@@ -109,14 +109,14 @@ class StudiesController < ApplicationController
     @region_results = @study.region_results.to_a
     sortable_column_order do |column, direction|
       case column
-      when 'name', 'percent_favored', 'chosen', 'rejected', 'locations', 'total'
-        if direction.to_s == 'asc'
-          @region_results.sort! {|a,b| a[column] <=> b[column]}
+        when 'name', 'percent_favored', 'chosen', 'rejected', 'locations', 'total'
+          if direction.to_s == 'asc'
+            @region_results.sort! { |a, b| a[column] <=> b[column] }
+          else
+            @region_results.sort! { |a, b| b[column] <=> a[column] }
+          end
         else
-          @region_results.sort! {|a,b| b[column] <=> a[column]}
-        end
-      else
-          @region_results.sort! {|a,b| b['locations'] <=> a['locations']}
+          @region_results.sort! { |a, b| b['locations'] <=> a['locations'] }
       end
     end
 
@@ -150,20 +150,24 @@ class StudiesController < ApplicationController
     end
 
     study_key = @study.slug.to_sym
+    initialize_study_session(study_key) if session[study_key].blank?
 
-    if session[study_key].blank?
-      session[study_key] = {}
-      session[study_key][:current_step] = 1
-      session[study_key][:total_steps] = @study.survey_required_votes
-    else
-      session[study_key][:current_step] += 1
-      if session[study_key][:current_step] > session[study_key][:total_steps]
-        redirect_to survey_path(@study.survey_id) and return
-      end
+    if @study.has_survey && (session[study_key][:current_step] > session[study_key][:total_steps])
+      redirect_to survey_path(@study.survey_id) and return
     end
 
     respond_to do |format|
       format.html # vote.html.erb
+    end
+  end
+
+  def initialize_study_session(study_key)
+    session[study_key] = {}
+    session[study_key][:current_step] = 1
+    if @study.limit_votes.blank? && @study.has_survey.blank?
+      session[study_key][:total_steps] = 'Unlimited'
+    else
+      session[study_key][:total_steps] = @study.survey_required_votes
     end
   end
 
@@ -379,7 +383,7 @@ class StudiesController < ApplicationController
   # - or it has been launched (!active.nil?) and it is public
   def can_view_results?
     @study = Study.find(params[:id])
-    can_edit? ||  (!@study.active.nil? && @study.public)
+    can_edit? || (!@study.active.nil? && @study.public)
   end
 
   def can_edit?
@@ -406,12 +410,12 @@ class StudiesController < ApplicationController
   def order
     order = sortable_column_order do |column, direction|
       case column
-      when "name"
-        "LOWER(studies.name) #{direction}"
-      when "active", "public", "promoted"
-        "studies.#{column} #{direction}"
-      else
-        'LOWER(studies.name) ASC'
+        when "name"
+          "LOWER(studies.name) #{direction}"
+        when "active", "public", "promoted"
+          "studies.#{column} #{direction}"
+        else
+          'LOWER(studies.name) ASC'
       end
     end
   end

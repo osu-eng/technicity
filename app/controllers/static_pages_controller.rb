@@ -30,7 +30,6 @@ class StaticPagesController < ApplicationController
   def process_survey_sessions
     @study = Study.find(session[:homepage_study])
     study_key = @study.slug.to_sym
-    session[study_key][:current_step] += 1
     if session[study_key][:current_step] > session[study_key][:total_steps]
       if @study.has_survey
         redirect_to survey_path(@study.survey_id)
