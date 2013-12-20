@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :study do
-    region_set_id  1
     user_id 505
     name 'Ohio Cities Pretty'
     public true
@@ -11,5 +10,11 @@ FactoryGirl.define do
     has_survey true
     limit_votes true
     survey_required_votes 10
+
+    factory :study_with_region_set do
+      region_set
+      active true
+      opened_at { DateTime.now }
+    end
   end
 end
