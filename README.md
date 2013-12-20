@@ -48,7 +48,7 @@ For testing, you must first prepare your test database
 
     rake db:test:prepare
 
-The you can run the test suite
+Then you can run the test suite
 
     bundle exec rspec
 
