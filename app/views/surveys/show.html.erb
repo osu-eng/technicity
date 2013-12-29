@@ -26,5 +26,13 @@
       </button>
     </div>
   </div>
+<% if @study.public? %>
+<div class="row" style="margin-top:30px;">
+  <div class="span12 skip-vote-row text-right">
+
+    Responses are &nbsp;&nbsp;<span style="" class="label label-info"><i class="icon-globe icon-white"></i> PUBLIC</span>
+  </div>
+</div>
+<%end%>
 
 <% end %>

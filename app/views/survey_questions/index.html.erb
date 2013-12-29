@@ -25,6 +25,14 @@
   </tbody>
 </table>
 
+<% if @study.public? %>
+<p style="font-size:.75em">
+Responses are &nbsp;&nbsp;<span style="" class="label label-info"><i class="icon-globe icon-white"></i> PUBLIC</span><br />
+Individuals may be identifiable by responses (ip address, location). 
+Avoid collecting sensitive information. 
+</p>
+<%end%>
+
 <br/>
 
 <% if session[:initial_setup].present? %>
