@@ -54,22 +54,4 @@ describe 'Survey' do
 
   end
 
-  describe 'edit' do
-    # Make sure I'm signed in before we start
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-      visit '/users/sign_in'
-      fill_in 'Username', with: @user.username
-      fill_in 'Password', with: @user.password
-      click_button 'Sign in'
-    end
-
-    it 'should warn for respondent privacy on survey edit in private studies' do
-
-      @study = FactoryGirl.create(:study, public: false, user_id: @user.id)
-
-      visit 'surveys/new?study_id=' + @study.id.to_s
-      
-      expect(page).to have_content('PRIVATE')      
-    end
 end
