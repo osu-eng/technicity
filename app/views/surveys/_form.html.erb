@@ -2,13 +2,15 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.input :name,
+              label: 'Title', 
               input_html: {style: 'width:400px;'},
-              hint: 'The name of your survey.' %>
+              hint: 'Respondents will see this as the title of the survey.' %>
 
   <%= f.input :description,
+              label: 'Instructions / Description', 
               as: :text,
               input_html: {rows: 4, style: 'width:400px; height:200px'},
-              hint: 'A sentence or two describing your survey.' %>
+              hint: 'Pprovide instructions to respondents or describe how the data will be used.' %>
 
   <% if @study_id.present? %>
     <%= f.hidden_field :study_id,
