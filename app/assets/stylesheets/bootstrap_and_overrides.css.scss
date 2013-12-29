@@ -219,13 +219,21 @@ label {
   text-align: center;
   margin: -25px 0 0 0;
   }
+div.span6:hover .vote-button {
+  background: url('SS-vote-btn-active.png') no-repeat center;
+  }
 
 .vote-button-text {
   color: $white;
   font-size: 48px;
   position: relative;
   top: 36px;
+  padding: 30px 40% 30px 40%;
   }
+.vote-button-text:hover {
+  color: $white;
+  text-decoration:none;  
+}
 
 #display-question {
   margin-top: 20px;
@@ -239,8 +247,13 @@ label {
   display: inline;
   img {
     position: relative;
-    padding-top: 20px;
+    margin-top: 20px;
+    border:  6px #d8d8d8 solid;
     }
+  }
+
+div.span6:hover .vote-image img {
+  border:  6px #ff9900 solid;
   }
 
 /* curate */
