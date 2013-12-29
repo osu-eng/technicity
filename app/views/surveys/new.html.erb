@@ -6,3 +6,12 @@
                     submit_text: 'Create Survey'} %>
 
 <%= link_to 'Back', studies_path %>
+
+<% if !@study.public? %>
+<p style="font-size:.75em">
+Your study is &nbsp;&nbsp;<span style="" class="label label-inverse"><i class="icon-lock icon-white"></i> PRIVATE</span><br />
+All responses include data that could lead to identification of a respondent (ip address, location).<br />
+Public studies provide a notice to respondents indicating results are public. 
+Private studies include no such notice. <br />
+If you plan to make your data public in the future, inform survey takers in the instructions.</p>
+<%end%>

@@ -20,6 +20,7 @@ class SurveysController < ApplicationController
   # GET /surveys/new.json
   def new
     @study_id = params[:study_id]
+    @study = Study.find(@study_id)
     @survey_form = SurveyCreationForm.new
 
     respond_to do |format|

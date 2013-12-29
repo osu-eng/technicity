@@ -17,4 +17,5 @@ FactoryGirl.define do
       opened_at { DateTime.now }
     end
   end
+
 end
