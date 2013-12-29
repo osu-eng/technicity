@@ -29,8 +29,9 @@ class StaticPagesController < ApplicationController
 
   def process_survey_sessions
     @study = Study.find_by_id(session[:homepage_study])
-    if @study.nil?
-      # This is the case in which the study has been deleted while we were taking it.
+    if @study.nil? || session[@study.slug.to_sym].nil?
+      # If these error conditions come up, a study may have been deleted
+      # Bail out and reinit sessions
       init_survey_sessions
     else 
       study_key = @study.slug.to_sym
