@@ -28,16 +28,21 @@ class StaticPagesController < ApplicationController
   end
 
   def process_survey_sessions
-    @study = Study.find(session[:homepage_study])
-    study_key = @study.slug.to_sym
-    if session[study_key][:current_step] > session[study_key][:total_steps]
-      if @study.has_survey
-        redirect_to survey_path(@study.survey_id)
-      else
-        session.delete(:homepage_study)
-        session.delete(study_key)
-        session[:completed_studies] << @study.id
-        redirect_to home_path
+    @study = Study.find_by_id(session[:homepage_study])
+    if @study.nil?
+      # This is the case in which the study has been deleted while we were taking it.
+      init_survey_sessions
+    else 
+      study_key = @study.slug.to_sym
+      if session[study_key][:current_step] > session[study_key][:total_steps]
+        if @study.has_survey
+          redirect_to survey_path(@study.survey_id)
+        else
+          session.delete(:homepage_study)
+          session.delete(study_key)
+          session[:completed_studies] << @study.id
+          redirect_to home_path
+        end
       end
     end
   end
