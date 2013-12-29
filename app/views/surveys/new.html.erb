@@ -5,7 +5,7 @@
                     form_options: {url: surveys_path, method: :post, as: :survey, html: {class: 'form-horizontal'}},
                     submit_text: 'Create Survey'} %>
 
-<%= link_to 'Back', studies_path %>
+<%= link_to 'Back to Study', edit_study_path(@study) %> 
 
 <% if !@study.public? %>
 <p style="font-size:.75em">
