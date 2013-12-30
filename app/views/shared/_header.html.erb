@@ -129,27 +129,27 @@
         </li>
       <% end %>
     <% end %>
+    <% if controller.can_edit? %>
+      <% if @study.has_survey? %>
+        <li class="dropdown <%= 'active' if survey_edit_tab_active? @study.survey_id %>">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-bullhorn"></i> Edit Survey
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to 'Survey Info', new_or_edit_survey_path(@study) %>
+            </li>
+            <% if @study.survey_id.present? %>
+            <li>
+              <%= link_to('Survey Questions', survey_questions_path(@study.survey_id)) %>
+            </li>
+            <% end %>
+          </ul>
+        </li>
 
-    <% if @study.has_survey? %>
-      <li class="dropdown <%= 'active' if survey_edit_tab_active? @study.survey_id %>">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="icon-bullhorn"></i> Edit Survey
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <%= link_to 'Survey Info', new_or_edit_survey_path(@study) %>
-          </li>
-          <% if @study.survey_id.present? %>
-          <li>
-            <%= link_to('Survey Questions', survey_questions_path(@study.survey_id)) %>
-          </li>
-          <% end %>
-        </ul>
-      </li>
-
+      <% end %>
     <% end %>
-
 
   </ul>
 <% end %>
