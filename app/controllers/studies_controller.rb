@@ -12,7 +12,7 @@ class StudiesController < ApplicationController
   # GET /studies.json
   def index
     order = sortable_column_order
-    @studies = Study.search(params[:q]).where('region_set_id IS NOT NULL AND region_set_id <> "" AND active IS NOT NULL AND active <> ""').order(order).paginate(:page => params[:page])
+    @studies = Study.search(params[:q]).where('region_set_id IS NOT NULL AND region_set_id <> "" AND active IS NOT NULL ').order(order).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
