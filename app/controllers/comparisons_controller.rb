@@ -24,7 +24,7 @@ class ComparisonsController < ApplicationController
         format.html { redirect_to :back, notice: 'Thanks for your vote!' }
         format.json { render json: @notification, status: :created, location: @notification }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to :back, notice: 'There was an error and your vote was not saved. Please try again.' }
         format.json { render json: @comparison.errors, status: :unprocessable_entity }
       end
     end
