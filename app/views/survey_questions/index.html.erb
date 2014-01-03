@@ -6,31 +6,38 @@
 <% end %>
 
 <% if @survey_questions.count == 0 %>
-<p>
-  Here you can add as many multiple choice questions as you need to complete your study.
-  Keep in mind:
+  <p>
+    Here you can add as many multiple choice questions as you need to complete your study.
+    Keep in mind:
   <ol style="margin:35px 0px 35px 50px">
-    
+
     <li style="margin-bottom:15px;">
-      If you ask fewer questions, you will get more complete responses.</li>
-    
+      If you ask fewer questions, you will get more complete responses.
+    </li>
+
     <li style="margin-bottom:15px;">
-      
+
       <% if @study.public? %>
-        Your study is <strong>public</strong> and participants may be identifiable. 
-        <br />Do not collect sensitive information.
+        Your study is <strong>public</strong> and participants may be identifiable.
+        <br/>Do not collect sensitive information.
       <% else %>
-        Your study is <strong>private</strong> now. <br />If you would like to make it public later, do not collect sensitive information. 
+        Your study is <strong>private</strong> now. <br/>If you would like to make it public later, do not collect
+        sensitive information.
       <% end %>
-      </li>
+    </li>
+
+    <li style="margin-bottom:15px;">
+      Only multiple choice answers are possible at this point in time.
+      Please make sure your questions are multiple choice.
+    </li>
 
     <li style="margin-bottom:15px;">
       Survey responses will be available in the <em>Analyze > Download</em> section of your study.
-      </li>
- 
+    </li>
+
   </ol>
-</p>
-<p><%= link_to raw('<i class="icon-plus-sign"></i> Add your first question'), new_survey_question_path, class: 'btn' if @study.active.blank? %></p>
+  </p>
+  <p><%= link_to raw('<i class="icon-plus-sign"></i> Add your first question'), new_survey_question_path, class: 'btn' if @study.active.blank? %></p>
 <% else %>
   <p><%= link_to raw('<i class="icon-plus-sign"></i> Add another question'), new_survey_question_path, class: 'btn' if @study.active.blank? %></p>
 <% end %>
@@ -58,17 +65,19 @@
 </table>
 
 <% if @study.public? %>
-<p style="font-size:.75em">
-Responses are &nbsp;&nbsp;<span style="" class="label label-info"><i class="icon-globe icon-white"></i> PUBLIC</span><br />
-Individuals may be identifiable by responses (ip address, location). 
-Avoid collecting sensitive information. 
-</p>
-<%end%>
+  <p style="font-size:.75em">
+    Responses
+    are &nbsp;&nbsp;<span style="" class="label label-info"><i class="icon-globe icon-white"></i> PUBLIC</span><br/>
+    Individuals may be identifiable by responses (ip address, location).
+    Avoid collecting sensitive information.
+  </p>
+<% end %>
 
 <br/>
 
 <% if session[:initial_setup].present? %>
   <%= link_to raw('<i class="icon-ok icon-white"></i> Continue to regions'),
-              new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %><br /><br />
+              new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %><br />
+  <br/>
 <% end %>
 <%= link_to 'Back to Study', edit_study_path(@study) %> 
