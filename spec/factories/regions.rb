@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :region do
     user_id 505
-    slug 'cincinnati'
     name 'Cincinnati'
     description 'This set includes everything within the 275 outerbelt. This may be a bit too much for those wishing to study Cincinnati (it includes territory in three states).'
     polygon '	(39.215940656189275, -84.74212647881365), (39.20636415816774, -84.6899414202199),
