@@ -13,8 +13,11 @@ class ComparisonsController < ApplicationController
     @comparison = Comparison.new(params[:comparison])
 
     # Set info for the voter to allow interesting analysis / functionality
-    @comparison.voter_latitude = request.location.latitude
-    @comparison.voter_longitude = request.location.longitude
+
+    # add geocoder lat and long
+    @comparison.voter_latitude = request.location.present? ? request.location.latitude : 0
+    @comparison.voter_longitude = request.location.present? ? request.location.longitude : 0
+
     @comparison.voter_remote_ip = request.remote_ip
     @comparison.voter_session_id = request.session_options[:id]
 
