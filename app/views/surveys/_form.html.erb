@@ -1,11 +1,6 @@
 <%= simple_form_for(survey, form_options) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.input :name,
-              label: 'Title', 
-              input_html: {style: 'width:400px;'},
-              hint: 'Respondents will see this as the title of the survey.' %>
-
   <%= f.input :description,
               label: 'Instructions / Description', 
               as: :text,

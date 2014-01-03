@@ -4,13 +4,11 @@ class SurveyCreationForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attribute :name, String
   attribute :description, String
   attribute :study_id, Integer
   attribute :survey, Survey
 
   validates :study_id, presence: true
-  validates :name, presence: true
   validates :description, presence: true
 
   # Forms are never themselves persisted
@@ -31,7 +29,7 @@ class SurveyCreationForm
 
   def persist!
     # Should we make this a transaction?
-    @survey = Survey.create!(name: name, description: description)
+    @survey = Survey.create!(description: description)
     @study = Study.update(study_id, survey_id: @survey.id)
   end
 end

@@ -17,7 +17,6 @@ describe 'Survey' do
       @study = FactoryGirl.create(:study, user_id: bad_user_id)
 
       visit 'surveys/new?study_id=' + @study.id.to_s
-      fill_in 'Title', with: 'test name'
       fill_in 'Instructions / Description', with: 'test description'
       click_button 'Create Survey'
       expect(page).to have_content('You do not have permission to access this resource at this time')
@@ -27,7 +26,6 @@ describe 'Survey' do
       @study = FactoryGirl.create(:study, user_id: @user.id)
 
       visit 'surveys/new?study_id=' + @study.id.to_s
-      fill_in 'Title', with: 'test name'
       fill_in 'Instructions / Description', with: 'test description'
       click_button 'Create Survey'
       expect(page).to have_content('Survey was successfully created.')
@@ -37,7 +35,6 @@ describe 'Survey' do
       @study = FactoryGirl.create(:study, user_id: @user.id)
 
       visit 'surveys/new?study_id=' + @study.id.to_s
-      fill_in 'Title', with: 'test name'
       fill_in 'Instructions / Description', with: 'test description'
       click_button 'Create Survey'
 
