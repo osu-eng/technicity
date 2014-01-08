@@ -50,7 +50,8 @@
 
   <%= f.input :survey_required_votes,
               label: 'Total number of votes',
-              hint: 'How many votes should be allowed?',
+              hint: 'How many pairs of images do you want respondents to vote on before moving to survey questions?
+                    (Participants are likely to stop taking the survey if there are more than 15 to 20 image sets).',
               input_html: { min: 1 } %>
 
   <%= f.input :public,
