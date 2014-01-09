@@ -24,15 +24,16 @@
       <button type="submit" class="btn btn-primary">
         <i class="icon-ok icon-white"></i> Submit Survey
       </button>
+      &nbsp;&nbsp; <%= link_to 'Skip Survey', skip_survey_path(s: @study.slug, s_id: @study.id) %>
     </div>
   </div>
-<% if @study.public? %>
-<div class="row" style="margin-top:30px;">
-  <div class="span12 skip-vote-row text-right">
-
-    Responses are &nbsp;&nbsp;<span style="" class="label label-info"><i class="icon-globe icon-white"></i> PUBLIC</span>
-  </div>
-</div>
-<%end%>
+  <% if @study.public? %>
+    <div class="row" style="margin-top:30px;">
+      <div class="span12 skip-vote-row text-right">
+        Responses are &nbsp;
+        <span class="label label-info"><i class="icon-globe icon-white"></i> PUBLIC</span>
+      </div>
+    </div>
+  <% end %>
 
 <% end %>

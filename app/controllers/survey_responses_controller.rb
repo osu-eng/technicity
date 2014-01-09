@@ -17,4 +17,12 @@ class SurveyResponsesController < ApplicationController
       end
     end
   end
+
+  def skip_survey
+    session.delete(:homepage_study)
+    session.delete(params[:s])
+    session[:completed_studies] << params[:s_id]
+    redirect_to home_path, notice: 'Thank you for completing the study!'
+  end
+
 end

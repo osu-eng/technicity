@@ -8,6 +8,7 @@ Technicity::Application.routes.draw do
   get "denied", to: 'static_pages#denied'
   get "notify", to: 'notifications#new'
   get "policies", to: 'static_pages#policies'
+  get 'skip_survey', to: 'survey_responses#skip_survey'
 
   resources :comparisons, only: [:create]
 
