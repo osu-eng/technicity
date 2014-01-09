@@ -13,9 +13,9 @@ module ApplicationHelper
   end
 
   def sortable(column, title=nil)
-      title ||= column.titleize
-      direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-      link_to title, :sort => column, :direction => direction
+    title ||= column.titleize
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, :sort => column, :direction => direction
   end
 
   # returns true if on one of the items is selected in the survey tab
@@ -28,4 +28,18 @@ module ApplicationHelper
   def new_or_edit_survey_path(study)
     study.survey_id ? edit_survey_path(study.survey_id) : new_survey_path(study_id: study.id)
   end
+
+  def destroy_link_to(name, path, title, body)
+    link_to name, path,
+            :method => :delete,
+            :confirm => body,
+            'data-confirm-fade' => true,
+            'data-confirm-title' => title,
+            'data-confirm-cancel' => 'Cancel',
+            'data-confirm-cancel-class' => 'btn btn-cancel',
+            'data-confirm-proceed' => 'Confirm Delete',
+            'data-confirm-proceed-class' => 'btn btn-danger'
+  end
+
+
 end

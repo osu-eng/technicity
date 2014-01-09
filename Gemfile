@@ -45,6 +45,7 @@ gem 'geocoder'
 gem 'figaro'
 gem 'virtus'
 gem 'nested_form'
+gem 'twitter-bootstrap-rails-confirm'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'

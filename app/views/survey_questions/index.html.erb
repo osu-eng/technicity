@@ -43,9 +43,6 @@
 <% end %>
 
 
-
-
-
 <table class="table table-striped">
   <tbody>
 
@@ -55,8 +52,8 @@
       <td>
         <% if @study.active.blank? %>
           <%= link_to 'Edit', edit_survey_question_path(survey_id: @survey_id, id: survey_question.id) %> |
-          <%= link_to 'Delete', survey_question_path(survey_id: @survey_id, id: survey_question.id),
-                      method: :delete, data: {confirm: 'Are you sure?'} %>
+          <%= destroy_link_to 'Delete', survey_question_path(survey_id: @survey_id, id: survey_question.id),
+                              'Are you sure?', 'Deleting questions is irreversible.' %>
         <% end %>
       </td>
     </tr>
@@ -80,4 +77,4 @@
               new_region_path(study_id: @study.id, region_set_id: @study.region_set_id), class: 'btn btn-primary' %><br />
   <br/>
 <% end %>
-<%= link_to 'Back to Study', edit_study_path(@study) %> 
+<%= link_to 'Back to Study', edit_study_path(@study) %>
