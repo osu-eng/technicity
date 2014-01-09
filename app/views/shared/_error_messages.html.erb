@@ -1,8 +1,13 @@
-<% # see http://stackoverflow.com/questions/10911121/displaying-simple-form-error-messages-in-top-div %>
+<% # see http://stackoverflow.com/questions/10911121/displaying-simple-form-error-messages-in-top-div  %>
 
 <% if object.errors.any? %>
   <div class="alert alert-error">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    The form contains <%= pluralize(object.errors.count, 'error') %>.
+    <p>The form contains <%= pluralize(object.errors.count, 'error') %>. </p>
+    <ul>
+      <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
