@@ -1,11 +1,20 @@
-<h1>My Studies</h1>
+<div class="row">
+  <div class="span8">
+    <h1>My Studies</h1>
+  </div>
+
+  <div class="span4">
+      <button type="button" style="margin-top: 15px; float:right;" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
+        <i class="icon-plus-sign icon-white"></i> Create a New Study
+      </button>
+  </div>
+</div>
+
 <% if @studies.empty? %>
   <p class="empty-text">You have not created any studies.</p>
 <% else %>
-  <%= render 'studies/list', :studies => @studies, :show_user => true  %>
+  <%= render 'studies/list', :studies => @studies, :show_user => true %>
 <% end %>
-<br />
+<br/>
 
-<button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
-  <i class="icon-plus-sign icon-white"></i> Create a New Study
-</button>
+
