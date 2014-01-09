@@ -338,6 +338,12 @@ class StudiesController < ApplicationController
       @study.active = false
       @study.closed_at = DateTime.now()
       @study.save
+
+      # remove the study session
+      if session[:homepage_study].present?
+        session.delete(:homepage_study)
+        session.delete(@study.slug.to_sym)
+      end
     end
 
     respond_to do |format|
