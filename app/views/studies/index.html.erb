@@ -1,5 +1,5 @@
 <h1>Available Studies</h1>
-
+<p>Choose a study to start voting or view shared analytics.</p>
 <div class="search pull-right">
 <%= form_tag studies_path, :method => 'get' do %>
   <%= text_field_tag :q, params[:q], :placeholder => 'Search for a study', :autocomplete => 'off'%>
@@ -21,9 +21,4 @@
   <%= render 'studies/list', :studies => @studies, :show_user => true  %>
   </div>
   <br />
-<% end %>
-<% if user_signed_in? %>
-  <button type="button" class="btn btn-primary" onclick="location.href = '<%= new_study_path %>'">
-    <i class="icon-plus-sign icon-white"></i> Create a New Study
-  </button>
 <% end %>
