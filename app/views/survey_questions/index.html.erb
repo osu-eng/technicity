@@ -43,11 +43,11 @@
 <% end %>
 
 
-<table class="table table-striped">
+<table class="table table-striped" id="sortable" data-update-url="<%= sort_survey_questions_path %>">
   <tbody>
 
   <% @survey_questions.each do |survey_question| %>
-    <tr>
+    <tr class="item" data-item-id="<%= survey_question.id %>">
       <td><%= survey_question.question %></td>
       <td>
         <% if @study.active.blank? %>
@@ -78,3 +78,36 @@
   <br/>
 <% end %>
 <%= link_to 'Back to Study', edit_study_path(@study) %>
+
+<script type="text/javascript">
+  jQuery(function () {
+    var cells, desired_width;
+    cells = $('.table').find('tr')[0].cells.length;
+    desired_width = 940 / cells + 'px';
+    $('.table td').css('width', desired_width);
+    return $('#sortable').sortable({
+      axis: 'y',
+      items: '.item',
+      stop: function (e, ui) {
+        return ui.item.children('td').effect('highlight', {}, 1000);
+      },
+      update: function (e, ui) {
+        var item_id, position;
+        item_id = ui.item.data('itemId');
+        position = ui.item.index();
+        return $.ajax({
+          type: 'POST',
+          url: $(this).data('updateUrl'),
+          dataType: 'json',
+          data: {
+            id: item_id,
+            survey_question: {
+              order_by_position: position
+            }
+          }
+        });
+      }
+    });
+  });
+
+</script>

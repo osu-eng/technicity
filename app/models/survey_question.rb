@@ -1,5 +1,8 @@
 class SurveyQuestion < ActiveRecord::Base
-  attr_accessible :description, :multiple_choice, :question, :order_by, :survey_id, :survey_options_attributes
+  attr_accessible :description, :multiple_choice, :question, :survey_id, :survey_options_attributes, :order_by_position
+
+  include RankedModel
+  ranks :order_by
 
   has_many :survey_options, dependent: :destroy
   has_many :survey_responses

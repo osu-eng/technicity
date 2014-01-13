@@ -8,7 +8,7 @@ class SurveysController < ApplicationController
   def show
     @survey = Survey.find(params[:id])
     @study = Study.where(survey_id: @survey.id).first
-    @survey_form = SurveyTakerForm.new(@survey.survey_questions)
+    @survey_form = SurveyTakerForm.new(@survey.survey_questions.rank(:order_by))
 
     respond_to do |format|
       format.html # show.html.erb

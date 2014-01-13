@@ -7,7 +7,7 @@
   <%= render 'shared/error_messages', object: f.object %>
 
 
-  <% @survey.survey_questions.each do |q| %>
+  <% @survey_form.survey_questions.each do |q| %>
     <% question_type = q.multiple_choice ? :check_boxes : :radio_buttons %>
     <%= f.input "question#{q.id}",
                 label: q.question,

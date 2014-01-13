@@ -17,7 +17,9 @@ Technicity::Application.routes.draw do
   resources :regions, except: [:index, :edit, :show]
 
   resources :surveys, only: [:new, :create, :show, :edit, :update, :show] do
-    resources :questions, controller: :survey_questions
+    resources :questions, controller: :survey_questions do
+      post :sort, on: :collection
+    end
   end
 
   resources :studies do

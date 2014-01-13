@@ -16,4 +16,6 @@
 //= require bootstrap
 //= require jquery_nested_form
 //= require twitter/bootstrap/rails/confirm
+//= require jquery.ui.sortable
+//= require jquery.ui.effect-highlight
 //

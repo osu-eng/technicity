@@ -7,7 +7,7 @@ class SurveyQuestionsController < ApplicationController
   # GET /survey_questions.json
   def index
     @survey_id = params[:survey_id]
-    @survey_questions = SurveyQuestion.where(survey_id: @survey_id)
+    @survey_questions = SurveyQuestion.rank(:order_by).where(survey_id: @survey_id)
     @study = Study.where(survey_id: params[:survey_id]).first
 
     respond_to do |format|
@@ -93,6 +93,14 @@ class SurveyQuestionsController < ApplicationController
       format.html { redirect_to survey_questions_url }
      # format.json { head :no_content }
     end
+  end
+
+  def sort
+    @survey_question = SurveyQuestion.find(params[:id])
+    @survey_question.update_attributes(params[:survey_question])
+
+    # this action will be called via ajax
+    render nothing: true, status: 200
   end
 
   def can_edit?
