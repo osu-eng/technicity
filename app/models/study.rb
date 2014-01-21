@@ -24,7 +24,7 @@ class StudyLaunchValidator < ActiveModel::Validator
         end
       end
 
-      if study.has_survey 
+      if study.has_survey
         if study.survey_id.nil?
           study.errors[:base] << 'If a study is configured to have a survey (edit study info), one must be created prior to launch'
         elsif study.survey.survey_questions.length == 0
@@ -251,8 +251,11 @@ class Study < ActiveRecord::Base
   def full_csv(options = {})
     CSV.generate(options) do |csv|
       header = %w(comparison_id date ip_address voter_latitude voter_longitude study question chosen_id chosen_latitude chosen_longitude chosen_pitch chosen_heading chosen_region_name chosen_image_url rejected_id rejected_latitude rejected_longitude rejected_pitch rejected_heading rejected_region_name rejected_image_url)
-      survey = Survey.find(survey_id)
-      header += survey.csv_header if has_survey
+
+      if has_survey
+        survey = Survey.find(survey_id)
+        header += survey.csv_header
+      end
 
       csv << header
 
