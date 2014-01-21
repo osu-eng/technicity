@@ -24,6 +24,14 @@ class StudyLaunchValidator < ActiveModel::Validator
         end
       end
 
+      if study.has_survey 
+        if study.survey_id.nil?
+          study.errors[:base] << 'If a study is configured to have a survey (edit study info), one must be created prior to launch'
+        elsif study.survey.survey_questions.length == 0
+          study.errors[:base] << 'A survey must have at least one question'
+        end
+      end
+
     end
   end
 end
