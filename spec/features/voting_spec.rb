@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Voting' do
 
   before(:each) do
-    @survey = FactoryGirl.create(:survey)
+    @survey = FactoryGirl.create(:survey_with_questions)
     @study = FactoryGirl.create(:study_with_region_set, survey_id: @survey.id, survey_required_votes: 3)
   end
 
