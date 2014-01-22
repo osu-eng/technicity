@@ -162,6 +162,7 @@ class StudiesController < ApplicationController
   end
 
   def initialize_study_session(study_key)
+    session[:completed_studies] = [] if session[:completed_studies].blank?
     session[study_key] = {}
     session[study_key][:current_step] = 1
     if @study.limit_votes.blank? && @study.has_survey.blank?

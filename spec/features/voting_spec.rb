@@ -24,6 +24,13 @@ describe 'Voting' do
       expect(page).to have_content('1 / 3')
     end
 
+    it 'should correctly save a study' do
+      visit '/'
+      3.times { click_link '1' }
+      click_button 'Submit Survey'
+      expect(page).to have_content('Thank you for completing the study!')
+    end
+
     it 'should not redirect to a survey if survey was turned off' do
 
       @study.has_survey = false
@@ -69,6 +76,13 @@ describe 'Voting' do
       visit vote_study_path(@study)
       3.times { click_link '1' }
       expect(current_path).to eq(survey_path(@survey))
+    end
+
+    it 'should correctly save a study' do
+      visit vote_study_path(@study)
+      3.times { click_link '1' }
+      click_button 'Submit Survey'
+      expect(page).to have_content('Thank you for completing the study!')
     end
 
     it 'should show an unlimited pager if votes are unlimited' do
