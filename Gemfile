@@ -51,7 +51,7 @@ gem 'ranked-model'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'handles_sortable_columns'
-
+gem 'newrelic_rpm'
 gem 'recaptcha', :require => 'recaptcha/rails'
 
 # This doesn't seem to do what we need
