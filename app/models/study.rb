@@ -187,9 +187,9 @@ class Study < ActiveRecord::Base
         r.longitude,
         r.zoom,
         lc.locations,
-        cl.chosen,
-        rl.rejected,
-        rl.cl.chosen + rl.rejected as total,
+        IFNULL(cl.chosen, 0) as chosen,
+        IFNULL(rl.rejected, 0) as rejected,
+        cl.chosen + rl.rejected as total,
         CASE
           WHEN cl.chosen + rl.rejected > 0 THEN cl.chosen / (cl.chosen + rl.rejected)
           ELSE 0
