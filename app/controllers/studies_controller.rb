@@ -261,6 +261,10 @@ class StudiesController < ApplicationController
 
     respond_to do |format|
       if @study.update_attributes(params[:study])
+        #delete the session since we could be making changing to the total number of votes
+        session_key = @study.slug.to_sym
+        session.delete(session_key) if session[session_key]
+
         format.html { redirect_to edit_study_url, notice: 'Study was successfully updated.' }
         format.json { head :no_content }
       else
