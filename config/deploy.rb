@@ -22,7 +22,7 @@ set :database_server, "prod-db.web.engadmin.ohio-state.edu"
 
 # RVM configuration
 set :rvm_type, :system
-set :rvm_ruby_string, '1.9.3'
+set :rvm_ruby_string, '2.1.2'
 
 role :web, "apps.web.engineering.osu.edu"
 role :app, "apps.web.engineering.osu.edu"
