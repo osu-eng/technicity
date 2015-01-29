@@ -38,53 +38,6 @@ s.question = "most fun"
 s.description = "This study seeks to find the US capital of fun."
 s.save()
 
-
-#Populate sample Region Set Memberships
-
-RegionSetMembership.delete_all
-
-# Add columbus to ohio
-r = RegionSetMembership.new()
-r.region_set_id = 1
-r.region_id = 43210
-r.save()
-
-# Add dayton to ohio
-r = RegionSetMembership.new()
-r.region_set_id = 1
-r.region_id = 45419
-r.save()
-
-# Add cleveland to ohio
-r = RegionSetMembership.new()
-r.region_set_id = 1
-r.region_id = 44130
-r.save()
-
-# Add toledo to ohio
-r = RegionSetMembership.new()
-r.region_set_id = 1
-r.region_id = 43613
-r.save()
-
-# Add nyc to us
-r = RegionSetMembership.new()
-r.region_set_id = 2
-r.region_id = 10453
-r.save()
-
-# Add houston to us
-r = RegionSetMembership.new()
-r.region_set_id = 2
-r.region_id = 77006
-r.save()
-
-# Add san francisco to us
-r = RegionSetMembership.new()
-r.region_set_id = 2
-r.region_id = 94101
-r.save()
-
 # Populate sample region sets
 RegionSet.delete_all
 
@@ -406,6 +359,53 @@ rows.each do |row|
 	l.pitch = 90
 	l.save()
 end
+
+
+#Populate sample Region Set Memberships
+
+RegionSetMembership.delete_all
+
+# Add columbus to ohio
+r = RegionSetMembership.new()
+r.region_set_id = 1
+r.region_id = 43210
+r.save()
+
+# Add dayton to ohio
+r = RegionSetMembership.new()
+r.region_set_id = 1
+r.region_id = 45419
+r.save()
+
+# Add cleveland to ohio
+r = RegionSetMembership.new()
+r.region_set_id = 1
+r.region_id = 44130
+r.save()
+
+# Add toledo to ohio
+r = RegionSetMembership.new()
+r.region_set_id = 1
+r.region_id = 43613
+r.save()
+
+# Add nyc to us
+r = RegionSetMembership.new()
+r.region_set_id = 2
+r.region_id = 10453
+r.save()
+
+# Add houston to us
+r = RegionSetMembership.new()
+r.region_set_id = 2
+r.region_id = 77006
+r.save()
+
+# Add san francisco to us
+r = RegionSetMembership.new()
+r.region_set_id = 2
+r.region_id = 94101
+r.save()
 
 # Populate Sample Users
 User.delete_all
