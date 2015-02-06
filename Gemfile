@@ -11,13 +11,13 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
+  gem 'factory_girl_rails', '~> 4.3'
+  gem 'rspec-rails', '~> 2.14'
   gem 'sqlite3'
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 2.2'
   gem 'rake'
 end
 
@@ -34,24 +34,24 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'devise'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'cancan'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'devise', '~> 3.2.2'
+gem 'omniauth-twitter', '~> 1.0.1'
+gem 'omniauth-facebook', '~> 1.5.1'
+gem 'cancan', '~> 1.6.10'
+gem 'jquery-rails', '~> 3.0.4'
+gem 'jquery-ui-rails', '~> 4.1.1'
 gem 'simple_form', '~> 2.1.0'
-gem 'friendly_id'
-gem 'geocoder'
-gem 'figaro'
-gem 'virtus'
-gem 'nested_form'
-gem 'twitter-bootstrap-rails-confirm'
-gem 'ranked-model'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-gem 'handles_sortable_columns'
-gem 'newrelic_rpm'
+gem 'friendly_id', '~> 4.0.10'
+gem 'geocoder', '~> 1.1.9'
+gem 'figaro', '~> 0.7.0'
+gem 'virtus', '~> 1.0.1'
+gem 'nested_form', '~> 0.3.2'
+gem 'twitter-bootstrap-rails-confirm', '~> 1.0.2'
+gem 'ranked-model', '= 0.3'
+gem 'will_paginate', '~> 3.0.5'
+gem 'bootstrap-will_paginate', '= 0.0.10'
+gem 'handles_sortable_columns', '= 0.1.4'
+gem 'newrelic_rpm', '~> 3.9.9'
 gem 'recaptcha', :require => 'recaptcha/rails'
 
 # This doesn't seem to do what we need
@@ -71,8 +71,8 @@ gem 'thin'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
-gem 'rvm-capistrano', '>= 1.3.0'
+gem 'capistrano', '~> 2.15.5'
+gem 'rvm-capistrano', '>= 1.5.1'
 
 # To use debugger
 # gem 'debugger'
