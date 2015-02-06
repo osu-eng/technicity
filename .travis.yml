@@ -1,7 +1,6 @@
 language: ruby
 rvm:
   - 2.1.5
-  - ruby-head
 before_script:
   - cp config/database.example.yml config/database.yml
   - cp config/application.example.yml config/application.yml
