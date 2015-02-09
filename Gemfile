@@ -34,24 +34,24 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'devise', '~> 3.2.2'
-gem 'omniauth-twitter', '~> 1.0.1'
-gem 'omniauth-facebook', '~> 1.5.1'
+gem 'devise', '~> 3.4.1'
+gem 'omniauth-twitter', '~> 1.1.0'
+gem 'omniauth-facebook', '~> 2.0.0'
 gem 'cancan', '~> 1.6.10'
-gem 'jquery-rails', '~> 3.0.4'
-gem 'jquery-ui-rails', '~> 4.1.1'
-gem 'simple_form', '~> 2.1.0'
-gem 'friendly_id', '~> 4.0.10'
-gem 'geocoder', '~> 1.1.9'
-gem 'figaro', '~> 0.7.0'
-gem 'virtus', '~> 1.0.1'
+gem 'jquery-rails', '~> 4.0.3'
+gem 'jquery-ui-rails', '~> 5.0.3'
+gem 'simple_form', '~> 3.1.0'
+gem 'friendly_id', '~> 5.1.0'
+gem 'geocoder', '~> 1.2.7'
+gem 'figaro', '~> 1.1.0'
+gem 'virtus', '~> 1.0.4'
 gem 'nested_form', '~> 0.3.2'
-gem 'twitter-bootstrap-rails-confirm', '~> 1.0.2'
-gem 'ranked-model', '= 0.3'
-gem 'will_paginate', '~> 3.0.5'
+gem 'twitter-bootstrap-rails-confirm', '~> 1.0.4'
+gem 'ranked-model', '= 0.4.0'
+gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate', '= 0.0.10'
 gem 'handles_sortable_columns', '= 0.1.4'
-gem 'newrelic_rpm', '~> 3.9.9'
+gem 'newrelic_rpm', '~> 3.9.9.275'
 gem 'recaptcha', :require => 'recaptcha/rails'
 
 # This doesn't seem to do what we need
@@ -59,7 +59,7 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 
 # Alternate server for development
 # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
-gem 'thin'
+gem 'thin', '>= 1.6.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -72,11 +72,11 @@ gem 'thin'
 
 # Deploy with Capistrano
 gem 'capistrano', '~> 2.15.5'
-gem 'rvm-capistrano', '>= 1.5.1'
+gem 'rvm-capistrano', '>= 1.5.6'
 
 # To use debugger
 # gem 'debugger'
 
 group :production do
-  gem 'mysql2'
+  gem 'mysql2', '>= 0.3.17'
 end
