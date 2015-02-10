@@ -9,7 +9,7 @@ FactoryGirl.define do
     # under associations
     factory :survey_with_questions do
 
-      ignore do
+      transient do
         question_count 5
       end
 
@@ -20,7 +20,7 @@ FactoryGirl.define do
 
     factory :survey_with_questions_and_options do
 
-      ignore do
+      transient do
         question_count 5
       end
 
@@ -31,7 +31,7 @@ FactoryGirl.define do
 
     factory :survey_with_questions_and_options_and_responses do
 
-      ignore do
+      transient do
         question_count 5
       end
 
