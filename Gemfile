@@ -12,7 +12,7 @@ end
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.5'
-  gem 'rspec-rails', '~> 3.2.0'
+  gem 'rspec-rails', '~> 2.99.0'
   gem 'sqlite3', '>= 1.3.10'
 end
 
