@@ -6,3 +6,6 @@ before_script:
   - cp config/application.example.yml config/application.yml
   - rake db:migrate
 bundler_args: --without development
+notifications:
+  slack:
+    secure: SlrwycqUV9Nyj+cUG885iwxm3cJrQa2wFSquwHZiB9YBsLQXJfVF532EN0lf9pdo1fdT6VUN2euGKoG+1MH+OL1r4WIDVRFHU37qwEM96eokR3jqaMO0MqLb5Q/66k2IHXPepGSkcJ3VNx0CFkMoUMXlD00wDlQX2LuKb1Vcckk=
