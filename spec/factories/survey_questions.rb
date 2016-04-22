@@ -10,7 +10,7 @@ FactoryGirl.define do
 
     factory :survey_question_with_options do
 
-      ignore do
+      transient do
         option_count 4
       end
 
@@ -21,7 +21,7 @@ FactoryGirl.define do
 
     factory :survey_question_with_options_and_responses do
 
-      ignore do
+      transient do
         option_count 4
       end
 
