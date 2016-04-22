@@ -80,6 +80,6 @@ gem 'rvm-capistrano', '>= 1.5.6', require: false
 # gem 'debugger'
 
 group :production do
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.4'
 end
 
